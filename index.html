@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIONS 2.0 Architecture &amp; Protocol Comparison</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --heading: #f0f6fc;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --red: #f85149;
+            --yellow: #d29922;
+            --orange: #db6d28;
+            --purple: #bc8cff;
+            --teal: #39d353;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 { color: var(--heading); font-size: 2.5rem; margin-bottom: 0.5rem; }
+        h2 { color: var(--accent); font-size: 1.6rem; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+        h3 { color: var(--heading); font-size: 1.2rem; margin: 1.5rem 0 0.75rem; }
+        .subtitle { color: #8b949e; font-size: 1.1rem; margin-bottom: 2rem; }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .stat-card .number { font-size: 2rem; font-weight: 700; color: var(--accent); }
+        .stat-card .label { font-size: 0.85rem; color: #8b949e; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+        th { background: #1c2128; color: var(--heading); font-weight: 600; white-space: nowrap; }
+        td:first-child { font-weight: 500; color: #8b949e; white-space: nowrap; }
+        tr:last-child td { border-bottom: none; }
+        .pass { color: var(--green); }
+        .fail { color: var(--red); }
+        .warn { color: var(--yellow); }
+        .na { color: #484f58; }
+        .highlight { color: var(--accent); font-weight: 600; }
+        .tag {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .tag-green { background: #0d3117; color: var(--green); }
+        .tag-red { background: #3d1114; color: var(--red); }
+        .tag-yellow { background: #3d2e00; color: var(--yellow); }
+        .tag-blue { background: #0d2744; color: var(--accent); }
+        code {
+            background: #1c2128;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--orange);
+        }
+        pre {
+            background: #1c2128;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+        .card h3 { margin-top: 0; }
+        .diagram {
+            background: #1c2128;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            overflow-x: auto;
+            white-space: pre;
+            color: #8b949e;
+            margin: 1rem 0;
+        }
+        .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+        .toc a { color: var(--accent); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .toc ol { padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .section-anchor { scroll-margin-top: 2rem; }
+        @media (max-width: 900px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            body { padding: 1rem; }
+            h1 { font-size: 1.8rem; }
+        }
+        .winner { background: #0d2744 !important; }
+        .chain-eth { color: #627eea; font-weight: 600; }
+        .chain-sol { color: #14f195; font-weight: 600; }
+        .chain-ioc { color: #d29922; font-weight: 600; }
+        .chain-dions { color: #58a6ff; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<h1>DIONS 2.0 Architecture</h1>
+<p class="subtitle">IOCoin Protocol Upgrade &mdash; Full Design Architecture &amp; Chain Comparison<br>
+<code>Commit: 38c9cdd</code> &bull; February 28, 2026 &bull; Fork Height: 5,730,000 (~October 2026)</p>
+
+<div class="hero-stats">
+    <div class="stat-card"><div class="number">145</div><div class="label">RPC Methods</div></div>
+    <div class="stat-card"><div class="number">511</div><div class="label">Tests Passing</div></div>
+    <div class="stat-card"><div class="number">22</div><div class="label">Subsystems</div></div>
+    <div class="stat-card"><div class="number">52K</div><div class="label">Lines of Code</div></div>
+    <div class="stat-card"><div class="number">13</div><div class="label">Build Targets</div></div>
+    <div class="stat-card"><div class="number">C++20</div><div class="label">Language</div></div>
+</div>
+
+<div class="toc">
+<strong>Table of Contents</strong>
+<ol>
+    <li><a href="#comparison">Full Chain Comparison (ETH / SOL / Legacy IOC / DIONS 2.0)</a></li>
+    <li><a href="#consensus">Consensus &amp; Staking</a></li>
+    <li><a href="#blocks">Block Structure</a></li>
+    <li><a href="#network">Network &amp; P2P</a></li>
+    <li><a href="#data-availability">Data Availability</a></li>
+    <li><a href="#execution">Execution Zones (EVM + SVM)</a></li>
+    <li><a href="#bridge">Ethereum Bridge &amp; HTLC</a></li>
+    <li><a href="#crypto">Cryptography &amp; Post-Quantum</a></li>
+    <li><a href="#identity">W3C DID Identity</a></li>
+    <li><a href="#messaging">DIONS Messaging &amp; Storage</a></li>
+    <li><a href="#light-client">Light Client</a></li>
+    <li><a href="#storage">Storage Architecture</a></li>
+    <li><a href="#rewards">Reward Structure</a></li>
+    <li><a href="#security">Security Hardening</a></li>
+    <li><a href="#source">Source Code &amp; Build Targets</a></li>
+</ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="comparison" class="section-anchor">1. Full Chain Comparison</h2>
+
+<h3>Consensus</h3>
+<table>
+<tr><th>Property</th><th class="chain-eth">Ethereum</th><th class="chain-sol">Solana</th><th class="chain-ioc">Legacy IOCoin</th><th class="chain-dions">DIONS 2.0</th></tr>
+<tr><td>Mechanism</td><td>Gasper (Casper FFG + LMD GHOST)</td><td>Tower BFT + Proof of History</td><td>PoS v2 (Peercoin-derived)</td><td class="winner">Enhanced PoS + DAS + checkpoints</td></tr>
+<tr><td>Block Time</td><td>12s slot</td><td>400ms slot</td><td>16&ndash;60s adaptive</td><td class="winner">30s fixed</td></tr>
+<tr><td>Min Stake (Validate)</td><td>32 ETH (~$96K)</td><td>~1 SOL + extreme hardware</td><td>Any (coin-age)</td><td class="winner">10,000 IOC</td></tr>
+<tr><td>Finality</td><td>~13 min (2 epochs)</td><td>~400ms optimistic, ~13s confirmed</td><td class="fail">None (probabilistic)</td><td>~50 min (checkpoints, 2/3 stake)</td></tr>
+<tr><td>Slashing</td><td class="pass">Yes (inactivity + proposer)</td><td class="fail">No native</td><td class="fail">None</td><td class="pass">Yes (double-sign, downtime, Byzantine)</td></tr>
+<tr><td>Delegation</td><td class="fail">No native (Lido pools)</td><td class="pass">Native</td><td class="fail">None</td><td class="pass">Native (7-day unbonding)</td></tr>
+<tr><td>Earn from Zero Balance</td><td class="fail">No</td><td class="fail">No</td><td class="fail">No</td><td class="pass">Yes &mdash; PoP relay rewards</td></tr>
+</table>
+
+<h3>Performance</h3>
+<table>
+<tr><th>Property</th><th class="chain-eth">Ethereum</th><th class="chain-sol">Solana</th><th class="chain-ioc">Legacy IOCoin</th><th class="chain-dions">DIONS 2.0</th></tr>
+<tr><td>L1 TPS</td><td>15&ndash;30</td><td>~400 real</td><td>~3&ndash;5</td><td class="winner">88 (L1 settlement)</td></tr>
+<tr><td>With Zones / L2</td><td>Thousands (rollups)</td><td>~4,000 theoretical</td><td class="na">N/A</td><td class="winner">11,000+ (EVM + SVM zones)</td></tr>
+<tr><td>Finality Time</td><td>~13 minutes</td><td>~13 seconds</td><td class="fail">Unpredictable</td><td>30 seconds (1 block)</td></tr>
+<tr><td>Scaling Strategy</td><td>Rollups (L2), danksharding</td><td>Parallel execution (Sealevel)</td><td class="fail">None</td><td>Modular zones (add without fork)</td></tr>
+</table>
+
+<h3>Smart Contracts &amp; Execution</h3>
+<table>
+<tr><th>Property</th><th class="chain-eth">Ethereum</th><th class="chain-sol">Solana</th><th class="chain-ioc">Legacy IOCoin</th><th class="chain-dions">DIONS 2.0</th></tr>
+<tr><td>Virtual Machine</td><td>EVM</td><td>SVM (Sealevel / BPF)</td><td class="fail">None</td><td class="winner">EVM + SVM zones</td></tr>
+<tr><td>Languages</td><td>Solidity, Vyper</td><td>Rust, C</td><td class="na">N/A</td><td>Solidity + Rust/C (BPF)</td></tr>
+<tr><td>EVM Compatibility</td><td>Native</td><td class="fail">None</td><td class="fail">None</td><td class="pass">Ethereum JSON-RPC layer</td></tr>
+<tr><td>EIP Support</td><td>All</td><td class="na">N/A</td><td class="na">N/A</td><td>EIP-1153 + EIP-2200 + EIP-2929</td></tr>
+<tr><td>Dispute Resolution</td><td class="na">N/A (all execute)</td><td class="na">N/A</td><td class="na">N/A</td><td class="pass">SVM DisputeModule (200-block challenge)</td></tr>
+</table>
+
+<h3>Cryptography</h3>
+<table>
+<tr><th>Property</th><th class="chain-eth">Ethereum</th><th class="chain-sol">Solana</th><th class="chain-ioc">Legacy IOCoin</th><th class="chain-dions">DIONS 2.0</th></tr>
+<tr><td>TX Signing</td><td>ECDSA secp256k1</td><td>Ed25519</td><td>ECDSA secp256k1</td><td>ECDSA secp256k1 (legacy compat)</td></tr>
+<tr><td>Consensus Signing</td><td>BLS12-381</td><td>Ed25519</td><td>ECDSA</td><td>ECDSA secp256k1</td></tr>
+<tr><td>Post-Quantum</td><td class="fail">None (ETH2030 roadmap)</td><td class="fail">None</td><td class="fail">None</td><td class="pass">Dilithium + Falcon + SPHINCS+ + Kyber</td></tr>
+<tr><td>Hybrid Signatures</td><td class="fail">No</td><td class="fail">No</td><td class="fail">No</td><td class="pass">PQC + Ed25519 dual verification</td></tr>
+<tr><td>Hash Functions</td><td>Keccak-256</td><td>SHA-256</td><td>SHA-256d</td><td>SHA-256 + Keccak-256 (OpenSSL EVP)</td></tr>
+</table>
+
+<h3>Identity &amp; Messaging</h3>
+<table>
+<tr><th>Property</th><th class="chain-eth">Ethereum</th><th class="chain-sol">Solana</th><th class="chain-ioc">Legacy IOCoin</th><th class="chain-dions">DIONS 2.0</th></tr>
+<tr><td>Native Identity</td><td class="fail">No (ENS = off-chain contract)</td><td class="fail">No (SNS = off-chain)</td><td>DIONS aliases (O(n) scan)</td><td class="winner">W3C DID Core 1.0 (<code>did:dions:</code>)</td></tr>
+<tr><td>Identity Types</td><td class="na">N/A</td><td class="na">N/A</td><td>Alias only</td><td class="pass">Agent + Device + Alias</td></tr>
+<tr><td>Stealth Addresses</td><td class="fail">No native</td><td class="fail">No</td><td class="fail">No</td><td class="pass">Native v1 + v2 (PQC hybrid)</td></tr>
+<tr><td>Native Messaging</td><td class="fail">No (XMTP = off-chain)</td><td class="fail">No</td><td class="pass">Basic encrypted</td><td class="pass">Enhanced (AES-256 + RSA-4096, channels)</td></tr>
+<tr><td>File Storage</td><td class="fail">No (IPFS = off-chain)</td><td class="fail">No</td><td class="fail">No</td><td class="pass">Native on-chain with tier quotas</td></tr>
+</table>
+
+<h3>Data Availability</h3>
+<table>
+<tr><th>Property</th><th class="chain-eth">Ethereum</th><th class="chain-sol">Solana</th><th class="chain-ioc">Legacy IOCoin</th><th class="chain-dions">DIONS 2.0</th></tr>
+<tr><td>Strategy</td><td>Proto-danksharding (EIP-4844)</td><td>Full replication</td><td>Full replication</td><td class="winner">Reed-Solomon erasure coding</td></tr>
+<tr><td>Erasure Coding</td><td class="warn">Roadmap (full danksharding)</td><td class="fail">No</td><td class="fail">No</td><td class="pass">Yes (64 data + 32 parity shards)</td></tr>
+<tr><td>Per-Node Storage</td><td>~2TB</td><td>~2TB</td><td>2TB+</td><td class="winner">1&ndash;10% of data (~50GB)</td></tr>
+<tr><td>Light Client DA</td><td class="pass">Sync committee</td><td class="fail">No light client</td><td class="fail">Impossible</td><td class="pass">20-shard sampling, 99.99% detection</td></tr>
+</table>
+
+<h3>Network &amp; Bridge</h3>
+<table>
+<tr><th>Property</th><th class="chain-eth">Ethereum</th><th class="chain-sol">Solana</th><th class="chain-ioc">Legacy IOCoin</th><th class="chain-dions">DIONS 2.0</th></tr>
+<tr><td>Peer Discovery</td><td>discv5</td><td>Gossip (Turbine)</td><td>15 seed nodes</td><td class="winner">Kademlia DHT (any peer bootstraps)</td></tr>
+<tr><td>Light Client</td><td class="pass">Altair sync committee</td><td class="fail">Limited (Tinydancer)</td><td class="fail">Impossible</td><td class="pass">Native <code>dions2-light</code> binary</td></tr>
+<tr><td>Light Client Reward</td><td class="fail">None</td><td class="fail">None</td><td class="fail">None</td><td class="pass">0.5 IOC/block</td></tr>
+<tr><td>Bridge</td><td class="warn">Third-party only</td><td class="warn">Wormhole ($320M hack)</td><td class="fail">None</td><td class="pass">Native Ethereum bridge + relayer</td></tr>
+<tr><td>HTLC</td><td>Smart contract only</td><td>Smart contract only</td><td class="fail">None</td><td class="pass">Native consensus-layer HTLC</td></tr>
+<tr><td>WebSocket</td><td class="pass">eth_subscribe</td><td class="pass">accountSubscribe</td><td class="fail">None</td><td class="pass">Native (port 33776)</td></tr>
+</table>
+
+<h3>Hardware Requirements</h3>
+<table>
+<tr><th>Property</th><th class="chain-eth">Ethereum</th><th class="chain-sol">Solana</th><th class="chain-ioc">Legacy IOCoin</th><th class="chain-dions">DIONS 2.0</th></tr>
+<tr><td>Storage</td><td>~2TB SSD</td><td>~2TB SSD</td><td>2TB+</td><td class="winner">Validator: 100GB / Light: 100MB</td></tr>
+<tr><td>RAM</td><td>16GB</td><td class="fail">256GB (!)</td><td>4GB</td><td class="winner">4&ndash;8GB</td></tr>
+<tr><td>CPU</td><td>8-core</td><td>12+ core</td><td>2-core</td><td>4-core</td></tr>
+<tr><td>Bandwidth</td><td>25 Mbps</td><td class="fail">1 Gbps (!)</td><td>Low</td><td class="winner">Validator: 10 Mbps / Light: 1 Mbps</td></tr>
+</table>
+
+<h3>Known Issues &amp; Risks</h3>
+<table>
+<tr><th>Property</th><th class="chain-eth">Ethereum</th><th class="chain-sol">Solana</th><th class="chain-ioc">Legacy IOCoin</th><th class="chain-dions">DIONS 2.0</th></tr>
+<tr><td>Outages</td><td class="pass">None major (post-merge)</td><td class="fail">7+ major outages (2022&ndash;2024)</td><td class="pass">None reported</td><td class="na">Pre-mainnet</td></tr>
+<tr><td>Centralization Risk</td><td class="warn">MEV/PBS, Lido ~33%</td><td class="fail">Extreme HW requirements</td><td class="warn">Low node count (~50)</td><td class="pass">Low min stake, light client rewards</td></tr>
+<tr><td>Quantum Vulnerability</td><td class="fail">BLS, KZG, ECDSA all vulnerable</td><td class="fail">Ed25519 vulnerable</td><td class="fail">ECDSA vulnerable</td><td class="pass">PQC-ready (Dilithium + Falcon)</td></tr>
+<tr><td>Known Vulns</td><td class="warn">MEV exploitation</td><td class="fail">Outage-prone, single-client</td><td class="fail">Stake grinding, O(n) aliases</td><td class="pass">P2SH hash-only (deferred, low prio)</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="consensus" class="section-anchor">2. Consensus &amp; Staking</h2>
+
+<div class="grid-2">
+<div class="card">
+<h3>PoS Parameters</h3>
+<table>
+<tr><td>Block time</td><td><code>TARGET_SPACING = 30s</code></td></tr>
+<tr><td>COIN</td><td><code>100,000,000</code> (8 decimals)</td></tr>
+<tr><td>Stake min age</td><td>30 seconds</td></tr>
+<tr><td>Stake max age</td><td>90 days</td></tr>
+<tr><td>Stake modifier interval</td><td>10 minutes</td></tr>
+<tr><td>Coinbase maturity</td><td>20 blocks (~10 min)</td></tr>
+<tr><td>Deep reorg protection</td><td>500-block max depth</td></tr>
+<tr><td>Fork height</td><td><code>5,730,000</code></td></tr>
+<tr><td>Kernel hash</td><td>SHA256D + time-locked modifiers</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>Validator System</h3>
+<table>
+<tr><td>Min validator stake</td><td><code>10,000 IOC</code></td></tr>
+<tr><td>Checkpoint interval</td><td>100 blocks</td></tr>
+<tr><td>Finality threshold</td><td>67% total stake</td></tr>
+<tr><td>Unbonding period</td><td>7 days</td></tr>
+<tr><td>Jail period</td><td>24 hours</td></tr>
+<tr><td>Equivocation</td><td>ECDSA double-sign detection</td></tr>
+<tr><td>Slashing</td><td>10% stake for invalid execution</td></tr>
+<tr><td>States</td><td>Active / Inactive / Slashed / Jailed / Banned</td></tr>
+</table>
+</div>
+</div>
+
+<h3>Proof-of-Participation (PoP)</h3>
+<p>Any node &mdash; human, AI, robot, IoT device &mdash; can earn IOC from <strong>zero balance</strong> by relaying blocks and transactions to validators. This solves the bootstrapping problem: no exchange listing needed to get started.</p>
+<table>
+<tr><td>Reward per node</td><td><code>0.001 IOC/block</code></td></tr>
+<tr><td>Max participants per block</td><td>50</td></tr>
+<tr><td>Cooldown</td><td>10 blocks (~5 min)</td></tr>
+<tr><td>Max additional emission per block</td><td>0.05 IOC (~3.3% of validator reward)</td></tr>
+<tr><td>Sybil resistance</td><td>DHT PoW (8 leading zero bits on node ID)</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="blocks" class="section-anchor">3. Block Structure</h2>
+
+<div class="diagram">                         CBlockHeader (~200 bytes)
+    +---------------------------------------------------------+
+    | nVersion          (int32)                               |
+    | hashPrevBlock     (uint256)   &lt;-- chain linkage        |
+    | hashMerkleRoot    (uint256)   &lt;-- transaction root     |
+    | nTime             (uint32)    &lt;-- 30s intervals        |
+    | nBits             (uint32)    &lt;-- difficulty target     |
+    | nNonce            (uint32)                              |
+    +---------------------------------------------------------+
+    | stakeKernel       (optional&lt;CStakeKernel&gt;)  &lt;-- PoS   |
+    | vchBlockSig       (vector&lt;uint8&gt;)  &lt;-- NOT in hash    |
+    | vchValidatorPubKey(vector&lt;uint8&gt;)                      |
+    +---------------------------------------------------------+
+
+                           CBlock
+    +---------------------------------------------------------+
+    | CBlockHeader (above)                                    |
+    | vtx[]            (vector&lt;CTransaction&gt;)                |
+    |   vtx[0] = coinbase (validator reward)                  |
+    |   vtx[1] = coinstake (if PoS block)                    |
+    |   vtx[2..n] = user transactions                        |
+    | nHeight          (cached, not serialized)               |
+    +---------------------------------------------------------+
+
+              Modular Commitments in Header
+    +---------------------------------------------------------+
+    | stateRoot   (uint256) &lt;-- UTXO set merkle              |
+    | dataRoot    (uint256) &lt;-- DIONS DA commitment           |
+    | zoneRoot    (uint256) &lt;-- EVM + SVM state roots         |
+    +---------------------------------------------------------+</div>
+
+<h3>Transaction Types</h3>
+<table>
+<tr><th>Type ID</th><th>Name</th><th>Description</th></tr>
+<tr><td>0</td><td>Standard</td><td>IOC transfer (UTXO model, Bitcoin-compatible)</td></tr>
+<tr><td>1</td><td>Alias</td><td>Create/update DIONS name alias</td></tr>
+<tr><td>2</td><td>Message</td><td>Encrypted DIONS message</td></tr>
+<tr><td>3</td><td>File</td><td>On-chain file storage</td></tr>
+<tr><td>4</td><td>Group</td><td>Multi-party channel operation</td></tr>
+<tr><td>5</td><td>HTLC</td><td>Hash time-locked contract</td></tr>
+<tr><td>6</td><td>Slash Evidence</td><td>Validator misbehavior proof</td></tr>
+<tr><td>7</td><td>Dispute Challenge</td><td>SVM execution dispute</td></tr>
+<tr><td>8</td><td>Dispute Response</td><td>Validator counter-proof</td></tr>
+<tr><td>9</td><td>Participation Claim</td><td>PoP relay reward claim</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="network" class="section-anchor">4. Network &amp; P2P</h2>
+
+<div class="grid-2">
+<div class="card">
+<h3>Ports</h3>
+<table>
+<tr><td>Mainnet P2P</td><td><code>33764</code></td></tr>
+<tr><td>Mainnet RPC</td><td><code>33765</code></td></tr>
+<tr><td>Testnet P2P</td><td><code>33763</code></td></tr>
+<tr><td>Testnet RPC</td><td><code>33766</code></td></tr>
+<tr><td>WebSocket</td><td><code>33776</code></td></tr>
+<tr><td>Chain ID (mainnet)</td><td><code>8377</code></td></tr>
+<tr><td>Chain ID (testnet)</td><td><code>8378</code></td></tr>
+</table>
+</div>
+<div class="card">
+<h3>Protocol</h3>
+<table>
+<tr><td>Version</td><td><code>70000</code></td></tr>
+<tr><td>Min peer version</td><td><code>60000</code></td></tr>
+<tr><td>Max connections</td><td>125</td></tr>
+<tr><td>Mainnet magic</td><td><code>0xfbc0b6db</code></td></tr>
+<tr><td>Testnet magic</td><td><code>0x0709110b</code></td></tr>
+<tr><td>DHT k-bucket size</td><td>20 nodes</td></tr>
+<tr><td>DHT refresh</td><td>10 minutes</td></tr>
+</table>
+</div>
+</div>
+
+<h3>Kademlia DHT</h3>
+<ul style="padding-left:1.5rem; margin:0.5rem 0;">
+<li>160-bit node IDs (SHA-256 of pubkey), 160 k-buckets</li>
+<li>Messages: PING, PONG, FIND_NODE, FOUND_NODES, STORE, FIND_VALUE, FOUND_VALUE</li>
+<li>Sybil-resistant: 8-bit PoW on node ID validated in VERSION handshake</li>
+<li>Any peer can bootstrap the network &mdash; no hardcoded seed dependency</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="data-availability" class="section-anchor">5. Data Availability</h2>
+
+<div class="diagram">     Block Data (DIONS payload)
+           |
+     Reed-Solomon Encode
+           |
+    +------+------+------+--- ... ---+------+------+
+    | S_0  | S_1  | S_2  |          | S_63 | P_0  | ... | P_31 |
+    +------+------+------+--- ... ---+------+------+
+    |&lt;--- 64 original shards ---&gt;|&lt;-- 32 parity --&gt;|
+
+    Recovery: ANY 64 of 96 shards sufficient
+    Light clients: sample 20 random shards per block
+    Detection rate: 99.99%+ probability</div>
+
+<table>
+<tr><td>Original shards (k)</td><td>64</td></tr>
+<tr><td>Parity shards (m)</td><td>32</td></tr>
+<tr><td>Total shards</td><td>96</td></tr>
+<tr><td>Reconstruction threshold</td><td>Any 64 of 96</td></tr>
+<tr><td>Per-node storage ratio</td><td>1&ndash;10% configurable</td></tr>
+<tr><td>Default retention</td><td>10,000 blocks (~1 week)</td></tr>
+<tr><td>Maintenance interval</td><td>3,600 seconds</td></tr>
+<tr><td>DA sampling (light clients)</td><td>20 random shards + Merkle proofs</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="execution" class="section-anchor">6. Execution Zones (EVM + SVM)</h2>
+
+<div class="grid-2">
+<div class="card">
+<h3>EVM Zone</h3>
+<ul style="padding-left:1.2rem;">
+<li><strong>Engine:</strong> evmone (EVMC interface)</li>
+<li><strong>Storage:</strong> LevelDB (<code>dataDir/evm</code>)</li>
+<li><strong>TPS:</strong> 1,000+</li>
+<li><strong>EIP-1153:</strong> Transient storage</li>
+<li><strong>EIP-2200:</strong> SSTORE with original value tracking (9 statuses)</li>
+<li><strong>EIP-2929:</strong> Warm/cold access gas metering</li>
+<li><strong>JSON-RPC:</strong> <code>eth_blockNumber</code>, <code>eth_getBalance</code>, <code>eth_call</code>, <code>eth_sendTransaction</code>, <code>net_version</code>, <code>web3_clientVersion</code></li>
+</ul>
+</div>
+<div class="card">
+<h3>SVM Zone</h3>
+<ul style="padding-left:1.2rem;">
+<li><strong>Engine:</strong> Solana BPF interpreter</li>
+<li><strong>Account model:</strong> Lamports, executable, owner</li>
+<li><strong>PDAs:</strong> Program Derived Addresses</li>
+<li><strong>CPI:</strong> Cross-Program Invocation</li>
+<li><strong>Built-ins:</strong> System, Token, AssociatedToken, Rent</li>
+<li><strong>Crypto:</strong> SHA-256, Keccak-256, Ed25519 (all OpenSSL EVP)</li>
+<li><strong>Dispute:</strong> 200-block challenge, 100 IOC min bond, 10% slash</li>
+</ul>
+</div>
+</div>
+
+<p>Both zones post state roots to L1 via <code>CBlockHeader::zoneRoot</code>. New zones can be added without a hard fork.</p>
+
+<!-- ============================================================ -->
+<h2 id="bridge" class="section-anchor">7. Ethereum Bridge &amp; HTLC</h2>
+
+<div class="diagram">    DIONS Chain                         Ethereum
+    +----------+                        +-----------+
+    |  Lock IOC |  ----(Relayer)----&gt;  | Mint ERC20 |
+    |  (escrow) |                       |  (IOC20)   |
+    +----------+                        +-----------+
+    | Unlock IOC|  &lt;---(Relayer)----   | Burn ERC20 |
+    |  (release)|                       |  (IOC20)   |
+    +----------+                        +-----------+
+
+    Operations: LOCK_DIONS (0x01) &rarr; MINT_ETH (0x03)
+                BURN_ETH  (0x04) &rarr; UNLOCK_DIONS (0x02)
+
+    Escrow: UTXO-based P2PKH (real UTXO selection from TxStore)
+    Signing: ECDSA SIGHASH_ALL (Bitcoin-compatible)
+    Monitor: Bridge thread polls every 15 seconds
+    Pause: Multi-sig with cooldown period</div>
+
+<h3>HTLC (Hash Time-Locked Contracts)</h3>
+<table>
+<tr><td>Mechanism</td><td>Atomic swaps with SHA-256 preimage reveals</td></tr>
+<tr><td>Min lock amount</td><td>100,000 sat (0.001 IOC)</td></tr>
+<tr><td>Max lock amount</td><td>1,000,000,000 sat (10 IOC)</td></tr>
+<tr><td>Fee rate</td><td>50 bps (0.5%)</td></tr>
+<tr><td>Confirmation blocks</td><td>6</td></tr>
+<tr><td>States</td><td>PENDING &rarr; CLAIMED / REFUNDED / EXPIRED</td></tr>
+<tr><td>Index uniqueness</td><td>sender + timestamp in LevelDB key</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="crypto" class="section-anchor">8. Cryptography &amp; Post-Quantum</h2>
+
+<h3>Classical Cryptography</h3>
+<table>
+<tr><td>TX signing</td><td>ECDSA secp256k1 (legacy IOCoin compatible)</td></tr>
+<tr><td>Block signing</td><td>ECDSA secp256k1 (signature excluded from block hash)</td></tr>
+<tr><td>Hashing</td><td>SHA-256 + Keccak-256 via OpenSSL EVP</td></tr>
+<tr><td>Encryption</td><td>AES-256-CBC + RSA-4096</td></tr>
+<tr><td>Key derivation</td><td>BIP32 HD wallets</td></tr>
+<tr><td>ecrecover</td><td>Real secp256k1 key recovery (bridge + SVM)</td></tr>
+</table>
+
+<h3>Post-Quantum Cryptography (PQC)</h3>
+<table>
+<tr><th>Algorithm</th><th>NIST Level</th><th>Key Size</th><th>Signature Size</th><th>Use Case</th></tr>
+<tr><td>Dilithium-2</td><td>2</td><td>1,312 B</td><td>1,387 B</td><td>General purpose</td></tr>
+<tr><td>Dilithium-3</td><td>3</td><td>1,952 B</td><td>2,044 B</td><td>Robot / Server</td></tr>
+<tr><td>Dilithium-5</td><td>5</td><td>2,701 B</td><td>3,293 B</td><td>Maximum security</td></tr>
+<tr><td>Falcon-512</td><td>1</td><td>897 B</td><td>~500 B</td><td>IoT (compact sigs)</td></tr>
+<tr><td>Falcon-1024</td><td>5</td><td>1,793 B</td><td>~800 B</td><td>High-security IoT</td></tr>
+<tr><td>Kyber-512/768/1024</td><td>1/3/5</td><td>800&ndash;1,568 B</td><td>N/A (KEM)</td><td>Key encapsulation</td></tr>
+</table>
+
+<h3>Device Profiles</h3>
+<table>
+<tr><th>Profile</th><th>KEM</th><th>Signature</th><th>Target</th></tr>
+<tr><td><code>IOT_MINIMAL</code></td><td>Kyber-512</td><td>Falcon-512</td><td>Constrained sensors</td></tr>
+<tr><td><code>IOT_STANDARD</code></td><td>Kyber-768</td><td>Falcon-512</td><td>Smart devices</td></tr>
+<tr><td><code>ROBOT_STANDARD</code></td><td>Kyber-768</td><td>Dilithium-3</td><td>Autonomous robots</td></tr>
+<tr><td><code>ROBOT_PREMIUM</code></td><td>Kyber-1024</td><td>Dilithium-5</td><td>High-value robotics</td></tr>
+<tr><td><code>SERVER</code></td><td>Kyber-1024</td><td>Dilithium-5</td><td>Infrastructure</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="identity" class="section-anchor">9. W3C DID Identity</h2>
+
+<p>DIONS 2.0 implements the <strong>W3C DID Core 1.0</strong> specification with a native <code>did:dions:</code> method. Every alias, agent, and device gets a resolvable DID document.</p>
+
+<pre>{
+  "@context": ["https://www.w3.org/ns/did/v1", "https://w3id.org/security/v2020"],
+  "id": "did:dions:alice",
+  "controller": "did:dions:alice",
+  "verificationMethod": [{
+    "id": "did:dions:alice#key-1",
+    "type": "EcdsaSecp256k1VerificationKey2019",
+    "controller": "did:dions:alice",
+    "publicKeyHex": "02a1b2c3..."
+  }],
+  "authentication": ["did:dions:alice#key-1"],
+  "service": [{
+    "id": "did:dions:alice#messaging",
+    "type": "DionsMessaging",
+    "serviceEndpoint": "dions://alice"
+  }]
+}</pre>
+
+<table>
+<tr><td>Agent DID</td><td><code>did:dions:agent:bot1</code> &mdash; autonomous entity, owns devices</td></tr>
+<tr><td>Device DID</td><td><code>did:dions:device:sensor7</code> &mdash; delegated to agent</td></tr>
+<tr><td>Alias DID</td><td><code>did:dions:alice</code> &mdash; human-readable identity</td></tr>
+<tr><td>Key types</td><td>ECDSA secp256k1 + RSA-4096 + PQC (Dilithium/Falcon)</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="messaging" class="section-anchor">10. DIONS Messaging &amp; Storage</h2>
+
+<h3>Access Tiers (Stake-Based)</h3>
+<table>
+<tr><th>Tier</th><th>Staked IOC</th><th>Messages/Month</th><th>Max File</th><th>Aliases</th><th>Retention</th></tr>
+<tr><td>Basic</td><td>1,000</td><td>50</td><td>1 MB</td><td>1</td><td>30 days</td></tr>
+<tr><td>Standard</td><td>5,000</td><td>200</td><td>10 MB</td><td>3</td><td>30&ndash;60 days</td></tr>
+<tr><td>Premium</td><td>10,000</td><td>500</td><td>50 MB</td><td>10</td><td>60&ndash;90 days</td></tr>
+<tr><td>Enterprise</td><td>50,000</td><td>2,000</td><td>100 MB</td><td>50</td><td>90&ndash;180 days</td></tr>
+<tr><td>Unlimited</td><td>100,000</td><td>10,000</td><td>500 MB</td><td>100</td><td>365 days</td></tr>
+</table>
+<p><em>Basic IOC transfers require no minimum stake &mdash; only DIONS features are tiered.</em></p>
+
+<h3>Encryption</h3>
+<table>
+<tr><td>Symmetric</td><td>AES-256-CBC (random key per message)</td></tr>
+<tr><td>Asymmetric</td><td>RSA-4096 (encrypts symmetric key)</td></tr>
+<tr><td>Integrity</td><td>SHA-256 message hash</td></tr>
+<tr><td>Channels</td><td>Multi-party encrypted group messaging</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="light-client" class="section-anchor">11. Light Client</h2>
+
+<table>
+<tr><td>Binary</td><td><code>dions2-light</code></td></tr>
+<tr><td>Sync model</td><td>Headers-only (~100MB for full chain)</td></tr>
+<tr><td>Annual bandwidth</td><td>42 MB/year header sync</td></tr>
+<tr><td>Sync time</td><td>~5 minutes to full chain</td></tr>
+<tr><td>DA sampling</td><td>20 random shards per block</td></tr>
+<tr><td>Reward</td><td>0.5 IOC/block</td></tr>
+<tr><td>Capabilities</td><td>Verify PoS proofs, sample DA, request DIONS data on-demand, DHT participation</td></tr>
+</table>
+
+<h3>Async Messages</h3>
+<pre>GET_HEADERS, HEADERS, GET_SHARD, SHARD,
+GET_DIONS_DATA, DIONS_DATA, GET_TX, TX_DATA</pre>
+
+<!-- ============================================================ -->
+<h2 id="storage" class="section-anchor">12. Storage Architecture</h2>
+
+<div class="diagram">    LevelDB Schema
+    +---------------------------+
+    | CTransactionStore         |
+    |   txid &rarr; CTransaction     |
+    |   blockHash &rarr; [txids]     |
+    |   (txid,vout) &rarr; CTxOut    |  &lt;-- UTXO set
+    |   addr &rarr; [(txid,vout)]    |  &lt;-- per-address index
+    |   blockHash &rarr; undo data   |
+    +---------------------------+
+    | CDionsDB                  |
+    |   alias &rarr; AliasData       |  &lt;-- O(1) lookup
+    |   msg index               |
+    |   file index              |
+    |   channel index           |
+    |   validator set           |
+    |   rate limit counters     |
+    +---------------------------+
+    | CChainState               |
+    |   Block index (in-memory) |
+    |   Chain trust scores      |
+    +---------------------------+</div>
+
+<p>All LevelDB writes check <code>.ok()</code> status. <code>ExtractAddress()</code> handles P2PKH (25-byte), P2SH (23-byte), and P2PK (34/35/67-byte) with testnet/mainnet version bytes.</p>
+
+<!-- ============================================================ -->
+<h2 id="rewards" class="section-anchor">13. Reward Structure</h2>
+
+<table>
+<tr><th>Role</th><th>Reward</th><th>Work Required</th></tr>
+<tr><td>Validator</td><td>1.5 IOC/block</td><td>Full validation, block production, stake 10K IOC</td></tr>
+<tr><td>Light Client</td><td>0.5 IOC/block</td><td>Header sync + data availability sampling</td></tr>
+<tr><td>PoP Node</td><td>0.001 IOC/block</td><td>Relay blocks &amp; transactions (zero balance OK)</td></tr>
+</table>
+
+<table>
+<tr><td>Annual inflation</td><td>~2.5% (at 30s blocks = ~1M blocks/year)</td></tr>
+<tr><td>Supply model</td><td>No halving, no max supply</td></tr>
+<tr><td>Coinbase maturity</td><td>20 blocks (~10 min)</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="security" class="section-anchor">14. Security Hardening</h2>
+
+<table>
+<tr><th>Finding</th><th>Severity</th><th>Status</th></tr>
+<tr><td>H-01 Consensus Trust (stability.cpp)</td><td><span class="tag tag-red">HIGH</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>H-02 SVM ELF Parser bounds</td><td><span class="tag tag-red">HIGH</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>PoS stakeKernel not set on block header</td><td><span class="tag tag-red">CRITICAL</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>CheckProofOfStake missing UTXO value</td><td><span class="tag tag-red">HIGH</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>M-01 JSON Parser depth/string/array limits</td><td><span class="tag tag-yellow">MEDIUM</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>M-04 Partial Send retry loop</td><td><span class="tag tag-yellow">MEDIUM</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>M-05 Chainstate silent reset</td><td><span class="tag tag-yellow">MEDIUM</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>OpenSSL EVP null checks (SignMessage + TLS)</td><td><span class="tag tag-red">CRITICAL</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>LevelDB unchecked writes (txstore.cpp)</td><td><span class="tag tag-yellow">MEDIUM</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>RPC input validation (auth, gas, hex)</td><td><span class="tag tag-yellow">MEDIUM</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>Equivocation ECDSA verification</td><td><span class="tag tag-red">HIGH</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>WebSocket connection slot race</td><td><span class="tag tag-yellow">MEDIUM</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>Bridge stub silent true return</td><td><span class="tag tag-red">HIGH</span></td><td><span class="pass">FIXED</span></td></tr>
+<tr><td>M-02 TLS Wiring</td><td><span class="tag tag-yellow">MEDIUM</span></td><td><span class="warn">DEFERRED</span> (localhost-only RPC)</td></tr>
+<tr><td>P2SH hash-only verification</td><td><span class="tag tag-blue">LOW</span></td><td><span class="warn">DEFERRED</span> (pending legacy assessment)</td></tr>
+</table>
+<p>Codex (OpenAI) A&ndash;L feature verification: <strong>12/12 PASS</strong> at commit <code>ab84aa6</code>.</p>
+
+<!-- ============================================================ -->
+<h2 id="source" class="section-anchor">15. Source Code &amp; Build Targets</h2>
+
+<pre>dions-2.0/
+&#9500;&#9472;&#9472; src/
+&#9474;   &#9500;&#9472;&#9472; bridge/        Ethereum bridge, HTLC, relayer
+&#9474;   &#9500;&#9472;&#9472; consensus/     PoS, validation, slashing, dispute, participation
+&#9474;   &#9500;&#9472;&#9472; crypto/        Post-quantum cryptography (PQC)
+&#9474;   &#9500;&#9472;&#9472; dions/         Aliases, messaging, DID, files, channels
+&#9474;   &#9500;&#9472;&#9472; evm/           Ethereum Virtual Machine zone
+&#9474;   &#9500;&#9472;&#9472; svm/           Solana Virtual Machine zone
+&#9474;   &#9500;&#9472;&#9472; net/           P2P, DHT, WebSocket, light client
+&#9474;   &#9500;&#9472;&#9472; primitives/    Block, transaction, uint256
+&#9474;   &#9500;&#9472;&#9472; rpc/           JSON-RPC server (145 methods)
+&#9474;   &#9500;&#9472;&#9472; storage/       LevelDB chainstate, transaction store
+&#9474;   &#9500;&#9472;&#9472; wallet/        HD wallet, staking, stealth
+&#9474;   &#9492;&#9472;&#9472; zones/         Zone bridge interface
+&#9500;&#9472;&#9472; include/dions/     Public headers (37 files)
+&#9500;&#9472;&#9472; tests/             511 tests across 7 binaries
+&#9500;&#9472;&#9472; scripts/           Testnet test scripts
+&#9500;&#9472;&#9472; contracts/         Solidity (DionsBridge.sol, IOC20.sol, TokenFactory.sol)
+&#9500;&#9472;&#9472; tools/             CLI, explorer, migration, DNS seeder, stress tests
+&#9492;&#9472;&#9472; docs/              Auditor review package, HTML docs</pre>
+
+<h3>13 Build Targets</h3>
+<table>
+<tr><th>Binary</th><th>Description</th></tr>
+<tr><td><code>dions2d</code></td><td>Full validator daemon</td></tr>
+<tr><td><code>dions2-light</code></td><td>Light client</td></tr>
+<tr><td><code>dions-cli</code></td><td>Command-line wallet</td></tr>
+<tr><td><code>dions-explorer</code></td><td>Block explorer</td></tr>
+<tr><td><code>dions2-migrate</code></td><td>Legacy IOCoin migration tool</td></tr>
+<tr><td><code>dions2-dns-seeder</code></td><td>DNS seed node</td></tr>
+<tr><td><code>dions-relayer</code></td><td>Ethereum bridge relayer</td></tr>
+<tr><td><code>dions2-tests</code></td><td>314 core tests</td></tr>
+<tr><td><code>dions2-security-tests</code></td><td>36 security tests</td></tr>
+<tr><td><code>dions2-slashing-tests</code></td><td>19 slashing tests</td></tr>
+<tr><td><code>dions2-dispute-tests</code></td><td>31 dispute tests</td></tr>
+<tr><td><code>dions2-pqc-tests</code></td><td>54 PQC tests</td></tr>
+<tr><td><code>dions2-pop-tests</code></td><td>22 PoP tests</td></tr>
+</table>
+
+<p style="margin-top:3rem; color:#484f58; text-align:center; font-size:0.85rem;">
+    DIONS 2.0 &mdash; Built for the next decade, not just next year.<br>
+    Fair launch continuation since 2014. No ICO. No presale. Same IOC.<br><br>
+    Repository: <a href="https://github.com/Wizrig/Dions-2.0" style="color:var(--accent);">github.com/Wizrig/Dions-2.0</a>
+</p>
+
+</body>
+</html>
