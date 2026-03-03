@@ -709,5 +709,22 @@ GET_DIONS_DATA, DIONS_DATA, GET_TX, TX_DATA</pre>
     Repository: <a href="https://github.com/Wizrig/Dions-2.0" style="color:var(--accent);">github.com/Wizrig/Dions-2.0</a>
 </p>
 
+<script>
+// Tell Wix parent frame the real content height so it resizes instead of scrolling
+function notifyHeight() {
+    var h = document.documentElement.scrollHeight;
+    window.parent.postMessage(JSON.stringify({
+        "src": window.location.href,
+        "documentHeight": h
+    }), "*");
+    // Also try Wix Corvid/Velo style
+    window.parent.postMessage(h, "*");
+}
+window.addEventListener("load", notifyHeight);
+window.addEventListener("resize", notifyHeight);
+// Re-notify after fonts/images settle
+setTimeout(notifyHeight, 500);
+setTimeout(notifyHeight, 2000);
+</script>
 </body>
 </html>
