@@ -1,39 +1,28 @@
 <h1 align="center">DIONS 2.0 Architecture</h1>
-<p align="center">IOCoin Protocol Upgrade — Full Design Architecture & Chain Comparison<br>
-<code>Commit: b90ee5a</code> · March 3, 2026 · Fork Height: 5,730,000 (~October 2026)</p>
 
 <p align="center">
-<b>150</b> RPC Methods · <b>511</b> Tests Passing · <b>22</b> Subsystems · <b>52K</b> Lines of Code · <b>13</b> Build Targets · <b>C++20</b>
+IOCoin Protocol Upgrade — Full Design Architecture & Chain Comparison<br>
+<code>Commit: b90ee5a</code> · March 3, 2026 · Fork Height: 5,730,000 (~October 2026)
+</p>
+
+<p align="center">
+<img src="https://img.shields.io/badge/RPC_Methods-150-58a6ff?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Tests_Passing-511-3fb950?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Subsystems-22-bc8cff?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Lines_of_Code-52K-d29922?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Build_Targets-13-db6d28?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Language-C++20-f0f6fc?style=for-the-badge" />
 </p>
 
 ---
 
-## Table of Contents
-
-1. [Full Chain Comparison (ETH / SOL / Legacy IOC / DIONS 2.0)](#1-full-chain-comparison)
-2. [Consensus & Staking](#2-consensus--staking)
-3. [Block Structure](#3-block-structure)
-4. [Network & P2P](#4-network--p2p)
-5. [Data Availability](#5-data-availability)
-6. [Execution Zones (EVM + SVM)](#6-execution-zones-evm--svm)
-7. [Ethereum Bridge & HTLC](#7-ethereum-bridge--htlc)
-8. [Cryptography & Post-Quantum](#8-cryptography--post-quantum)
-9. [W3C DID Identity](#9-w3c-did-identity)
-10. [DIONS Messaging & Storage](#10-dions-messaging--storage)
-11. [Light Client](#11-light-client)
-12. [Storage Architecture](#12-storage-architecture)
-13. [Reward Structure](#13-reward-structure)
-14. [Security Hardening](#14-security-hardening)
-15. [Source Code & Build Targets](#15-source-code--build-targets)
-
----
-
-## 1. Full Chain Comparison
+<details open>
+<summary><h2>1. Full Chain Comparison</h2></summary>
 
 ### Consensus
 
 | Property | Ethereum | Solana | Legacy IOCoin | DIONS 2.0 |
-|----------|----------|--------|---------------|-----------|
+|:---------|:---------|:-------|:--------------|:----------|
 | Mechanism | Gasper (Casper FFG + LMD GHOST) | Tower BFT + Proof of History | PoS v2 (Peercoin-derived) | **Enhanced PoS + DAS + checkpoints** |
 | Block Time | 12s slot | 400ms slot | 16–60s adaptive | **30s fixed** |
 | Min Stake (Validate) | 32 ETH (~$96K) | ~1 SOL + extreme hardware | Any (coin-age) | **10,000 IOC** |
@@ -45,7 +34,7 @@
 ### Performance
 
 | Property | Ethereum | Solana | Legacy IOCoin | DIONS 2.0 |
-|----------|----------|--------|---------------|-----------|
+|:---------|:---------|:-------|:--------------|:----------|
 | L1 TPS | 15–30 | ~400 real | ~3–5 | **88 (L1 settlement)** |
 | With Zones / L2 | Thousands (rollups) | ~4,000 theoretical | N/A | **11,000+ (EVM + SVM zones)** |
 | Finality Time | ~13 minutes | ~13 seconds | Unpredictable | 30 seconds (1 block) |
@@ -54,7 +43,7 @@
 ### Smart Contracts & Execution
 
 | Property | Ethereum | Solana | Legacy IOCoin | DIONS 2.0 |
-|----------|----------|--------|---------------|-----------|
+|:---------|:---------|:-------|:--------------|:----------|
 | Virtual Machine | EVM | SVM (Sealevel / BPF) | None | **EVM + SVM zones** |
 | Languages | Solidity, Vyper | Rust, C | N/A | Solidity + Rust/C (BPF) |
 | EVM Compatibility | Native | None | None | Ethereum JSON-RPC layer |
@@ -64,7 +53,7 @@
 ### Cryptography
 
 | Property | Ethereum | Solana | Legacy IOCoin | DIONS 2.0 |
-|----------|----------|--------|---------------|-----------|
+|:---------|:---------|:-------|:--------------|:----------|
 | TX Signing | ECDSA secp256k1 | Ed25519 | ECDSA secp256k1 | ECDSA secp256k1 (legacy compat) |
 | Consensus Signing | BLS12-381 | Ed25519 | ECDSA | ECDSA secp256k1 |
 | Post-Quantum | None (ETH2030 roadmap) | None | None | **Dilithium + Falcon + SPHINCS+ + Kyber** |
@@ -74,8 +63,8 @@
 ### Identity & Messaging
 
 | Property | Ethereum | Solana | Legacy IOCoin | DIONS 2.0 |
-|----------|----------|--------|---------------|-----------|
-| Native Identity | No (ENS = off-chain contract) | No (SNS = off-chain) | DIONS aliases (O(n) scan) | **W3C DID Core 1.0 (`did:dions:`)** |
+|:---------|:---------|:-------|:--------------|:----------|
+| Native Identity | No (ENS = off-chain) | No (SNS = off-chain) | DIONS aliases (O(n) scan) | **W3C DID Core 1.0 (`did:dions:`)** |
 | Identity Types | N/A | N/A | Alias only | Agent + Device + Alias |
 | Stealth Addresses | No native | No | No | Native v1 + v2 (PQC hybrid) |
 | Native Messaging | No (XMTP = off-chain) | No | Basic encrypted | Enhanced (AES-256 + RSA-4096, channels) |
@@ -84,7 +73,7 @@
 ### Data Availability
 
 | Property | Ethereum | Solana | Legacy IOCoin | DIONS 2.0 |
-|----------|----------|--------|---------------|-----------|
+|:---------|:---------|:-------|:--------------|:----------|
 | Strategy | Proto-danksharding (EIP-4844) | Full replication | Full replication | **Reed-Solomon erasure coding** |
 | Erasure Coding | Roadmap (full danksharding) | No | No | Yes (64 data + 32 parity shards) |
 | Per-Node Storage | ~2TB | ~2TB | 2TB+ | **1–10% of data (~50GB)** |
@@ -93,7 +82,7 @@
 ### Network & Bridge
 
 | Property | Ethereum | Solana | Legacy IOCoin | DIONS 2.0 |
-|----------|----------|--------|---------------|-----------|
+|:---------|:---------|:-------|:--------------|:----------|
 | Peer Discovery | discv5 | Gossip (Turbine) | 15 seed nodes | **Kademlia DHT (any peer bootstraps)** |
 | Light Client | Altair sync committee | Limited (Tinydancer) | Impossible | Native `dions2-light` binary |
 | Light Client Reward | None | None | None | 0.5 IOC/block |
@@ -104,7 +93,7 @@
 ### Hardware Requirements
 
 | Property | Ethereum | Solana | Legacy IOCoin | DIONS 2.0 |
-|----------|----------|--------|---------------|-----------|
+|:---------|:---------|:-------|:--------------|:----------|
 | Storage | ~2TB SSD | ~2TB SSD | 2TB+ | **Validator: 100GB / Light: 100MB** |
 | RAM | 16GB | 256GB (!) | 4GB | **4–8GB** |
 | CPU | 8-core | 12+ core | 2-core | 4-core |
@@ -113,20 +102,23 @@
 ### Known Issues & Risks
 
 | Property | Ethereum | Solana | Legacy IOCoin | DIONS 2.0 |
-|----------|----------|--------|---------------|-----------|
+|:---------|:---------|:-------|:--------------|:----------|
 | Outages | None major (post-merge) | 7+ major outages (2022–2024) | None reported | Pre-mainnet |
 | Centralization Risk | MEV/PBS, Lido ~33% | Extreme HW requirements | Low node count (~50) | Low min stake, light client rewards |
 | Quantum Vulnerability | BLS, KZG, ECDSA all vulnerable | Ed25519 vulnerable | ECDSA vulnerable | **PQC-ready (Dilithium + Falcon)** |
 | Known Vulns | MEV exploitation | Outage-prone, single-client | Stake grinding, O(n) aliases | P2SH hash-only (deferred, low prio) |
 
+</details>
+
 ---
 
-## 2. Consensus & Staking
+<details>
+<summary><h2>2. Consensus & Staking</h2></summary>
 
-### PoS Parameters
+> **PoS Parameters**
 
 | Parameter | Value |
-|-----------|-------|
+|:----------|:------|
 | Block time | `TARGET_SPACING = 30s` |
 | COIN | `100,000,000` (8 decimals) |
 | Stake min age | 30 seconds |
@@ -137,10 +129,10 @@
 | Fork height | `5,730,000` |
 | Kernel hash | SHA256D + time-locked modifiers |
 
-### Validator System
+> **Validator System**
 
 | Parameter | Value |
-|-----------|-------|
+|:----------|:------|
 | Min validator stake | `10,000 IOC` |
 | Checkpoint interval | 100 blocks |
 | Finality threshold | 67% total stake |
@@ -150,21 +142,24 @@
 | Slashing | 10% stake for invalid execution |
 | States | Active / Inactive / Slashed / Jailed / Banned |
 
-### Proof-of-Participation (PoP)
+> **Proof-of-Participation (PoP)**
 
-Any node — human, AI, robot, IoT device — can earn IOC from **zero balance** by relaying blocks and transactions to validators. This solves the bootstrapping problem: no exchange listing needed to get started.
+Any node — human, AI, robot, IoT device — can earn IOC from **zero balance** by relaying blocks and transactions to validators. No exchange listing needed to get started.
 
 | Parameter | Value |
-|-----------|-------|
+|:----------|:------|
 | Reward per node | `0.001 IOC/block` |
 | Max participants per block | 50 |
 | Cooldown | 10 blocks (~5 min) |
 | Max additional emission per block | 0.05 IOC (~3.3% of validator reward) |
 | Sybil resistance | DHT PoW (8 leading zero bits on node ID) |
 
+</details>
+
 ---
 
-## 3. Block Structure
+<details>
+<summary><h2>3. Block Structure</h2></summary>
 
 ```
                          CBlockHeader (~200 bytes)
@@ -199,10 +194,10 @@ Any node — human, AI, robot, IoT device — can earn IOC from **zero balance**
     +---------------------------------------------------------+
 ```
 
-### Transaction Types
+> **Transaction Types**
 
 | Type ID | Name | Description |
-|---------|------|-------------|
+|:--------|:-----|:------------|
 | 0 | Standard | IOC transfer (UTXO model, Bitcoin-compatible) |
 | 1 | Alias | Create/update DIONS name alias |
 | 2 | Message | Encrypted DIONS message |
@@ -214,14 +209,17 @@ Any node — human, AI, robot, IoT device — can earn IOC from **zero balance**
 | 8 | Dispute Response | Validator counter-proof |
 | 9 | Participation Claim | PoP relay reward claim |
 
+</details>
+
 ---
 
-## 4. Network & P2P
+<details>
+<summary><h2>4. Network & P2P</h2></summary>
 
-### Ports
+> **Ports**
 
 | Port | Service |
-|------|---------|
+|:-----|:--------|
 | `33764` | Mainnet P2P |
 | `33765` | Mainnet RPC |
 | `33763` | Testnet P2P |
@@ -230,10 +228,10 @@ Any node — human, AI, robot, IoT device — can earn IOC from **zero balance**
 | `8377` | Chain ID (mainnet) |
 | `8378` | Chain ID (testnet) |
 
-### Protocol
+> **Protocol**
 
 | Parameter | Value |
-|-----------|-------|
+|:----------|:------|
 | Version | `70000` |
 | Min peer version | `60000` |
 | Max connections | 125 |
@@ -242,16 +240,19 @@ Any node — human, AI, robot, IoT device — can earn IOC from **zero balance**
 | DHT k-bucket size | 20 nodes |
 | DHT refresh | 10 minutes |
 
-### Kademlia DHT
+> **Kademlia DHT**
 
 - 160-bit node IDs (SHA-256 of pubkey), 160 k-buckets
 - Messages: PING, PONG, FIND_NODE, FOUND_NODES, STORE, FIND_VALUE, FOUND_VALUE
 - Sybil-resistant: 8-bit PoW on node ID validated in VERSION handshake
 - Any peer can bootstrap the network — no hardcoded seed dependency
 
+</details>
+
 ---
 
-## 5. Data Availability
+<details>
+<summary><h2>5. Data Availability</h2></summary>
 
 ```
      Block Data (DIONS payload)
@@ -269,7 +270,7 @@ Any node — human, AI, robot, IoT device — can earn IOC from **zero balance**
 ```
 
 | Parameter | Value |
-|-----------|-------|
+|:----------|:------|
 | Original shards (k) | 64 |
 | Parity shards (m) | 32 |
 | Total shards | 96 |
@@ -279,11 +280,14 @@ Any node — human, AI, robot, IoT device — can earn IOC from **zero balance**
 | Maintenance interval | 3,600 seconds |
 | DA sampling (light clients) | 20 random shards + Merkle proofs |
 
+</details>
+
 ---
 
-## 6. Execution Zones (EVM + SVM)
+<details>
+<summary><h2>6. Execution Zones (EVM + SVM)</h2></summary>
 
-### EVM Zone
+> **EVM Zone**
 
 - **Engine:** evmone (EVMC interface)
 - **Storage:** LevelDB (`dataDir/evm`)
@@ -293,7 +297,7 @@ Any node — human, AI, robot, IoT device — can earn IOC from **zero balance**
 - **EIP-2929:** Warm/cold access gas metering
 - **JSON-RPC:** `eth_blockNumber`, `eth_getBalance`, `eth_call`, `eth_sendTransaction`, `net_version`, `web3_clientVersion`
 
-### SVM Zone
+> **SVM Zone**
 
 - **Engine:** Solana BPF interpreter
 - **Account model:** Lamports, executable, owner
@@ -305,9 +309,12 @@ Any node — human, AI, robot, IoT device — can earn IOC from **zero balance**
 
 Both zones post state roots to L1 via `CBlockHeader::zoneRoot`. New zones can be added without a hard fork.
 
+</details>
+
 ---
 
-## 7. Ethereum Bridge & HTLC
+<details>
+<summary><h2>7. Ethereum Bridge & HTLC</h2></summary>
 
 ```
     DIONS Chain                         Ethereum
@@ -328,10 +335,10 @@ Both zones post state roots to L1 via `CBlockHeader::zoneRoot`. New zones can be
     Pause: Multi-sig with cooldown period
 ```
 
-### HTLC (Hash Time-Locked Contracts)
+> **HTLC (Hash Time-Locked Contracts)**
 
 | Parameter | Value |
-|-----------|-------|
+|:----------|:------|
 | Mechanism | Atomic swaps with SHA-256 preimage reveals |
 | Min lock amount | 100,000 sat (0.001 IOC) |
 | Max lock amount | 1,000,000,000 sat (10 IOC) |
@@ -340,14 +347,17 @@ Both zones post state roots to L1 via `CBlockHeader::zoneRoot`. New zones can be
 | States | PENDING → CLAIMED / REFUNDED / EXPIRED |
 | Index uniqueness | sender + timestamp in LevelDB key |
 
+</details>
+
 ---
 
-## 8. Cryptography & Post-Quantum
+<details>
+<summary><h2>8. Cryptography & Post-Quantum</h2></summary>
 
-### Classical Cryptography
+> **Classical Cryptography**
 
 | Function | Implementation |
-|----------|---------------|
+|:---------|:---------------|
 | TX signing | ECDSA secp256k1 (legacy IOCoin compatible) |
 | Block signing | ECDSA secp256k1 (signature excluded from block hash) |
 | Hashing | SHA-256 + Keccak-256 via OpenSSL EVP |
@@ -355,10 +365,10 @@ Both zones post state roots to L1 via `CBlockHeader::zoneRoot`. New zones can be
 | Key derivation | BIP32 HD wallets |
 | ecrecover | Real secp256k1 key recovery (bridge + SVM) |
 
-### Post-Quantum Cryptography (PQC)
+> **Post-Quantum Cryptography (PQC)**
 
 | Algorithm | NIST Level | Key Size | Signature Size | Use Case |
-|-----------|-----------|----------|----------------|----------|
+|:----------|:-----------|:---------|:---------------|:---------|
 | Dilithium-2 | 2 | 1,312 B | 1,387 B | General purpose |
 | Dilithium-3 | 3 | 1,952 B | 2,044 B | Robot / Server |
 | Dilithium-5 | 5 | 2,701 B | 3,293 B | Maximum security |
@@ -366,19 +376,22 @@ Both zones post state roots to L1 via `CBlockHeader::zoneRoot`. New zones can be
 | Falcon-1024 | 5 | 1,793 B | ~800 B | High-security IoT |
 | Kyber-512/768/1024 | 1/3/5 | 800–1,568 B | N/A (KEM) | Key encapsulation |
 
-### Device Profiles
+> **Device Profiles**
 
 | Profile | KEM | Signature | Target |
-|---------|-----|-----------|--------|
+|:--------|:----|:----------|:-------|
 | `IOT_MINIMAL` | Kyber-512 | Falcon-512 | Constrained sensors |
 | `IOT_STANDARD` | Kyber-768 | Falcon-512 | Smart devices |
 | `ROBOT_STANDARD` | Kyber-768 | Dilithium-3 | Autonomous robots |
 | `ROBOT_PREMIUM` | Kyber-1024 | Dilithium-5 | High-value robotics |
 | `SERVER` | Kyber-1024 | Dilithium-5 | Infrastructure |
 
+</details>
+
 ---
 
-## 9. W3C DID Identity
+<details>
+<summary><h2>9. W3C DID Identity</h2></summary>
 
 DIONS 2.0 implements the **W3C DID Core 1.0** specification with a native `did:dions:` method. Every alias, agent, and device gets a resolvable DID document.
 
@@ -403,20 +416,23 @@ DIONS 2.0 implements the **W3C DID Core 1.0** specification with a native `did:d
 ```
 
 | Type | Example | Description |
-|------|---------|-------------|
+|:-----|:--------|:------------|
 | Agent DID | `did:dions:agent:bot1` | Autonomous entity, owns devices |
 | Device DID | `did:dions:device:sensor7` | Delegated to agent |
 | Alias DID | `did:dions:alice` | Human-readable identity |
-| Key types | ECDSA secp256k1 + RSA-4096 + PQC | Dilithium/Falcon |
+| Key types | ECDSA + RSA-4096 + PQC | Dilithium / Falcon |
+
+</details>
 
 ---
 
-## 10. DIONS Messaging & Storage
+<details>
+<summary><h2>10. DIONS Messaging & Storage</h2></summary>
 
-### Access Tiers (Stake-Based)
+> **Access Tiers (Stake-Based)**
 
 | Tier | Staked IOC | Messages/Month | Max File | Aliases | Retention |
-|------|-----------|----------------|----------|---------|-----------|
+|:-----|:----------|:---------------|:---------|:--------|:----------|
 | Basic | 1,000 | 50 | 1 MB | 1 | 30 days |
 | Standard | 5,000 | 200 | 10 MB | 3 | 30–60 days |
 | Premium | 10,000 | 500 | 50 MB | 10 | 60–90 days |
@@ -425,21 +441,24 @@ DIONS 2.0 implements the **W3C DID Core 1.0** specification with a native `did:d
 
 *Basic IOC transfers require no minimum stake — only DIONS features are tiered.*
 
-### Encryption
+> **Encryption**
 
 | Layer | Implementation |
-|-------|---------------|
+|:------|:---------------|
 | Symmetric | AES-256-CBC (random key per message) |
 | Asymmetric | RSA-4096 (encrypts symmetric key) |
 | Integrity | SHA-256 message hash |
 | Channels | Multi-party encrypted group messaging |
 
+</details>
+
 ---
 
-## 11. Light Client
+<details>
+<summary><h2>11. Light Client</h2></summary>
 
 | Parameter | Value |
-|-----------|-------|
+|:----------|:------|
 | Binary | `dions2-light` |
 | Sync model | Headers-only (~100MB for full chain) |
 | Annual bandwidth | 42 MB/year header sync |
@@ -448,16 +467,19 @@ DIONS 2.0 implements the **W3C DID Core 1.0** specification with a native `did:d
 | Reward | 0.5 IOC/block |
 | Capabilities | Verify PoS proofs, sample DA, request DIONS data on-demand, DHT participation |
 
-### Async Messages
+> **Async Messages**
 
 ```
 GET_HEADERS, HEADERS, GET_SHARD, SHARD,
 GET_DIONS_DATA, DIONS_DATA, GET_TX, TX_DATA
 ```
 
+</details>
+
 ---
 
-## 12. Storage Architecture
+<details>
+<summary><h2>12. Storage Architecture</h2></summary>
 
 ```
     LevelDB Schema
@@ -485,49 +507,58 @@ GET_DIONS_DATA, DIONS_DATA, GET_TX, TX_DATA
 
 All LevelDB writes check `.ok()` status. `ExtractAddress()` handles P2PKH (25-byte), P2SH (23-byte), and P2PK (34/35/67-byte) with testnet/mainnet version bytes.
 
+</details>
+
 ---
 
-## 13. Reward Structure
+<details>
+<summary><h2>13. Reward Structure</h2></summary>
 
 | Role | Reward | Work Required |
-|------|--------|---------------|
+|:-----|:-------|:--------------|
 | Validator | 1.5 IOC/block | Full validation, block production, stake 10K IOC |
 | Light Client | 0.5 IOC/block | Header sync + data availability sampling |
 | PoP Node | 0.001 IOC/block | Relay blocks & transactions (zero balance OK) |
 
 | Parameter | Value |
-|-----------|-------|
+|:----------|:------|
 | Annual inflation | ~2.5% (at 30s blocks = ~1M blocks/year) |
 | Supply model | No halving, no max supply |
 | Coinbase maturity | 20 blocks (~10 min) |
 
+</details>
+
 ---
 
-## 14. Security Hardening
+<details>
+<summary><h2>14. Security Hardening</h2></summary>
 
 | Finding | Severity | Status |
-|---------|----------|--------|
-| H-01 Consensus Trust (stability.cpp) | HIGH | FIXED |
-| H-02 SVM ELF Parser bounds | HIGH | FIXED |
-| PoS stakeKernel not set on block header | CRITICAL | FIXED |
-| CheckProofOfStake missing UTXO value | HIGH | FIXED |
-| M-01 JSON Parser depth/string/array limits | MEDIUM | FIXED |
-| M-04 Partial Send retry loop | MEDIUM | FIXED |
-| M-05 Chainstate silent reset | MEDIUM | FIXED |
-| OpenSSL EVP null checks (SignMessage + TLS) | CRITICAL | FIXED |
-| LevelDB unchecked writes (txstore.cpp) | MEDIUM | FIXED |
-| RPC input validation (auth, gas, hex) | MEDIUM | FIXED |
-| Equivocation ECDSA verification | HIGH | FIXED |
-| WebSocket connection slot race | MEDIUM | FIXED |
-| Bridge stub silent true return | HIGH | FIXED |
-| M-02 TLS Wiring | MEDIUM | DEFERRED (localhost-only RPC) |
-| P2SH hash-only verification | LOW | DEFERRED (pending legacy assessment) |
+|:--------|:---------|:-------|
+| H-01 Consensus Trust (stability.cpp) | `HIGH` | **FIXED** |
+| H-02 SVM ELF Parser bounds | `HIGH` | **FIXED** |
+| PoS stakeKernel not set on block header | `CRITICAL` | **FIXED** |
+| CheckProofOfStake missing UTXO value | `HIGH` | **FIXED** |
+| M-01 JSON Parser depth/string/array limits | `MEDIUM` | **FIXED** |
+| M-04 Partial Send retry loop | `MEDIUM` | **FIXED** |
+| M-05 Chainstate silent reset | `MEDIUM` | **FIXED** |
+| OpenSSL EVP null checks (SignMessage + TLS) | `CRITICAL` | **FIXED** |
+| LevelDB unchecked writes (txstore.cpp) | `MEDIUM` | **FIXED** |
+| RPC input validation (auth, gas, hex) | `MEDIUM` | **FIXED** |
+| Equivocation ECDSA verification | `HIGH` | **FIXED** |
+| WebSocket connection slot race | `MEDIUM` | **FIXED** |
+| Bridge stub silent true return | `HIGH` | **FIXED** |
+| M-02 TLS Wiring | `MEDIUM` | DEFERRED (localhost-only RPC) |
+| P2SH hash-only verification | `LOW` | DEFERRED (pending legacy assessment) |
 
 Codex (OpenAI) A–AV feature verification: **48/48 PASS** across 7 rounds.
 
+</details>
+
 ---
 
-## 15. Source Code & Build Targets
+<details>
+<summary><h2>15. Source Code & Build Targets</h2></summary>
 
 ```
 dions-2.0/
@@ -552,10 +583,10 @@ dions-2.0/
 └── docs/              Auditor review package, HTML docs
 ```
 
-### 13 Build Targets
+> **13 Build Targets**
 
 | Binary | Description |
-|--------|-------------|
+|:-------|:------------|
 | `dions2d` | Full validator daemon |
 | `dions2-light` | Light client |
 | `dions-cli` | Command-line wallet |
@@ -571,10 +602,13 @@ dions-2.0/
 | `dions2-pop-tests` | 22 PoP tests |
 | `dions2-stealth-tests` | 35 stealth tests |
 
+</details>
+
 ---
 
 <p align="center">
+<br>
 DIONS 2.0 — Built for the next decade, not just next year.<br>
 Fair launch continuation since 2014. No ICO. No presale. Same IOC.<br><br>
-© 2014–2026 I/O Coin
+<b>© 2014–2026 I/O Coin</b>
 </p>
