@@ -549,174 +549,103 @@
             margin-top: 0.25rem;
         }
 
-        /* ===== SPOTLIGHT FEATURE PANELS ===== */
-        .spotlight-panels {
+        /* ===== FEATURE FLOW — Apple keynote typography reveals ===== */
+        .feature-flow {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            margin-bottom: 4rem;
+            gap: 0;
+            margin-bottom: 0;
         }
 
-        .spotlight-panel {
-            display: grid;
-            grid-template-columns: 80px 1fr;
-            gap: 2.5rem;
-            align-items: start;
-            background: rgba(10,12,28,0.5);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 28px;
-            padding: 3rem 3.5rem;
+        .feature-flow-item {
             position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: pointer;
+            padding: 5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
 
-        .spotlight-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: var(--panel-gradient, linear-gradient(90deg, transparent, rgba(108,140,255,0.4), transparent));
-            opacity: 0;
-            transition: opacity 0.5s ease;
+        .feature-flow-item:last-child {
+            border-bottom: none;
         }
 
-        .spotlight-panel::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--panel-glow, rgba(108,140,255,0.06)) 0%, transparent 70%);
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-            opacity: 0.5;
+        .feature-flow-item .flow-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
         }
 
-        .spotlight-panel:hover {
-            border-color: rgba(255,255,255,0.1);
-            transform: translateY(-4px);
-            box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5);
-        }
-
-        .spotlight-panel:hover::before { opacity: 1; }
-        .spotlight-panel:hover::after { opacity: 1; }
-
-        .spotlight-panel .panel-icon {
-            width: 72px;
-            height: 72px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            flex-shrink: 0;
-        }
-
-        .spotlight-panel h3 {
+        .feature-flow-item h3 {
             font-family: 'Sora', 'Inter', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(2rem, 5vw, 3.25rem);
             font-weight: 700;
             color: var(--heading);
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.035em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
         }
 
-        .spotlight-panel p {
-            font-size: 0.95rem;
+        .feature-flow-item p {
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
             color: var(--text);
-            line-height: 1.7;
-            max-width: 560px;
+            line-height: 1.75;
+            max-width: 620px;
         }
 
-        .panel-tags {
+        .flow-tags {
             display: flex;
-            gap: 0.5rem;
-            margin-top: 1.25rem;
+            gap: 0.6rem;
+            margin-top: 1.75rem;
             flex-wrap: wrap;
         }
 
-        .panel-tags .tag {
-            font-size: 0.68rem;
+        .flow-tag {
+            font-size: 0.7rem;
             font-weight: 600;
-            letter-spacing: 0.05em;
-            padding: 5px 14px;
+            letter-spacing: 0.04em;
+            padding: 6px 16px;
             border-radius: 50px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
             color: var(--text-bright);
         }
 
-        /* Compact feature grid for remaining features */
-        .compact-grid {
+        /* Spec grid — remaining features as clean two-column list */
+        .spec-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            margin-top: 2rem;
         }
 
-        .compact-card {
-            background: rgba(10,12,28,0.4);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 22px;
-            padding: 2.25rem;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+        .spec-item {
+            padding: 2.25rem 2.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.3s ease;
         }
 
-        .compact-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: var(--card-gradient, linear-gradient(90deg, transparent 20%, rgba(108,140,255,0.3), transparent 80%));
-            opacity: 0;
-            transition: opacity 0.4s ease;
+        .spec-item:nth-child(odd) {
+            border-right: 1px solid rgba(255,255,255,0.04);
         }
 
-        .compact-card:hover {
-            border-color: rgba(255,255,255,0.08);
-            transform: translateY(-3px);
-            box-shadow: 0 20px 50px -15px rgba(0,0,0,0.4);
+        .spec-item:hover {
+            background: rgba(108,140,255,0.02);
         }
 
-        .compact-card:hover::before { opacity: 1; }
-
-        .compact-card h3 {
-            font-size: 1.15rem;
+        .spec-item h4 {
+            font-family: 'Sora', 'Inter', sans-serif;
+            font-size: 1.05rem;
             font-weight: 700;
             color: var(--heading);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             letter-spacing: -0.01em;
         }
 
-        .compact-card p {
-            font-size: 0.85rem;
+        .spec-item p {
+            font-size: 0.88rem;
             color: var(--text);
             line-height: 1.65;
-        }
-
-        .compact-card .feature-detail {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            font-size: 0.78rem;
-            color: var(--text);
-        }
-
-        .compact-card .feature-detail strong {
-            color: var(--text-bright);
         }
 
         /* Standard feature card styles within bento */
@@ -1467,19 +1396,20 @@
                 padding: 0.75rem 1.25rem;
             }
 
-            .spotlight-panel {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                padding: 2rem;
+            .feature-flow-item {
+                padding: 3rem 0;
             }
 
-            .spotlight-panel .panel-icon {
-                width: 56px !important;
-                height: 56px !important;
+            .feature-flow-item h3 {
+                font-size: 1.75rem;
             }
 
-            .compact-grid {
+            .spec-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .spec-item:nth-child(odd) {
+                border-right: none;
             }
 
             .features-grid {
@@ -1790,109 +1720,68 @@
     </div>
 
     <div class="section-inner">
-        <!-- 3 Spotlight feature panels -->
-        <div class="spotlight-panels">
-            <div class="spotlight-panel reveal reveal-delay-1" style="--panel-gradient: linear-gradient(90deg, transparent, rgba(108,140,255,0.5), transparent); --panel-glow: rgba(108,140,255,0.08);">
-                <div class="panel-icon feature-icon blue" style="width:72px;height:72px;border-radius:20px;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                </div>
-                <div>
-                    <h3>Dual Execution Zones</h3>
-                    <p>Run EVM and SVM smart contracts side by side on a single L1. Add new execution zones without a hard fork. One chain, infinite possibilities.</p>
-                    <div class="panel-tags">
-                        <span class="tag">EVM / Solidity</span>
-                        <span class="tag">SVM / Rust + BPF</span>
-                        <span class="tag">Extensible</span>
-                    </div>
+        <!-- 3 hero features — pure typography, no cards -->
+        <div class="feature-flow">
+            <div class="feature-flow-item reveal">
+                <div class="flow-label" style="color: var(--accent);">01 — Execution</div>
+                <h3>Dual Execution Zones</h3>
+                <p>Run EVM and SVM smart contracts side by side on a single L1. Add new execution environments without a hard fork. One chain, infinite possibilities.</p>
+                <div class="flow-tags">
+                    <span class="flow-tag">EVM / Solidity</span>
+                    <span class="flow-tag">SVM / Rust + BPF</span>
+                    <span class="flow-tag">Extensible</span>
                 </div>
             </div>
 
-            <div class="spotlight-panel reveal reveal-delay-2" style="--panel-gradient: linear-gradient(90deg, transparent, rgba(52,211,153,0.5), transparent); --panel-glow: rgba(52,211,153,0.06);">
-                <div class="panel-icon feature-icon green" style="width:72px;height:72px;border-radius:20px;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                </div>
-                <div>
-                    <h3>Proof of Participation — Earn from Nothing</h3>
-                    <p>Zero-balance nodes earn 0.001 IOC per block by relaying transactions. The first blockchain where anyone can earn from absolutely nothing. No hardware requirements.</p>
-                    <div class="panel-tags">
-                        <span class="tag">Zero Balance Entry</span>
-                        <span class="tag">Relay Rewards</span>
-                        <span class="tag">No Minimum</span>
-                    </div>
+            <div class="feature-flow-item reveal">
+                <div class="flow-label" style="color: var(--green);">02 — Earning</div>
+                <h3>Earn from Nothing</h3>
+                <p>Zero-balance nodes earn 0.001 IOC per block by relaying transactions. The first blockchain where anyone can earn from absolutely nothing. No hardware requirements.</p>
+                <div class="flow-tags">
+                    <span class="flow-tag">Proof of Participation</span>
+                    <span class="flow-tag">Zero Balance Entry</span>
+                    <span class="flow-tag">Relay Rewards</span>
                 </div>
             </div>
 
-            <div class="spotlight-panel reveal reveal-delay-3" style="--panel-gradient: linear-gradient(90deg, transparent, rgba(192,132,252,0.5), transparent); --panel-glow: rgba(192,132,252,0.06);">
-                <div class="panel-icon feature-icon purple" style="width:72px;height:72px;border-radius:20px;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                </div>
-                <div>
-                    <h3>Post-Quantum Cryptography</h3>
-                    <p>Dilithium, Falcon, and Kyber — NIST-approved algorithms protecting your assets before quantum computers arrive. Full ECDSA backward compatibility.</p>
-                    <div class="panel-tags">
-                        <span class="tag">Dilithium</span>
-                        <span class="tag">Falcon</span>
-                        <span class="tag">Kyber</span>
-                        <span class="tag">Hybrid Mode</span>
-                    </div>
+            <div class="feature-flow-item reveal">
+                <div class="flow-label" style="color: var(--purple);">03 — Security</div>
+                <h3>Post-Quantum Ready</h3>
+                <p>Dilithium, Falcon, and Kyber — NIST-approved algorithms protecting your assets before quantum computers arrive. Full backward compatibility with ECDSA.</p>
+                <div class="flow-tags">
+                    <span class="flow-tag">Dilithium</span>
+                    <span class="flow-tag">Falcon</span>
+                    <span class="flow-tag">Kyber</span>
+                    <span class="flow-tag">Hybrid Mode</span>
                 </div>
             </div>
         </div>
 
-        <!-- Compact grid for remaining features -->
-        <div class="compact-grid">
-            <div class="compact-card reveal reveal-delay-1" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(52,211,153,0.3), transparent 90%);">
-                <div class="feature-icon green">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                </div>
-                <h3>W3C DID Identity</h3>
-                <p>Native decentralized identifiers. Aliases, agents, and device delegation built into the protocol.</p>
-                <div class="feature-detail"><strong>did:dions:</strong> namespace</div>
+        <!-- Remaining features as clean two-column spec list -->
+        <div class="spec-grid">
+            <div class="spec-item reveal">
+                <h4>W3C DID Identity</h4>
+                <p>Native decentralized identifiers with aliases, agents, and device delegation</p>
             </div>
-
-            <div class="compact-card reveal reveal-delay-2" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(251,191,36,0.3), transparent 90%);">
-                <div class="feature-icon yellow">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                </div>
-                <h3>Encrypted Messaging</h3>
-                <p>AES-256 + RSA-4096 encrypted messages and channels. Censorship-resistant.</p>
-                <div class="feature-detail"><strong>Direct</strong> | <strong>Group</strong> | <strong>Shadow</strong></div>
+            <div class="spec-item reveal">
+                <h4>Encrypted Messaging</h4>
+                <p>AES-256 + RSA-4096 encrypted direct, group, and shadow messages</p>
             </div>
-
-            <div class="compact-card reveal reveal-delay-3" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(251,146,60,0.3), transparent 90%);">
-                <div class="feature-icon orange">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                </div>
-                <h3>Ethereum Bridge</h3>
-                <p>HTLC atomic swaps and relayer consensus. Move assets trustlessly between chains.</p>
-                <div class="feature-detail"><strong>HTLC</strong> swaps | <strong>Relayer</strong> consensus</div>
+            <div class="spec-item reveal">
+                <h4>Ethereum Bridge</h4>
+                <p>HTLC atomic swaps and relayer consensus for trustless asset transfers</p>
             </div>
-
-            <div class="compact-card reveal reveal-delay-1" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(45,212,191,0.3), transparent 90%);">
-                <div class="feature-icon teal">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                </div>
-                <h3>Data Availability</h3>
-                <p>Reed-Solomon erasure coding with 64+32 shards. 99.99% DA guarantee.</p>
-                <div class="feature-detail"><strong>64+32</strong> shards | <strong>DA</strong> sampling</div>
+            <div class="spec-item reveal">
+                <h4>Data Availability</h4>
+                <p>Reed-Solomon erasure coding with 64+32 shards, 99.99% DA guarantee</p>
             </div>
-
-            <div class="compact-card reveal reveal-delay-2" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(108,140,255,0.3), transparent 90%);">
-                <div class="feature-icon blue">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                </div>
-                <h3>Light Client</h3>
-                <p>Headers-only sync in under 5 minutes. Earn 0.5 IOC/block with under 100 MB storage.</p>
-                <div class="feature-detail"><strong>5 min</strong> sync | <strong>0.5 IOC</strong> reward</div>
+            <div class="spec-item reveal">
+                <h4>Light Client</h4>
+                <p>Headers-only sync in under 5 minutes with 0.5 IOC/block rewards</p>
             </div>
-
-            <div class="compact-card reveal reveal-delay-3" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(52,211,153,0.3), transparent 90%);">
-                <div class="feature-icon green">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                </div>
-                <h3>Enhanced PoS</h3>
-                <p>30s blocks, checkpoint finality, validator slashing, jailing, and stake delegation.</p>
-                <div class="feature-detail"><strong>67%</strong> finality | <strong>Slashing</strong></div>
+            <div class="spec-item reveal">
+                <h4>Enhanced PoS Consensus</h4>
+                <p>30s blocks, checkpoint finality, validator slashing, jailing, and delegation</p>
             </div>
         </div>
     </div>
