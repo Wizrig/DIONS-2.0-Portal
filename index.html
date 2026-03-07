@@ -123,20 +123,20 @@
             50% { opacity: 0.8; transform: scale(1.2); }
         }
 
-        /* ===== SCROLL ANIMATIONS ===== */
+        /* ===== SCROLL ANIMATIONS (Apple-style) ===== */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-1 { transition-delay: 0.15s; }
+        .reveal-delay-2 { transition-delay: 0.3s; }
+        .reveal-delay-3 { transition-delay: 0.45s; }
+        .reveal-delay-4 { transition-delay: 0.6s; }
 
         /* ===== FLOATING NAV ===== */
         .floating-nav {
@@ -175,18 +175,18 @@
         }
         .floating-nav a.active {
             color: #fff;
-            background: rgba(59,130,246,0.25);
-            box-shadow: 0 0 12px rgba(59,130,246,0.15);
+            background: rgba(108,140,255,0.2);
+            box-shadow: 0 0 16px rgba(108,140,255,0.1);
         }
 
-        /* ===== HERO ===== */
+        /* ===== HERO (Apple keynote scale) ===== */
         .hero {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 6rem 2rem 5rem;
+            padding: 8rem 2rem 6rem;
             position: relative;
             overflow: hidden;
         }
@@ -267,12 +267,12 @@
 
         .hero h1 {
             font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-size: clamp(3.5rem, 10vw, 8rem);
             font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
         }
 
         .hero h1 .gradient-text {
@@ -282,7 +282,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: gradientShift 8s ease infinite;
-            filter: drop-shadow(0 0 40px rgba(108,140,255,0.2));
+            filter: drop-shadow(0 0 60px rgba(108,140,255,0.15));
         }
 
         @keyframes gradientShift {
@@ -291,13 +291,13 @@
         }
 
         .hero-subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.35rem);
+            font-size: clamp(1.05rem, 2.5vw, 1.4rem);
             color: var(--text);
-            max-width: 600px;
+            max-width: 580px;
             font-weight: 400;
-            line-height: 1.6;
-            margin-bottom: 3rem;
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+            line-height: 1.7;
+            margin-bottom: 3.5rem;
+            animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s both;
         }
 
         .hero-meta {
@@ -314,11 +314,11 @@
 
         .hero-meta-item .counter-value {
             font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
             color: var(--heading);
-            letter-spacing: -0.03em;
-            line-height: 1.1;
+            letter-spacing: -0.04em;
+            line-height: 1;
         }
 
         .hero-meta-item .counter-label {
@@ -339,9 +339,9 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* ===== SECTION COMMON ===== */
+        /* ===== SECTION COMMON (Apple spacing) ===== */
         section {
-            padding: 8rem 2rem;
+            padding: 10rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
             position: relative;
@@ -349,7 +349,7 @@
 
         .section-full {
             max-width: 100%;
-            padding: 8rem 0;
+            padding: 10rem 0;
         }
 
         .section-inner {
@@ -361,28 +361,28 @@
         .section-eyebrow {
             font-size: 0.8rem;
             font-weight: 600;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
         }
 
         .section-title {
             font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2.25rem, 5.5vw, 4rem);
             font-weight: 700;
             color: var(--heading);
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: 1rem;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 1.25rem;
         }
 
         .section-desc {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text);
             max-width: 600px;
             line-height: 1.7;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
         }
 
         /* ===== DIVIDER ===== */
@@ -452,8 +452,8 @@
         }
 
         .comp-cell.winner {
-            background: rgba(59,130,246,0.08);
-            border: 1px solid rgba(59,130,246,0.15);
+            background: rgba(108,140,255,0.06);
+            border: 1px solid rgba(108,140,255,0.12);
         }
 
         .comp-cell.winner .comp-value {
@@ -479,15 +479,16 @@
         }
 
         .feature-card {
-            background: var(--card);
+            background: rgba(12,14,30,0.5);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 24px;
+            padding: 2.75rem;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .feature-card::before {
@@ -497,15 +498,16 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(108,140,255,0.2), rgba(192,132,252,0.15), transparent);
+            background: linear-gradient(90deg, transparent 10%, rgba(108,140,255,0.25), rgba(192,132,252,0.2), transparent 90%);
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.6s ease;
         }
 
         .feature-card:hover {
-            border-color: rgba(108,140,255,0.12);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px -15px rgba(108,140,255,0.1), 0 0 0 1px rgba(108,140,255,0.06);
+            border-color: rgba(108,140,255,0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 30px 80px -20px rgba(108,140,255,0.12), 0 0 60px -10px rgba(108,140,255,0.04);
+            background: rgba(15,17,35,0.6);
         }
 
         .feature-card:hover::before {
@@ -563,7 +565,7 @@
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 2rem;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
             text-align: center;
@@ -571,31 +573,31 @@
 
         .stat-item .stat-number {
             font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
             font-weight: 700;
             color: var(--heading);
-            letter-spacing: -0.03em;
+            letter-spacing: -0.04em;
             line-height: 1;
         }
 
         .stat-item .stat-number .stat-suffix {
-            font-size: 1.5rem;
+            font-size: 0.5em;
             color: var(--accent);
             font-weight: 600;
         }
 
         .stat-item .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.72rem;
             color: var(--text);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             font-weight: 500;
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
         }
 
-        /* ===== CINEMATIC FEATURE SECTION ===== */
+        /* ===== CINEMATIC FEATURE SECTION (Apple-style) ===== */
         .cinematic-section {
-            padding: 10rem 2rem;
+            padding: 12rem 2rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -630,12 +632,12 @@
 
         .security-hero-left .big-stat {
             font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: clamp(4rem, 10vw, 7rem);
+            font-size: clamp(4.5rem, 12vw, 8rem);
             font-weight: 700;
-            letter-spacing: -0.04em;
-            line-height: 1;
+            letter-spacing: -0.05em;
+            line-height: 0.95;
             color: var(--green);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .security-hero-left .big-stat-label {
@@ -742,10 +744,10 @@
             }
         }
 
-        /* ===== WALLET CTA ===== */
+        /* ===== WALLET CTA (Apple-style) ===== */
         .cta-section {
             text-align: center;
-            padding: 8rem 2rem;
+            padding: 10rem 2rem;
             position: relative;
             overflow: hidden;
         }
@@ -756,27 +758,27 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 800px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(168,85,247,0.05) 40%, transparent 70%);
+            width: 900px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(108,140,255,0.08) 0%, rgba(192,132,252,0.04) 40%, transparent 70%);
             pointer-events: none;
         }
 
         .cta-title {
             font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-size: clamp(2.75rem, 7vw, 4.5rem);
             font-weight: 700;
             color: var(--heading);
-            letter-spacing: -0.03em;
-            margin-bottom: 1.25rem;
-            line-height: 1.1;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.5rem;
+            line-height: 1.05;
         }
 
         .cta-desc {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             color: var(--text);
-            max-width: 600px;
-            margin: 0 auto 3rem;
+            max-width: 550px;
+            margin: 0 auto 3.5rem;
             line-height: 1.7;
         }
 
@@ -792,12 +794,12 @@
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 16px 36px;
+            padding: 18px 40px;
             border-radius: 50px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
         }
 
@@ -809,8 +811,8 @@
         }
 
         .cta-btn.primary:hover {
-            box-shadow: 0 8px 35px rgba(108,140,255,0.45);
-            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(108,140,255,0.45);
+            transform: translateY(-3px) scale(1.02);
         }
 
         .cta-btn.primary .coming-soon {
@@ -843,15 +845,16 @@
         }
 
         .reward-card {
-            background: linear-gradient(180deg, rgba(17,17,24,0.8) 0%, rgba(10,10,15,0.95) 100%);
+            background: linear-gradient(180deg, rgba(15,17,30,0.7) 0%, rgba(10,10,18,0.9) 100%);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 2.25rem 1.75rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 2.5rem 1.75rem;
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .reward-card::before {
@@ -921,20 +924,27 @@
         }
 
         .tier-card {
-            background: var(--card);
+            background: rgba(12,14,30,0.5);
             backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem 1.5rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 2.25rem 1.75rem;
             text-align: center;
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(108,140,255,0.1);
+            box-shadow: 0 20px 50px -15px rgba(108,140,255,0.08);
         }
 
         .tier-card.featured {
-            border-color: rgba(59,130,246,0.3);
-            box-shadow: 0 0 40px rgba(59,130,246,0.08);
+            border-color: rgba(108,140,255,0.2);
+            box-shadow: 0 0 50px rgba(108,140,255,0.06);
         }
 
         .tier-card.featured::before {
@@ -1118,23 +1128,23 @@
             }
 
             section {
-                padding: 4rem 1.25rem;
+                padding: 5rem 1.25rem;
             }
 
             .cinematic-section {
-                padding: 5rem 1.25rem;
+                padding: 6rem 1.25rem;
             }
 
             .cta-section {
-                padding: 5rem 1.25rem;
+                padding: 6rem 1.25rem;
             }
 
             .hero {
-                padding: 4rem 1.25rem 3rem;
+                padding: 5rem 1.25rem 4rem;
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.75rem;
             }
 
             .hero-subtitle {
@@ -1181,7 +1191,7 @@
             }
 
             .comp-cell.label-cell {
-                background: rgba(59,130,246,0.05);
+                background: rgba(108,140,255,0.05);
                 font-size: 0.85rem;
                 padding: 0.75rem 1.25rem;
             }
@@ -1216,7 +1226,7 @@
             }
 
             .cta-title {
-                font-size: 2rem;
+                font-size: 2.25rem;
             }
 
             .cta-desc {
