@@ -137,80 +137,6 @@
 
         .hero::before, .hero::after { display: none; }
 
-        .hero-logo-wrapper {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            margin-bottom: 2rem;
-        }
-
-        .hero-logo {
-            width: 80px;
-            height: 80px;
-        }
-
-        .orbital-ring { display: none; }
-
-        .orbital-ring {
-            position: absolute;
-            inset: 0;
-            border: 1px solid rgba(0,240,255,0.2);
-            border-radius: 50%;
-            /* static ring */
-        }
-
-        .orbital-ring::after {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: 50%;
-            width: 6px;
-            height: 6px;
-            background: var(--cyan);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--cyan), 0 0 24px var(--cyan);
-        }
-
-        .orbital-ring:nth-child(2) {
-            inset: -10px;
-            border-color: rgba(168,85,247,0.15);
-            animation-duration: 18s;
-            animation-direction: reverse;
-        }
-
-        .orbital-ring:nth-child(2)::after {
-            background: var(--purple);
-            box-shadow: 0 0 12px var(--purple), 0 0 24px var(--purple);
-        }
-
-        .orbital-ring:nth-child(3) {
-            inset: -22px;
-            border-color: rgba(59,130,246,0.1);
-            animation-duration: 25s;
-        }
-
-        .orbital-ring:nth-child(3)::after {
-            background: var(--accent);
-            box-shadow: 0 0 12px var(--accent);
-            width: 4px;
-            height: 4px;
-        }
-
-        @keyframes orbitalSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .hero-eyebrow {
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-        }
-
         .hero h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(3rem, 8vw, 6.5rem);
@@ -446,13 +372,28 @@
         }
 
         .arch-num {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--accent);
-            opacity: 0.6;
-            padding-top: 0.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            flex-shrink: 0;
         }
+
+        .arch-num svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .arch-num.icon-blue { background: rgba(59,130,246,0.12); color: var(--accent); }
+        .arch-num.icon-purple { background: rgba(168,85,247,0.12); color: var(--purple); }
+        .arch-num.icon-green { background: rgba(34,197,94,0.12); color: var(--green); }
+        .arch-num.icon-yellow { background: rgba(234,179,8,0.12); color: var(--yellow); }
+        .arch-num.icon-orange { background: rgba(249,115,22,0.12); color: var(--orange); }
+        .arch-num.icon-teal { background: rgba(20,184,166,0.12); color: var(--teal); }
+        .arch-num.icon-cyan { background: rgba(0,240,255,0.1); color: var(--cyan); }
+        .arch-num.icon-red { background: rgba(239,68,68,0.12); color: var(--red); }
 
         .arch-title {
             font-size: 1.15rem;
@@ -460,10 +401,6 @@
             color: var(--heading);
             letter-spacing: -0.02em;
             line-height: 1.3;
-            background: linear-gradient(135deg, #e4e4e7 0%, #c084fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .arch-title .arch-tag {
@@ -1100,19 +1037,6 @@
 
             .scan-line { display: none; }
 
-            .hero-logo-wrapper {
-                width: 90px;
-                height: 90px;
-                margin-bottom: 1.5rem;
-            }
-
-            .hero-logo {
-                width: 60px;
-                height: 60px;
-            }
-
-            .orbital-ring:nth-child(3) { display: none; }
-
             .floating-nav {
                 display: none;
             }
@@ -1350,7 +1274,7 @@
         <span class="gradient-text">DIONS 2.0</span>
     </h1>
     <p class="hero-subtitle">
-        A revolutionary L1 with dual execution zones, post-quantum cryptography, and native identity. Fair launched in 2014.
+        A revolutionary L1 with dual execution zones, post-quantum cryptography, and native identity.
     </p>
     <div class="hero-meta">
         <div class="hero-meta-item">
@@ -1501,7 +1425,9 @@
 
     <div class="arch-list">
         <div class="arch-item reveal">
-            <span class="arch-num">01</span>
+            <div class="arch-num icon-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
             <div class="arch-title">Dual Execution Zones<span class="arch-tag tag-core">Core</span></div>
             <div class="arch-body">
                 <p>Run EVM and SVM smart contracts side by side. Add new execution zones without a hard fork.</p>
@@ -1510,7 +1436,9 @@
         </div>
 
         <div class="arch-item reveal">
-            <span class="arch-num">02</span>
+            <div class="arch-num icon-purple">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
             <div class="arch-title">Post-Quantum Cryptography<span class="arch-tag tag-security">Security</span></div>
             <div class="arch-body">
                 <p>NIST-approved Dilithium, Falcon, and Kyber. Hybrid mode runs PQC alongside ECDSA for backward compatibility.</p>
@@ -1519,7 +1447,9 @@
         </div>
 
         <div class="arch-item reveal">
-            <span class="arch-num">03</span>
+            <div class="arch-num icon-green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
             <div class="arch-title">W3C DID Identity<span class="arch-tag tag-identity">Identity</span></div>
             <div class="arch-body">
                 <p>Native decentralized identifiers following W3C DID Core 1.0. Aliases, agents, and device delegation built into the protocol.</p>
@@ -1528,7 +1458,9 @@
         </div>
 
         <div class="arch-item reveal">
-            <span class="arch-num">04</span>
+            <div class="arch-num icon-yellow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
             <div class="arch-title">Encrypted Messaging<span class="arch-tag tag-privacy">Privacy</span></div>
             <div class="arch-body">
                 <p>AES-256-CBC + RSA-4096 encrypted messages and private channels. On-chain, censorship-resistant communication.</p>
@@ -1537,7 +1469,9 @@
         </div>
 
         <div class="arch-item reveal">
-            <span class="arch-num">05</span>
+            <div class="arch-num icon-orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
             <div class="arch-title">Ethereum Bridge<span class="arch-tag tag-interop">Interop</span></div>
             <div class="arch-body">
                 <p>Native bridge with relayer consensus and HTLC atomic swaps. Move assets between IOCoin and Ethereum trustlessly.</p>
@@ -1546,7 +1480,9 @@
         </div>
 
         <div class="arch-item reveal">
-            <span class="arch-num">06</span>
+            <div class="arch-num icon-teal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
             <div class="arch-title">Data Availability<span class="arch-tag tag-storage">Storage</span></div>
             <div class="arch-body">
                 <p>Reed-Solomon erasure coding with sharded storage. 99.99% data availability sampling guarantee.</p>
@@ -1555,7 +1491,9 @@
         </div>
 
         <div class="arch-item reveal">
-            <span class="arch-num">07</span>
+            <div class="arch-num icon-cyan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
             <div class="arch-title">Light Client<span class="arch-tag tag-access">Access</span></div>
             <div class="arch-body">
                 <p>Headers-only sync in ~5 minutes. Earn 0.5 IOC per block by running a light node. Under 100 MB storage.</p>
@@ -1564,7 +1502,9 @@
         </div>
 
         <div class="arch-item reveal">
-            <span class="arch-num">08</span>
+            <div class="arch-num icon-green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
             <div class="arch-title">Enhanced PoS Consensus<span class="arch-tag tag-consensus">Consensus</span></div>
             <div class="arch-body">
                 <p>30-second blocks with checkpoint finality. Validator slashing for double-sign, jailing, and stake delegation.</p>
@@ -1573,7 +1513,9 @@
         </div>
 
         <div class="arch-item reveal">
-            <span class="arch-num">09</span>
+            <div class="arch-num icon-red">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </div>
             <div class="arch-title">Proof of Participation<span class="arch-tag tag-inclusive">Inclusive</span></div>
             <div class="arch-body">
                 <p>Zero-balance nodes earn 0.001 IOC per block by relaying transactions. The first blockchain where anyone can earn from nothing.</p>
