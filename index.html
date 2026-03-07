@@ -1023,70 +1023,94 @@
 
         /* ===== MOBILE ===== */
         @media (max-width: 768px) {
-            body::before {
-                background-size: 40px 40px;
-            }
-
+            body::before { background-size: 40px 40px; }
             .scan-line { display: none; }
-
-            .floating-nav {
-                display: none;
-            }
+            .floating-nav { display: none; }
 
             section {
-                padding: 4rem 1.25rem;
+                padding: 2.5rem 1rem;
             }
 
             .cinematic-section {
-                padding: 5rem 1.25rem;
+                padding: 2.5rem 1rem;
             }
 
             .cta-section {
-                padding: 5rem 1.25rem;
+                padding: 2.5rem 1rem;
             }
 
             .hero {
-                padding: 4rem 1.25rem 3rem;
+                padding: 2.5rem 1rem 2rem;
             }
 
-            .floating-nav {
-                padding: 4px 4px;
-                gap: 1px;
+            .hero h1 {
+                font-size: 2.2rem;
+                margin-bottom: 1rem;
             }
-            .floating-nav a {
-                font-size: 0.7rem;
-                padding: 6px 12px;
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 2rem;
+                line-height: 1.5;
             }
 
             .hero-meta {
-                gap: 1.25rem;
+                gap: 1rem;
+            }
+
+            .hero-meta-item .counter-value {
+                font-size: 1.4rem;
+            }
+
+            .hero-meta-item .counter-label {
+                font-size: 0.6rem;
+                letter-spacing: 0.08em;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .section-desc {
+                font-size: 0.85rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .section-eyebrow {
+                font-size: 0.7rem;
+                margin-bottom: 0.5rem;
             }
 
             .stats-bar {
                 grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+                padding: 1.5rem 0.75rem;
             }
 
-            .comparison-row {
-                grid-template-columns: 1fr;
+            .stat-item .stat-number {
+                font-size: 1.5rem;
             }
 
-            .comparison-row.header-row {
-                display: none;
+            .stat-item .stat-number .stat-suffix {
+                font-size: 0.75rem;
             }
 
-            .comp-cell {
-                padding: 0.75rem 1rem;
+            .stat-item .stat-label {
+                font-size: 0.55rem;
+                letter-spacing: 0.06em;
+                margin-top: 0.25rem;
             }
 
+            .comparison-row { grid-template-columns: 1fr; }
+            .comparison-row.header-row { display: none; }
+            .comp-cell { padding: 0.6rem 0.85rem; }
             .comp-cell.label-cell {
                 background: rgba(59,130,246,0.05);
-                font-size: 0.85rem;
-                padding: 0.75rem 1rem;
+                font-size: 0.8rem;
+                padding: 0.6rem 0.85rem;
             }
-
-            .comparison-grid {
-                gap: 0.75rem;
-            }
+            .comp-cell .comp-value { font-size: 0.85rem; }
+            .comparison-grid { gap: 0.5rem; }
 
             .comparison-grid .reveal,
             .comparison-grid .reveal-delay-1,
@@ -1099,127 +1123,209 @@
             }
 
             .arch-item {
-                grid-template-columns: 2.5rem 1fr;
-                gap: 1rem;
+                grid-template-columns: 2rem 1fr;
+                gap: 0.75rem;
+                padding: 1.25rem 0;
+            }
+
+            .arch-num {
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+            }
+
+            .arch-num svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .arch-title {
+                font-size: 0.95rem;
+            }
+
+            .arch-title .arch-tag {
+                font-size: 0.45rem;
+                padding: 2px 5px;
+                margin-left: 0.5rem;
             }
 
             .arch-body {
                 grid-column: 1 / -1;
-                padding-left: 3.5rem;
+                padding-left: 2.75rem;
             }
 
-            .build-grid {
-                grid-template-columns: 1fr;
+            .arch-body p {
+                font-size: 0.8rem;
+                line-height: 1.5;
             }
 
+            .arch-body .arch-spec {
+                font-size: 0.6rem;
+            }
+
+            .build-grid { grid-template-columns: 1fr; }
             .build-card {
+                padding: 1.5rem 1.25rem;
                 border-right: none;
                 border-bottom: 1px solid var(--border);
             }
             .build-card:last-child { border-bottom: none; }
+            .build-card h3 { font-size: 0.9rem; }
+            .build-card p { font-size: 0.8rem; }
 
             .security-hero {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 1.5rem;
                 text-align: center;
+            }
+
+            .security-hero-left .big-stat {
+                font-size: 3rem;
+            }
+
+            .security-hero-left .big-stat-label {
+                font-size: 0.9rem;
+            }
+
+            .security-mini-card {
+                padding: 1rem;
+            }
+
+            .security-mini-card .mini-num {
+                font-size: 1.5rem;
+            }
+
+            .security-mini-card .mini-label {
+                font-size: 0.65rem;
             }
 
             .severity-row {
                 flex-wrap: wrap;
-                gap: 0.5rem;
+                gap: 0.4rem;
+                padding: 0.6rem 0.85rem;
+            }
+
+            .severity-text {
+                font-size: 0.75rem;
             }
 
             .severity-status {
                 margin-left: 0;
                 width: 100%;
                 text-align: right;
+                font-size: 0.6rem;
+            }
+
+            .cta-title {
+                font-size: 1.75rem;
+            }
+
+            .cta-desc {
+                font-size: 0.9rem;
+                margin-bottom: 2rem;
+            }
+
+            .cta-buttons {
+                margin-bottom: 2rem;
+            }
+
+            .cta-btn {
+                padding: 12px 24px;
+                font-size: 0.8rem;
             }
 
             .rewards-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-                padding: 0 0.5rem;
+                gap: 0.75rem;
+                padding: 0;
             }
 
             .reward-card {
-                padding: 1.5rem 1.25rem;
+                padding: 1.25rem 1rem;
             }
 
-            .reward-card h4 {
-                font-size: 0.85rem;
+            .reward-card .reward-icon {
+                width: 40px;
+                height: 40px;
+                margin-bottom: 0.75rem;
             }
 
-            .reward-card p {
-                font-size: 0.75rem;
-            }
-
-            .reward-card .reward-amount {
-                font-size: 1rem;
-            }
+            .reward-card h4 { font-size: 0.8rem; }
+            .reward-card p { font-size: 0.7rem; }
+            .reward-card .reward-amount { font-size: 0.9rem; }
 
             .tier-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+
+            .tier-card {
+                padding: 1.25rem 0.75rem;
+            }
+
+            .tier-name { font-size: 0.65rem; }
+            .tier-stake { font-size: 1.25rem; }
+            .tier-features li { font-size: 0.7rem; }
+
+            .section-inner { padding: 0 0.5rem; }
+            .code-block { font-size: 0.7rem; padding: 1rem; }
+            .divider { margin: 0; }
+
+            footer { padding: 2rem 1rem; }
+            footer p { font-size: 0.7rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-meta {
+                display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 0.75rem;
             }
 
-            .tier-card {
-                padding: 1.5rem 1rem;
-            }
-
-            .tier-stake {
-                font-size: 1.5rem;
-            }
-
-            .section-inner {
-                padding: 0 1.25rem;
-            }
-
-            .code-block {
-                font-size: 0.75rem;
-                padding: 1.25rem;
-            }
-
-            .cta-btn {
-                padding: 14px 28px;
-                font-size: 0.85rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-meta {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
+            .hero-meta-item .counter-value {
+                font-size: 1.2rem;
             }
 
             .stats-bar {
                 grid-template-columns: repeat(2, 1fr);
+                padding: 1.25rem 0.5rem;
             }
 
-            .tier-grid {
-                grid-template-columns: 1fr;
+            .stat-item .stat-number {
+                font-size: 1.3rem;
             }
 
-            .rewards-grid {
-                grid-template-columns: 1fr;
+            .stat-item .stat-label {
+                font-size: 0.5rem;
             }
 
-            .security-hero-right {
-                grid-template-columns: 1fr 1fr;
+            .section-title {
+                font-size: 1.3rem;
             }
 
-            .arch-body {
-                padding-left: 0;
-            }
+            .tier-grid { grid-template-columns: 1fr; }
+            .rewards-grid { grid-template-columns: 1fr; }
+            .security-hero-right { grid-template-columns: 1fr 1fr; }
+            .arch-body { padding-left: 0; }
 
             .severity-badge {
-                min-width: 60px;
-                font-size: 0.6rem;
-                padding: 3px 6px;
+                min-width: 55px;
+                font-size: 0.55rem;
+                padding: 2px 5px;
             }
 
-            .severity-text {
-                font-size: 0.75rem;
+            .severity-text { font-size: 0.7rem; }
+
+            .security-hero-left .big-stat {
+                font-size: 2.5rem;
+            }
+
+            .cta-title {
+                font-size: 1.4rem;
             }
         }
 
