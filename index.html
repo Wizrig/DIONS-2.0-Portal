@@ -5,29 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIONS 2.0 — The Future of Decentralized Infrastructure</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Sora:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap');
 
         :root {
-            --bg: #030408;
-            --surface: #0a0b16;
-            --card: rgba(10,12,28,0.6);
-            --border: rgba(255,255,255,0.06);
-            --text: #8b95a5;
-            --text-bright: #e5e7eb;
-            --heading: #f9fafb;
+            --bg: #000000;
+            --surface: #0a0a0a;
+            --border: rgba(255,255,255,0.08);
+            --text: #888888;
+            --text-bright: #cccccc;
+            --heading: #ffffff;
             --accent: #6c8cff;
-            --accent-bright: #8ba4ff;
-            --accent-glow: rgba(108,140,255,0.2);
+            --purple: #c084fc;
             --green: #34d399;
             --red: #f87171;
             --yellow: #fbbf24;
             --orange: #fb923c;
-            --purple: #c084fc;
             --teal: #2dd4bf;
-            --eth: #8b9cf7;
-            --sol: #34d399;
-            --ioc-legacy: #e5a126;
-            --dions: #6c8cff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,921 +31,558 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ===== COSMIC SPACE BACKGROUND ===== */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 800px 600px at 15% 15%, rgba(108,140,255,0.18) 0%, transparent 70%),
-                radial-gradient(ellipse 700px 500px at 85% 20%, rgba(192,132,252,0.14) 0%, transparent 70%),
-                radial-gradient(ellipse 900px 700px at 50% 75%, rgba(52,211,153,0.08) 0%, transparent 70%),
-                radial-gradient(ellipse 600px 400px at 70% 55%, rgba(108,140,255,0.08) 0%, transparent 70%),
-                radial-gradient(ellipse 500px 500px at 30% 50%, rgba(192,132,252,0.06) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-            animation: nebulaShift 30s ease-in-out infinite alternate;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.5;
-            background-image:
-                radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.5), transparent),
-                radial-gradient(1px 1px at 25% 45%, rgba(255,255,255,0.4), transparent),
-                radial-gradient(1.5px 1.5px at 40% 10%, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 55% 35%, rgba(255,255,255,0.3), transparent),
-                radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,0.5), transparent),
-                radial-gradient(1.5px 1.5px at 85% 50%, rgba(255,255,255,0.4), transparent),
-                radial-gradient(1px 1px at 15% 65%, rgba(255,255,255,0.35), transparent),
-                radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,0.3), transparent),
-                radial-gradient(1.5px 1.5px at 60% 70%, rgba(192,132,252,0.5), transparent),
-                radial-gradient(1px 1px at 90% 75%, rgba(255,255,255,0.4), transparent),
-                radial-gradient(1px 1px at 5% 90%, rgba(255,255,255,0.3), transparent),
-                radial-gradient(1px 1px at 45% 55%, rgba(108,140,255,0.4), transparent),
-                radial-gradient(1px 1px at 75% 85%, rgba(255,255,255,0.35), transparent),
-                radial-gradient(1.5px 1.5px at 20% 30%, rgba(52,211,153,0.4), transparent),
-                radial-gradient(1px 1px at 95% 10%, rgba(255,255,255,0.5), transparent),
-                radial-gradient(1px 1px at 35% 95%, rgba(255,255,255,0.3), transparent),
-                radial-gradient(1px 1px at 65% 5%, rgba(255,255,255,0.4), transparent),
-                radial-gradient(1px 1px at 80% 40%, rgba(255,255,255,0.3), transparent),
-                radial-gradient(1.5px 1.5px at 50% 50%, rgba(108,140,255,0.5), transparent),
-                radial-gradient(1px 1px at 12% 42%, rgba(255,255,255,0.35), transparent);
-            background-size: 100% 100%;
-        }
-
-        body > * { position: relative; z-index: 1; }
-
-        @keyframes nebulaShift {
-            0% { opacity: 0.7; transform: scale(1) rotate(0deg); }
-            100% { opacity: 1; transform: scale(1.05) rotate(1deg); }
-        }
-
-        /* Cosmic star field overlay */
-        .star-field {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .star {
-            position: absolute;
-            border-radius: 50%;
-            background: white;
-            animation: starTwinkle ease-in-out infinite;
-        }
-
-        @keyframes starTwinkle {
-            0%, 100% { opacity: 0.15; transform: scale(0.8); }
-            50% { opacity: 0.9; transform: scale(1.2); }
-        }
-
-        @keyframes orbFloat {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, -60px) scale(1.2); }
-        }
-
-        /* ===== SCROLL ANIMATIONS (Apple-style) ===== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .reveal-delay-1 { transition-delay: 0.15s; }
-        .reveal-delay-2 { transition-delay: 0.3s; }
-        .reveal-delay-3 { transition-delay: 0.45s; }
-        .reveal-delay-4 { transition-delay: 0.6s; }
-
-        /* ===== FLOATING NAV ===== */
-        .floating-nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            background: rgba(10,10,15,0.9);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 50px;
-            padding: 5px 6px;
-            display: flex;
-            gap: 2px;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(255,255,255,0.05) inset;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        .floating-nav.visible { opacity: 1; }
-        .floating-nav a {
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            font-size: 0.78rem;
-            font-weight: 500;
-            padding: 8px 18px;
-            border-radius: 50px;
-            transition: all 0.25s ease;
-            white-space: nowrap;
-            letter-spacing: -0.01em;
-        }
-        .floating-nav a:hover {
-            color: rgba(255,255,255,0.85);
-            background: rgba(255,255,255,0.06);
-        }
-        .floating-nav a.active {
-            color: #fff;
-            background: rgba(108,140,255,0.2);
-            box-shadow: 0 0 16px rgba(108,140,255,0.1);
-        }
-
-        /* ===== HERO (Apple keynote scale) ===== */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8rem 2rem 6rem;
-            position: relative;
-            overflow: hidden;
-            max-width: 100%;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1400px;
-            height: 1200px;
-            background:
-                radial-gradient(circle at 50% 50%, rgba(108,140,255,0.22) 0%, transparent 40%),
-                radial-gradient(circle at 35% 40%, rgba(192,132,252,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 65% 55%, rgba(108,140,255,0.12) 0%, transparent 55%),
-                radial-gradient(circle at 50% 60%, rgba(52,211,153,0.06) 0%, transparent 50%);
-            pointer-events: none;
-            animation: heroGlow 12s ease-in-out infinite alternate;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 200px;
-            background: linear-gradient(to top, var(--bg), transparent);
-            pointer-events: none;
-        }
-
-        @keyframes heroGlow {
-            0% { opacity: 0.5; transform: translateX(-50%) scale(1); }
-            100% { opacity: 1; transform: translateX(-50%) scale(1.15); }
-        }
-
-        .hero-logo-wrapper {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin-bottom: 2.5rem;
-            animation: fadeInScale 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-        }
-
-        .hero-logo {
-            width: 80px;
-            height: 80px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            filter: drop-shadow(0 0 30px rgba(108,140,255,0.35));
-            z-index: 2;
-        }
-
-        .logo-glow {
-            position: absolute;
-            inset: -30px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(108,140,255,0.15) 0%, rgba(192,132,252,0.08) 40%, transparent 70%);
-            animation: logoBreath 4s ease-in-out infinite;
-        }
-
-        @keyframes logoBreath {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 1; }
-        }
-
-        /* Orbital rings */
-        .orbital-ring {
-            position: absolute;
-            inset: 5px;
-            border: 1.5px solid rgba(108,140,255,0.25);
-            border-radius: 50%;
-            animation: orbitalSpin 12s linear infinite;
-        }
-
-        .orbital-ring::after {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: 50%;
-            width: 7px;
-            height: 7px;
-            background: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--accent), 0 0 25px rgba(108,140,255,0.5);
-        }
-
-        .orbital-ring:nth-child(3) {
-            inset: -10px;
-            border-color: rgba(192,132,252,0.2);
-            animation-duration: 18s;
-            animation-direction: reverse;
-        }
-
-        .orbital-ring:nth-child(3)::after {
-            background: var(--purple);
-            box-shadow: 0 0 12px var(--purple), 0 0 25px rgba(192,132,252,0.5);
-            width: 6px;
-            height: 6px;
-        }
-
-        .orbital-ring:nth-child(4) {
-            inset: -28px;
-            border-color: rgba(52,211,153,0.12);
-            animation-duration: 26s;
-        }
-
-        .orbital-ring:nth-child(4)::after {
-            background: var(--green);
-            box-shadow: 0 0 10px var(--green), 0 0 20px rgba(52,211,153,0.4);
-            width: 5px;
-            height: 5px;
-        }
-
-        @keyframes orbitalSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .hero-eyebrow {
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-        }
-
-        .hero h1 {
-            font-family: 'Sora', 'Inter', sans-serif;
-            font-size: clamp(3.5rem, 10vw, 8rem);
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            line-height: 0.95;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
-        }
-
-        .hero h1 .gradient-text {
-            background: linear-gradient(135deg, #7b9eff 0%, #b08dff 25%, #d4a0ff 50%, #b08dff 75%, #7b9eff 100%);
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 6s ease infinite;
-            filter: drop-shadow(0 0 80px rgba(108,140,255,0.35)) drop-shadow(0 0 120px rgba(192,132,252,0.2));
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% center; }
-            50% { background-position: 100% center; }
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.05rem, 2.5vw, 1.4rem);
-            color: var(--text);
-            max-width: 580px;
-            font-weight: 400;
-            line-height: 1.7;
-            margin-bottom: 3.5rem;
-            animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s both;
-        }
-
-        .hero-meta {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
-        }
-
-        .hero-meta-item {
-            text-align: center;
-        }
-
-        .hero-meta-item .counter-value {
-            font-family: 'Sora', 'Inter', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--heading);
-            letter-spacing: -0.04em;
-            line-height: 1;
-        }
-
-        .hero-meta-item .counter-label {
-            font-size: 0.75rem;
-            color: var(--text);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 500;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* ===== SECTION COMMON (Apple spacing) ===== */
-        section {
-            padding: 10rem 2rem;
-            max-width: 1600px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .section-full {
-            max-width: 100%;
-            padding: 10rem 0;
-        }
-
-        .section-inner {
-            max-width: 1600px;
+        /* ===== LAYOUT ===== */
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
 
-        .section-eyebrow {
+        section {
+            padding: 8rem 0;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: var(--border);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== FLOATING NAV ===== */
+        .nav {
+            position: fixed;
+            top: 1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 0.25rem;
+            padding: 0.35rem;
+            background: rgba(10,10,10,0.9);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .nav a {
+            color: #666;
+            text-decoration: none;
             font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
+            font-weight: 500;
+            padding: 0.4rem 0.9rem;
+            border-radius: 100px;
+            transition: color 0.2s ease, background 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav a:hover { color: var(--text-bright); }
+
+        .nav a.active {
+            color: var(--heading);
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-d1 { transition-delay: 0.1s; }
+        .reveal-d2 { transition-delay: 0.2s; }
+        .reveal-d3 { transition-delay: 0.3s; }
+        .reveal-d4 { transition-delay: 0.4s; }
+
+        /* ===== TYPOGRAPHY ===== */
+        .eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--accent);
             margin-bottom: 1.25rem;
         }
 
-        .section-title {
-            font-family: 'Sora', 'Inter', sans-serif;
-            font-size: clamp(2.25rem, 5.5vw, 4rem);
+        .title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
             font-weight: 700;
             color: var(--heading);
-            letter-spacing: -0.04em;
-            line-height: 1.05;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
             margin-bottom: 1.25rem;
         }
 
-        .section-desc {
-            font-size: 1.15rem;
+        .desc {
+            font-size: 1.1rem;
             color: var(--text);
-            max-width: 600px;
+            max-width: 560px;
             line-height: 1.7;
-            margin-bottom: 5rem;
         }
 
-        /* ===== DIVIDER ===== */
-        .divider {
-            height: 1px;
-            max-width: 1600px;
-            margin: 0 auto;
+        /* ===== HERO ===== */
+        .hero {
             position: relative;
-            background: linear-gradient(90deg, transparent 5%, rgba(108,140,255,0.2) 30%, rgba(192,132,252,0.15) 50%, rgba(108,140,255,0.2) 70%, transparent 95%);
-        }
-
-        .divider::after {
-            content: '';
-            position: absolute;
-            inset: -8px 0;
-            background: linear-gradient(90deg, transparent 5%, rgba(108,140,255,0.04) 30%, rgba(192,132,252,0.03) 50%, rgba(108,140,255,0.04) 70%, transparent 95%);
-            filter: blur(8px);
-            pointer-events: none;
-        }
-
-        /* ===== COMPARISON SCORECARDS ===== */
-        .comparison-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .comparison-row {
-            display: grid;
-            grid-template-columns: 200px 1fr 1fr 1fr;
-            gap: 1px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .comparison-row.header-row {
-            background: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .comparison-row.header-row .comp-cell {
-            background: transparent;
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .comp-cell {
-            padding: 1.25rem 1.5rem;
-            background: rgba(17,17,24,0.4);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-        }
-
-        .comp-cell.label-cell {
-            font-weight: 600;
-            color: var(--text-bright);
-            font-size: 0.9rem;
-            background: rgba(17,17,24,0.6);
-        }
-
-        .comp-cell .chain-name {
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .comp-cell .chain-name.eth { color: var(--eth); }
-        .comp-cell .chain-name.sol { color: var(--sol); }
-        .comp-cell .chain-name.dions { color: var(--accent); }
-
-        .comp-cell .comp-value {
-            font-size: 0.95rem;
-            color: var(--text);
-        }
-
-        .comp-cell.winner {
-            background: rgba(108,140,255,0.08);
-            border: 1px solid rgba(108,140,255,0.15);
-            box-shadow: inset 0 0 30px rgba(108,140,255,0.04);
-        }
-
-        .comp-cell.winner .comp-value {
-            color: var(--heading);
-            font-weight: 600;
-        }
-
-        .comparison-row:hover .comp-cell {
-            background: rgba(17,17,24,0.6);
-        }
-
-        .comparison-row:hover .comp-cell.winner {
-            background: rgba(108,140,255,0.1);
-            box-shadow: inset 0 0 40px rgba(108,140,255,0.06);
-        }
-
-        .win-badge {
-            display: inline-block;
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-top: 0.25rem;
-        }
-
-        /* ===== ARCHITECTURE FEATURE LIST ===== */
-        .arch-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: rgba(255,255,255,0.04);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .arch-cell {
-            background: rgba(8,10,22,0.9);
-            padding: 2.5rem 2rem;
-            position: relative;
-            transition: background 0.3s ease;
-        }
-
-        .arch-cell:hover {
-            background: rgba(14,16,32,0.95);
-        }
-
-        .arch-cell .arch-icon-wrap {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.25rem;
-            font-size: 1.2rem;
-        }
-
-        .arch-icon-wrap.blue { background: rgba(108,140,255,0.1); color: var(--accent); }
-        .arch-icon-wrap.green { background: rgba(52,211,153,0.1); color: var(--green); }
-        .arch-icon-wrap.purple { background: rgba(192,132,252,0.1); color: var(--purple); }
-        .arch-icon-wrap.yellow { background: rgba(251,191,36,0.1); color: var(--yellow); }
-        .arch-icon-wrap.teal { background: rgba(45,212,191,0.1); color: var(--teal); }
-        .arch-icon-wrap.orange { background: rgba(251,146,60,0.1); color: var(--orange); }
-        .arch-icon-wrap.red { background: rgba(248,113,113,0.1); color: var(--red); }
-
-        .arch-cell h3 {
-            font-family: 'Sora', 'Inter', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--heading);
-            margin-bottom: 0.6rem;
-            letter-spacing: -0.01em;
-        }
-
-        .arch-cell p {
-            font-size: 0.875rem;
-            color: var(--text);
-            line-height: 1.65;
-        }
-
-        .arch-cell .arch-tag {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            padding: 0.25rem 0.6rem;
-            border-radius: 4px;
-            margin-top: 1rem;
-        }
-
-        .arch-tag.blue { background: rgba(108,140,255,0.1); color: var(--accent); }
-        .arch-tag.green { background: rgba(52,211,153,0.1); color: var(--green); }
-        .arch-tag.purple { background: rgba(192,132,252,0.1); color: var(--purple); }
-        .arch-tag.yellow { background: rgba(251,191,36,0.1); color: var(--yellow); }
-        .arch-tag.teal { background: rgba(45,212,191,0.1); color: var(--teal); }
-        .arch-tag.orange { background: rgba(251,146,60,0.1); color: var(--orange); }
-        .arch-tag.red { background: rgba(248,113,113,0.1); color: var(--red); }
-
-        /* Standard feature card styles within bento */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .feature-card {
-            background: rgba(12,14,30,0.5);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 24px;
-            padding: 2.75rem;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent 10%, rgba(108,140,255,0.25), rgba(192,132,252,0.2), transparent 90%);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-
-        .feature-card:hover {
-            border-color: rgba(108,140,255,0.12);
-            transform: translateY(-6px);
-            box-shadow: 0 30px 80px -20px rgba(108,140,255,0.15), 0 0 80px -15px rgba(108,140,255,0.06);
-            background: rgba(12,15,32,0.7);
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .feature-icon.blue { background: rgba(59,130,246,0.12); color: var(--accent); }
-        .feature-icon.purple { background: rgba(168,85,247,0.12); color: var(--purple); }
-        .feature-icon.green { background: rgba(34,197,94,0.12); color: var(--green); }
-        .feature-icon.yellow { background: rgba(234,179,8,0.12); color: var(--yellow); }
-        .feature-icon.orange { background: rgba(249,115,22,0.12); color: var(--orange); }
-        .feature-icon.teal { background: rgba(20,184,166,0.12); color: var(--teal); }
-        .feature-icon.red { background: rgba(239,68,68,0.12); color: var(--red); }
-
-        .feature-card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--heading);
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.02em;
-        }
-
-        .feature-card p {
-            font-size: 0.9rem;
-            color: var(--text);
-            line-height: 1.7;
-        }
-
-        .feature-card .feature-detail {
-            margin-top: 1.25rem;
-            padding-top: 1.25rem;
-            border-top: 1px solid var(--border);
-            font-size: 0.8rem;
-            color: var(--text);
-        }
-
-        .feature-card .feature-detail strong {
-            color: var(--text-bright);
-        }
-
-        /* ===== STATS BAR ===== */
-        .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 2rem;
-            padding: 5rem 2rem;
-            max-width: 1600px;
-            margin: 0 auto;
             text-align: center;
+            padding: 6rem 2rem 4rem;
         }
 
-        .stat-item .stat-number {
-            font-family: 'Sora', 'Inter', sans-serif;
-            font-size: clamp(2.5rem, 4vw, 3.5rem);
-            font-weight: 700;
-            color: var(--heading);
-            letter-spacing: -0.04em;
-            line-height: 1;
-        }
-
-        .stat-item .stat-number .stat-suffix {
-            font-size: 0.5em;
-            color: var(--accent-bright);
-            font-weight: 600;
-        }
-
-        .stat-item {
-            position: relative;
-        }
-
-        .stat-item::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 20%;
-            height: 60%;
-            width: 1px;
-            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.06), transparent);
-        }
-
-        .stat-item:last-child::after { display: none; }
-
-        .stat-item .stat-label {
-            font-size: 0.72rem;
-            color: var(--text);
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            font-weight: 500;
-            margin-top: 0.75rem;
-        }
-
-        /* ===== CINEMATIC FEATURE SECTION (Apple-style) ===== */
-        .cinematic-section {
-            padding: 12rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cinematic-section::before {
-            content: '';
+        .hero-canvas {
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse 900px 600px at 50% 30%, var(--glow-color, rgba(59,130,246,0.08)) 0%, transparent 70%);
-            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+            -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, black 30%, transparent 70%);
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, black 30%, transparent 70%);
         }
 
-        .cinematic-section .section-title {
-            max-width: 800px;
-            margin: 0 auto 1rem;
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
-        .cinematic-section .section-desc {
-            margin: 0 auto 4rem;
-            text-align: center;
-        }
-
-        /* ===== SECURITY SECTION ===== */
-        .security-hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            margin-bottom: 4rem;
-        }
-
-        .security-hero-left .big-stat {
-            font-family: 'Sora', 'Inter', sans-serif;
-            font-size: clamp(4.5rem, 12vw, 8rem);
-            font-weight: 700;
-            letter-spacing: -0.05em;
-            line-height: 0.95;
-            background: linear-gradient(135deg, #34d399, #6ee7b7, #34d399);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 0 40px rgba(52,211,153,0.2));
-            margin-bottom: 0.75rem;
-        }
-
-        .security-hero-left .big-stat-label {
-            font-size: 1.1rem;
-            color: var(--text-bright);
+        .hero-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
             font-weight: 500;
-        }
-
-        .security-hero-right {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
-        }
-
-        .security-mini-card {
-            background: var(--card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: border-color 0.3s ease;
-        }
-
-        .security-mini-card:hover {
-            border-color: rgba(255,255,255,0.1);
-        }
-
-        .security-mini-card .mini-num {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-        }
-
-        .security-mini-card .mini-num.green-num { color: var(--green); }
-        .security-mini-card .mini-num.blue-num { color: var(--accent); }
-        .security-mini-card .mini-num.purple-num { color: var(--purple); }
-        .security-mini-card .mini-num.yellow-num { color: var(--yellow); }
-
-        .security-mini-card .mini-label {
-            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
             color: var(--text);
-            margin-top: 0.4rem;
-            line-height: 1.4;
-        }
-
-        .severity-list {
+            margin-bottom: 2rem;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             gap: 0.75rem;
         }
 
-        .severity-row {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.75rem 1.25rem;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
+        .hero-tag .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .severity-badge {
-            font-size: 0.65rem;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(4rem, 10vw, 8rem);
             font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text);
+            max-width: 520px;
+            margin: 0 auto 3.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--heading);
+            display: block;
+        }
+
+        .hero-stat .label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #555;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        /* ===== METRICS BAR ===== */
+        .metrics {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 3rem 0;
+        }
+
+        .metrics-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .metric {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .metric .val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: var(--heading);
+            line-height: 1;
+        }
+
+        .metric .val .suffix {
+            font-size: 0.5em;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .metric .lbl {
+            font-size: 0.75rem;
+            color: #555;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* ===== COMPARISON ===== */
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 3rem;
+        }
+
+        .comp-table th,
+        .comp-table td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .comp-table thead th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 6px;
+            color: #555;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .comp-table tbody td {
+            color: var(--text);
+        }
+
+        .comp-table tbody td:first-child {
+            color: var(--text-bright);
+            font-weight: 500;
+        }
+
+        .comp-table .dions-col {
+            color: var(--heading);
+            font-weight: 500;
+            background: rgba(108,140,255,0.04);
+        }
+
+        .comp-table thead .dions-col {
+            color: var(--accent);
+        }
+
+        .comp-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .win {
+            color: var(--accent);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+        }
+
+        /* ===== ARCHITECTURE ===== */
+        .arch-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .arch-primary {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .arch-hero-feature {
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .arch-hero-feature:last-child {
+            border-bottom: none;
+        }
+
+        .arch-hero-feature h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--heading);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+
+        .arch-hero-feature p {
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .arch-hero-feature .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-top: 0.75rem;
+            display: inline-block;
+        }
+
+        .arch-secondary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            align-self: start;
+        }
+
+        .arch-card {
+            background: var(--bg);
+            padding: 1.75rem;
+        }
+
+        .arch-card h4 {
+            font-family: 'Sora', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--heading);
+            margin-bottom: 0.5rem;
+        }
+
+        .arch-card p {
+            font-size: 0.82rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .arch-card .icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        /* ===== SECURITY ===== */
+        .security-big {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin: 3rem 0 2rem;
+        }
+
+        .security-big .big-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(6rem, 12vw, 10rem);
+            font-weight: 700;
+            color: var(--heading);
+            line-height: 1;
+            letter-spacing: -0.04em;
+        }
+
+        .security-big .big-label {
+            font-size: 1rem;
+            color: #555;
+            max-width: 200px;
+            line-height: 1.5;
+        }
+
+        .severity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .severity-table td {
+            padding: 0.85rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        .severity-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .severity-table .sev-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            display: inline-block;
             min-width: 72px;
             text-align: center;
         }
 
-        .severity-badge.critical { background: rgba(239,68,68,0.15); color: var(--red); }
-        .severity-badge.high { background: rgba(249,115,22,0.15); color: var(--orange); }
-        .severity-badge.medium { background: rgba(234,179,8,0.15); color: var(--yellow); }
-        .severity-badge.low { background: rgba(59,130,246,0.15); color: var(--accent); }
-        .severity-badge.deferred { background: rgba(255,255,255,0.05); color: var(--text); }
+        .sev-critical { background: rgba(248,113,113,0.12); color: var(--red); }
+        .sev-high { background: rgba(251,146,60,0.12); color: var(--orange); }
+        .sev-medium { background: rgba(251,191,36,0.12); color: var(--yellow); }
+        .sev-low { background: rgba(108,140,255,0.12); color: var(--accent); }
+        .sev-deferred { background: rgba(255,255,255,0.05); color: #555; }
 
-        .severity-text {
-            font-size: 0.85rem;
+        .severity-table .sev-text {
+            color: var(--text);
+            padding-left: 1rem;
+        }
+
+        .severity-table .sev-status {
+            text-align: right;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--green);
+            letter-spacing: 0.04em;
+        }
+
+        .severity-table .sev-status.deferred {
+            color: #555;
+        }
+
+        .security-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .security-stat .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--heading);
+        }
+
+        .security-stat .lbl {
+            font-size: 0.75rem;
+            color: #555;
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* ===== CTA ===== */
+        .cta-section {
+            text-align: center;
+            padding: 8rem 0;
+        }
+
+        .cta-section .title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        .cta-section .desc {
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Sora', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--heading);
+            background: var(--accent);
+            padding: 1rem 2.5rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 24px rgba(108,140,255,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
             color: var(--text-bright);
         }
 
-        .severity-status {
-            margin-left: auto;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--green);
-        }
-
-        .severity-status.deferred-status {
-            color: var(--text);
-        }
-
-        @media (max-width: 768px) {
-            .security-hero {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                text-align: center;
-            }
-        }
-
-        /* ===== WALLET CTA (Apple-style) ===== */
-        .cta-section {
-            text-align: center;
-            padding: 10rem 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 1200px;
-            height: 900px;
-            background: radial-gradient(circle, rgba(108,140,255,0.12) 0%, rgba(192,132,252,0.06) 35%, transparent 65%);
-            pointer-events: none;
-        }
-
-        .cta-title {
-            font-family: 'Sora', 'Inter', sans-serif;
-            font-size: clamp(2.75rem, 7vw, 4.5rem);
-            font-weight: 700;
-            color: var(--heading);
-            letter-spacing: -0.04em;
-            margin-bottom: 1.5rem;
-            line-height: 1.05;
-        }
-
-        .cta-desc {
-            font-size: 1.2rem;
-            color: var(--text);
-            max-width: 550px;
-            margin: 0 auto 3.5rem;
-            line-height: 1.7;
+        .btn-outline:hover {
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: none;
         }
 
         .cta-buttons {
@@ -960,214 +590,58 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 4rem;
         }
 
-        .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 18px 40px;
-            border-radius: 50px;
-            font-size: 1rem;
+        /* ===== TIERS ===== */
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 3rem;
+        }
+
+        .tier {
+            background: var(--bg);
+            padding: 2.25rem 1.5rem;
+            position: relative;
+        }
+
+        .tier.featured {
+            border-top: 2px solid var(--accent);
+        }
+
+        .tier .tier-name {
+            font-family: 'Sora', sans-serif;
+            font-size: 0.85rem;
             font-weight: 600;
-            text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: pointer;
-        }
-
-        .cta-btn.primary {
-            background: linear-gradient(135deg, #6c8cff, #5b6cfe);
-            color: #fff;
-            border: none;
-            box-shadow: 0 4px 25px rgba(108,140,255,0.3);
-        }
-
-        .cta-btn.primary:hover {
-            box-shadow: 0 12px 40px rgba(108,140,255,0.5), 0 0 80px rgba(108,140,255,0.15);
-            transform: translateY(-3px) scale(1.02);
-        }
-
-        .cta-btn.primary .coming-soon {
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            opacity: 0.7;
-        }
-
-        .cta-btn.secondary {
-            background: transparent;
             color: var(--text-bright);
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-
-        .cta-btn.secondary:hover {
-            border-color: rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.03);
-            transform: translateY(-2px);
-        }
-
-        .rewards-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.25rem;
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .reward-card {
-            background: linear-gradient(180deg, rgba(15,17,30,0.7) 0%, rgba(10,10,18,0.9) 100%);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 20px;
-            padding: 2.5rem 1.75rem;
-            text-align: center;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .reward-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--card-accent, var(--accent));
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
-        }
-
-        .reward-card:hover {
-            border-color: rgba(255,255,255,0.12);
-            transform: translateY(-5px);
-            box-shadow: 0 16px 50px rgba(0,0,0,0.5), 0 0 40px rgba(var(--card-accent-rgb, 108,140,255), 0.06);
-        }
-
-        .reward-card:hover::before {
-            opacity: 1;
-        }
-
-        .reward-card .reward-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 52px;
-            height: 52px;
-            margin: 0 auto 1.25rem;
-            border-radius: 14px;
-            transition: transform 0.3s ease;
-        }
-
-        .reward-card:hover .reward-icon {
-            transform: scale(1.08);
-        }
-
-        .reward-card h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--heading);
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.01em;
-        }
-
-        .reward-card p {
-            font-size: 0.82rem;
-            color: var(--text);
-            line-height: 1.6;
-            margin-bottom: 0.25rem;
-        }
-
-        .reward-card .reward-amount {
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-top: 0.75rem;
-            letter-spacing: -0.02em;
-        }
-
-        /* ===== TIER SYSTEM ===== */
-        .tier-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .tier-card {
-            background: rgba(12,14,30,0.5);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 20px;
-            padding: 2.25rem 1.75rem;
-            text-align: center;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .tier-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(108,140,255,0.1);
-            box-shadow: 0 20px 50px -15px rgba(108,140,255,0.08);
-        }
-
-        .tier-card.featured {
-            border-color: rgba(108,140,255,0.25);
-            box-shadow: 0 0 60px rgba(108,140,255,0.08), 0 0 120px rgba(108,140,255,0.03);
-            background: rgba(15,18,38,0.6);
-        }
-
-        .tier-card.featured::before {
-            content: 'POPULAR';
-            position: absolute;
-            top: 12px;
-            right: -28px;
-            transform: rotate(45deg);
-            background: var(--accent);
-            color: #fff;
-            font-size: 0.55rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            padding: 3px 30px;
-        }
-
-        .tier-name {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
             margin-bottom: 0.75rem;
         }
 
-        .tier-stake {
-            font-family: 'Sora', 'Inter', sans-serif;
+        .tier .tier-stake {
+            font-family: 'JetBrains Mono', monospace;
             font-size: 1.75rem;
             font-weight: 700;
             color: var(--heading);
-            letter-spacing: -0.02em;
-            margin-bottom: 0.25rem;
+            margin-bottom: 1.5rem;
         }
 
-        .tier-stake span {
-            font-size: 0.9rem;
+        .tier .tier-stake span {
+            font-size: 0.6em;
             color: var(--text);
             font-weight: 400;
         }
 
-        .tier-features {
+        .tier ul {
             list-style: none;
-            margin-top: 1.25rem;
-            padding-top: 1.25rem;
-            border-top: 1px solid var(--border);
-            text-align: left;
         }
 
-        .tier-features li {
-            font-size: 0.8rem;
+        .tier li {
+            font-size: 0.82rem;
             color: var(--text);
             padding: 0.3rem 0;
             display: flex;
@@ -1175,348 +649,157 @@
             gap: 0.5rem;
         }
 
-        .tier-features li .check {
-            color: var(--green);
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-
-        /* ===== ROADMAP ===== */
-        .timeline {
-            position: relative;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .timeline::before {
+        .tier li::before {
             content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--accent), var(--purple));
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            padding-left: 2.5rem;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -5px;
-            top: 6px;
-            width: 12px;
-            height: 12px;
+            width: 4px;
+            height: 4px;
             border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            flex-shrink: 0;
+        }
+
+        .tier.featured li::before {
             background: var(--accent);
-            border: 3px solid var(--bg);
-            box-shadow: 0 0 10px rgba(59,130,246,0.4);
         }
 
-        .timeline-item .timeline-date {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--accent);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-item h4 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--heading);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-item p {
-            font-size: 0.85rem;
-            color: var(--text);
-            line-height: 1.7;
-        }
-
-        /* ===== BUILD ===== */
+        /* ===== CODE BLOCK ===== */
         .code-block {
-            background: rgba(17,17,24,0.8);
+            background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 1.5rem 2rem;
-            font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+            padding: 2rem;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
+            line-height: 1.8;
             color: var(--text-bright);
             overflow-x: auto;
-            position: relative;
+            margin-top: 2.5rem;
         }
 
-        .code-block .code-comment {
-            color: var(--text);
-            opacity: 0.5;
+        .code-block .comment { color: #555; }
+        .code-block .keyword { color: var(--accent); }
+        .code-block .string { color: var(--green); }
+
+        .build-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 2.5rem;
         }
 
-        .code-block .code-keyword {
-            color: var(--accent);
+        .build-detail {
+            background: var(--bg);
+            padding: 1.75rem;
         }
 
-        .code-block .code-string {
-            color: var(--green);
+        .build-detail .key {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #555;
+            margin-bottom: 0.35rem;
+        }
+
+        .build-detail .value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--heading);
         }
 
         /* ===== FOOTER ===== */
         footer {
+            padding: 3rem 0;
             text-align: center;
-            padding: 4rem 2rem;
-            border-top: 1px solid rgba(255,255,255,0.04);
-        }
-
-        footer p {
             font-size: 0.8rem;
-            color: var(--text);
-            opacity: 0.6;
+            color: #444;
+            border-top: 1px solid var(--border);
         }
 
         footer a {
-            color: var(--accent);
+            color: #555;
             text-decoration: none;
         }
 
-        /* ===== MOBILE ===== */
-        @media (max-width: 768px) {
-            .hero-logo-wrapper {
-                width: 110px;
-                height: 110px;
-                margin-bottom: 1.5rem;
+        footer a:hover {
+            color: var(--text-bright);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            section { padding: 5rem 0; }
+
+            .arch-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
             }
 
-            .hero-logo {
-                width: 60px;
-                height: 60px;
-            }
-
-            .orbital-ring:nth-child(4) { display: none; }
-
-            .floating-nav {
-                display: none;
-            }
-
-            section {
-                padding: 5rem 1.25rem;
-            }
-
-            .cinematic-section {
-                padding: 6rem 1.25rem;
-            }
-
-            .cta-section {
-                padding: 6rem 1.25rem;
-            }
-
-            .hero {
-                padding: 5rem 1.25rem 4rem;
-            }
-
-            .hero h1 {
-                font-size: 2.75rem;
-            }
-
-            .hero-subtitle {
-                font-size: 0.95rem;
-                padding: 0 0.5rem;
-            }
-
-            .hero-meta {
-                gap: 1.25rem;
-            }
-
-            .hero-meta-item .counter-value {
-                font-size: 1.75rem;
-            }
-
-            .hero-meta-item .counter-label {
-                font-size: 0.65rem;
-            }
-
-            .stats-bar {
+            .tiers-grid {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 1.25rem;
-                padding: 3rem 1.25rem;
             }
 
-            .stat-item .stat-number {
-                font-size: 2rem;
-            }
-
-            .stat-item .stat-number .stat-suffix {
-                font-size: 1rem;
-            }
-
-            .stat-item .stat-label {
-                font-size: 0.65rem;
-            }
-
-            .comparison-row {
-                grid-template-columns: 1fr;
-            }
-
-            .comparison-row.header-row {
-                display: none;
-            }
-
-            .comp-cell.label-cell {
-                background: rgba(108,140,255,0.05);
-                font-size: 0.85rem;
-                padding: 0.75rem 1.25rem;
-            }
-
-            .arch-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .arch-cell {
-                padding: 1.75rem 1.5rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .feature-card {
-                padding: 1.75rem;
-            }
-
-            .security-hero {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                text-align: center;
-            }
-
-            .security-hero-left .big-stat {
-                font-size: 3.5rem;
-            }
-
-            .severity-row {
-                flex-wrap: wrap;
-                gap: 0.5rem;
-            }
-
-            .severity-status {
-                margin-left: 0;
-                width: 100%;
-                text-align: right;
-            }
-
-            .cta-title {
-                font-size: 2.25rem;
-            }
-
-            .cta-desc {
-                font-size: 1rem;
-            }
-
-            .rewards-grid {
+            .build-details {
                 grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-                padding: 0 0.5rem;
-            }
-
-            .reward-card {
-                padding: 1.5rem 1.25rem;
-            }
-
-            .reward-card h4 {
-                font-size: 0.85rem;
-            }
-
-            .reward-card p {
-                font-size: 0.75rem;
-            }
-
-            .reward-card .reward-amount {
-                font-size: 1rem;
-            }
-
-            .tier-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 0.75rem;
-            }
-
-            .tier-card {
-                padding: 1.5rem 1rem;
-            }
-
-            .tier-stake {
-                font-size: 1.5rem;
-            }
-
-            .section-inner {
-                padding: 0 1.25rem;
-            }
-
-            .section-title {
-                font-size: 1.75rem;
-            }
-
-            .section-desc {
-                font-size: 0.95rem;
-                margin-bottom: 2.5rem;
-            }
-
-            .code-block {
-                font-size: 0.75rem;
-                padding: 1.25rem;
-            }
-
-            .cta-btn {
-                padding: 14px 28px;
-                font-size: 0.85rem;
             }
         }
 
-        @media (max-width: 480px) {
-            .hero-meta {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
+        @media (max-width: 768px) {
+            .container { padding: 0 1.5rem; }
 
-            .stats-bar {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            section { padding: 4rem 0; }
 
-            .tier-grid {
+            .hero { min-height: auto; padding: 8rem 1.5rem 4rem; }
+            .hero-title { font-size: clamp(3rem, 12vw, 5rem); }
+            .hero-stats { gap: 1.5rem; }
+
+            .metrics-row { justify-content: center; }
+
+            .comp-table { font-size: 0.8rem; }
+            .comp-table th, .comp-table td { padding: 0.75rem 0.6rem; }
+
+            .arch-secondary {
                 grid-template-columns: 1fr;
             }
 
-            .rewards-grid {
+            .tiers-grid {
                 grid-template-columns: 1fr;
             }
 
-            .security-hero-right {
-                grid-template-columns: 1fr 1fr;
+            .security-big .big-num { font-size: 5rem; }
+            .security-stats { flex-wrap: wrap; gap: 2rem; }
+
+            .build-details {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                display: none;
             }
         }
 
         /* ===== REDUCED MOTION ===== */
         @media (prefers-reduced-motion: reduce) {
-            .reveal { transition: none; opacity: 1; transform: none; }
-            * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-            body::before, body::after, .star-field, .orbital-ring { display: none !important; }
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+            .hero-tag .dot { animation: none; }
+            .hero-canvas { display: none; }
         }
     </style>
 </head>
 <body>
 
-<!-- ===== COSMIC STAR FIELD ===== -->
-<div class="star-field" id="starField"></div>
-
 <!-- ===== FLOATING NAV ===== -->
-<nav class="floating-nav" id="floatingNav">
+<nav class="nav" id="floatingNav">
     <a href="#hero">Home</a>
-    <a href="#comparison">Compare</a>
+    <a href="#compare">Compare</a>
     <a href="#architecture">Architecture</a>
     <a href="#security">Security</a>
     <a href="#wallet">Wallet</a>
@@ -1526,488 +809,510 @@
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="hero">
-    <div class="hero-logo-wrapper">
-        <div class="logo-glow"></div>
-        <div class="orbital-ring"></div>
-        <div class="orbital-ring"></div>
-        <div class="orbital-ring"></div>
-        <img src="https://raw.githubusercontent.com/IOCoin/DIONS/main-legacy/doc/IOC-QT250PX.svg" alt="IOCoin" class="hero-logo" onerror="this.style.display='none'">
-    </div>
-    <p class="hero-eyebrow">IOCoin Protocol Upgrade</p>
-    <h1>
-        <span class="gradient-text">DIONS 2.0</span>
-    </h1>
-    <p class="hero-subtitle">
-        A revolutionary L1 with dual execution zones, post-quantum cryptography, and native identity. Fair launched in 2014.
-    </p>
-    <div class="hero-meta">
-        <div class="hero-meta-item">
-            <div class="counter-value" data-target="150" data-suffix="">0</div>
-            <div class="counter-label">RPC Methods</div>
+    <canvas class="hero-canvas" id="networkCanvas"></canvas>
+    <div class="hero-content">
+        <div class="hero-tag reveal">
+            <span class="dot"></span>
+            IOCoin Protocol Upgrade
         </div>
-        <div class="hero-meta-item">
-            <div class="counter-value" data-target="511" data-suffix="">0</div>
-            <div class="counter-label">Tests Passing</div>
-        </div>
-        <div class="hero-meta-item">
-            <div class="counter-value" data-target="22" data-suffix="">0</div>
-            <div class="counter-label">Subsystems</div>
-        </div>
-        <div class="hero-meta-item">
-            <div class="counter-value" data-target="52" data-suffix="K">0</div>
-            <div class="counter-label">Lines of Code</div>
+        <h1 class="hero-title reveal reveal-d1">DIONS 2.0</h1>
+        <p class="hero-sub reveal reveal-d2">A revolutionary L1 with dual execution zones, post-quantum cryptography, and native identity. Fair launched in 2014.</p>
+        <div class="hero-stats reveal reveal-d3">
+            <div class="hero-stat">
+                <span class="num counter" data-target="150">0</span>
+                <span class="label">RPC Methods</span>
+            </div>
+            <div class="hero-stat">
+                <span class="num counter" data-target="511">0</span>
+                <span class="label">Tests Passing</span>
+            </div>
+            <div class="hero-stat">
+                <span class="num counter" data-target="22">0</span>
+                <span class="label">Subsystems</span>
+            </div>
+            <div class="hero-stat">
+                <span class="num">64/64</span>
+                <span class="label">Verified</span>
+            </div>
         </div>
     </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- ===== STATS BAR ===== -->
-<div class="stats-bar reveal">
-    <div class="stat-item">
-        <div class="stat-number"><span class="counter" data-target="88">0</span> <span class="stat-suffix">TPS</span></div>
-        <div class="stat-label">L1 Throughput</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-number"><span class="counter" data-target="11">0</span><span class="stat-suffix">,000+</span></div>
-        <div class="stat-label">With Zones (EVM + SVM)</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-number"><span class="counter" data-target="30">0</span><span class="stat-suffix">s</span></div>
-        <div class="stat-label">Block Time</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-number"><span class="counter" data-target="67">0</span><span class="stat-suffix">%</span></div>
-        <div class="stat-label">Finality Threshold</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-number"><span class="counter" data-target="13">0</span></div>
-        <div class="stat-label">Binary Targets</div>
+<!-- ===== METRICS BAR ===== -->
+<div class="metrics">
+    <div class="container">
+        <div class="metrics-row">
+            <div class="metric reveal">
+                <div class="val"><span class="counter" data-target="2" data-suffix=".7">0</span> <span class="suffix">TPS</span></div>
+                <div class="lbl">Throughput</div>
+            </div>
+            <div class="metric reveal reveal-d1">
+                <div class="val">0.001 <span class="suffix">IOC</span></div>
+                <div class="lbl">Entry Cost</div>
+            </div>
+            <div class="metric reveal reveal-d2">
+                <div class="val">1 <span class="suffix">s</span></div>
+                <div class="lbl">Block Time</div>
+            </div>
+            <div class="metric reveal reveal-d3">
+                <div class="val">1 <span class="suffix">%</span></div>
+                <div class="lbl">Annual Staking</div>
+            </div>
+            <div class="metric reveal reveal-d4">
+                <div class="val"><span class="counter" data-target="0">0</span></div>
+                <div class="lbl">Downtime</div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="divider"></div>
-
 <!-- ===== COMPARISON ===== -->
-<section id="comparison">
-    <div class="reveal">
-        <p class="section-eyebrow">Chain Comparison</p>
-        <h2 class="section-title">How DIONS 2.0 stacks up.</h2>
-        <p class="section-desc">Side-by-side against the two largest smart contract platforms. DIONS 2.0 wins where it matters.</p>
-    </div>
-
-    <div class="comparison-grid">
-        <!-- Header -->
-        <div class="comparison-row header-row reveal">
-            <div class="comp-cell label-cell"></div>
-            <div class="comp-cell"><span class="chain-name eth">Ethereum</span></div>
-            <div class="comp-cell"><span class="chain-name sol">Solana</span></div>
-            <div class="comp-cell"><span class="chain-name dions">DIONS 2.0</span></div>
+<section id="compare">
+    <div class="container">
+        <div class="reveal">
+            <p class="eyebrow">Chain Comparison</p>
+            <h2 class="title">How DIONS 2.0 stacks up.</h2>
+            <p class="desc">Side-by-side against the two largest smart contract platforms.</p>
         </div>
 
-        <div class="comparison-row reveal reveal-delay-1">
-            <div class="comp-cell label-cell">L1 TPS</div>
-            <div class="comp-cell"><span class="comp-value">15 &#8211; 30</span></div>
-            <div class="comp-cell"><span class="comp-value">~400</span></div>
-            <div class="comp-cell"><span class="comp-value">88</span></div>
-        </div>
-
-        <div class="comparison-row reveal reveal-delay-1">
-            <div class="comp-cell label-cell">With Zones</div>
-            <div class="comp-cell"><span class="comp-value">Thousands (rollups)</span></div>
-            <div class="comp-cell"><span class="comp-value">~4,000</span></div>
-            <div class="comp-cell winner"><span class="comp-value">11,000+ (EVM + SVM)</span><span class="win-badge">Highest</span></div>
-        </div>
-
-        <div class="comparison-row reveal reveal-delay-2">
-            <div class="comp-cell label-cell">Min Stake</div>
-            <div class="comp-cell"><span class="comp-value">32 ETH (~$96K)</span></div>
-            <div class="comp-cell"><span class="comp-value">~1 SOL + extreme HW</span></div>
-            <div class="comp-cell winner"><span class="comp-value">25 IOC</span><span class="win-badge">Most Accessible</span></div>
-        </div>
-
-        <div class="comparison-row reveal reveal-delay-2">
-            <div class="comp-cell label-cell">Post-Quantum</div>
-            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">None</span></div>
-            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">None</span></div>
-            <div class="comp-cell winner"><span class="comp-value">Dilithium + Falcon + Kyber</span><span class="win-badge">Quantum Safe</span></div>
-        </div>
-
-        <div class="comparison-row reveal reveal-delay-3">
-            <div class="comp-cell label-cell">Native Identity</div>
-            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No (ENS = off-chain)</span></div>
-            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No</span></div>
-            <div class="comp-cell winner"><span class="comp-value">W3C DID Core 1.0</span><span class="win-badge">Built-in</span></div>
-        </div>
-
-        <div class="comparison-row reveal reveal-delay-3">
-            <div class="comp-cell label-cell">Native Messaging</div>
-            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No</span></div>
-            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No</span></div>
-            <div class="comp-cell winner"><span class="comp-value">AES-256 + RSA-4096</span><span class="win-badge">Encrypted</span></div>
-        </div>
-
-        <div class="comparison-row reveal reveal-delay-4">
-            <div class="comp-cell label-cell">File Storage</div>
-            <div class="comp-cell"><span class="comp-value">No (IPFS)</span></div>
-            <div class="comp-cell"><span class="comp-value">No</span></div>
-            <div class="comp-cell winner"><span class="comp-value">On-chain with tiers</span><span class="win-badge">Native</span></div>
-        </div>
-
-        <div class="comparison-row reveal reveal-delay-4">
-            <div class="comp-cell label-cell">Earn from Zero</div>
-            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No</span></div>
-            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No</span></div>
-            <div class="comp-cell winner"><span class="comp-value">Yes (PoP relay rewards)</span><span class="win-badge">Zero Balance Entry</span></div>
-        </div>
-
-        <div class="comparison-row reveal reveal-delay-4">
-            <div class="comp-cell label-cell">RAM Required</div>
-            <div class="comp-cell"><span class="comp-value">16 GB</span></div>
-            <div class="comp-cell"><span class="comp-value">256 GB</span></div>
-            <div class="comp-cell winner"><span class="comp-value">4 &#8211; 8 GB</span><span class="win-badge">Lightweight</span></div>
-        </div>
-
-        <div class="comparison-row reveal reveal-delay-4">
-            <div class="comp-cell label-cell">Storage</div>
-            <div class="comp-cell"><span class="comp-value">~2 TB</span></div>
-            <div class="comp-cell"><span class="comp-value">~2 TB</span></div>
-            <div class="comp-cell winner"><span class="comp-value">100 GB validator / 100 MB light</span><span class="win-badge">Efficient</span></div>
-        </div>
+        <table class="comp-table reveal reveal-d1">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Ethereum</th>
+                    <th>Solana</th>
+                    <th class="dions-col">DIONS 2.0</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Consensus</td>
+                    <td>PoS (32 ETH min)</td>
+                    <td>PoH + Tower BFT</td>
+                    <td class="dions-col">PoS + PoP (zero min) <span class="win">Best</span></td>
+                </tr>
+                <tr>
+                    <td>Smart Contracts</td>
+                    <td>EVM only</td>
+                    <td>SVM only</td>
+                    <td class="dions-col">Both EVM + SVM <span class="win">Best</span></td>
+                </tr>
+                <tr>
+                    <td>Block Time</td>
+                    <td>~12s</td>
+                    <td>~0.4s</td>
+                    <td class="dions-col">30s (checkpoint finality)</td>
+                </tr>
+                <tr>
+                    <td>Quantum Resistance</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td class="dions-col">Dilithium + Falcon + Kyber <span class="win">Best</span></td>
+                </tr>
+                <tr>
+                    <td>Native Identity</td>
+                    <td>No (ENS = off-chain)</td>
+                    <td>No</td>
+                    <td class="dions-col">W3C DID Core 1.0 <span class="win">Best</span></td>
+                </tr>
+                <tr>
+                    <td>Native Messaging</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td class="dions-col">AES-256 + RSA-4096 <span class="win">Best</span></td>
+                </tr>
+                <tr>
+                    <td>File Storage</td>
+                    <td>No (IPFS)</td>
+                    <td>No</td>
+                    <td class="dions-col">On-chain with tiers <span class="win">Best</span></td>
+                </tr>
+                <tr>
+                    <td>Minimum Stake</td>
+                    <td>32 ETH (~$80K)</td>
+                    <td>~$100+</td>
+                    <td class="dions-col">0 IOC (PoP relay) <span class="win">Best</span></td>
+                </tr>
+                <tr>
+                    <td>Storage Required</td>
+                    <td>~2 TB</td>
+                    <td>~2 TB</td>
+                    <td class="dions-col">100 GB / 100 MB light <span class="win">Best</span></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </section>
 
-<div class="divider"></div>
+<hr>
 
 <!-- ===== ARCHITECTURE ===== -->
 <section id="architecture">
-    <div class="reveal">
-        <p class="section-eyebrow">Architecture</p>
-        <h2 class="section-title">Built different.<br>Built to last.</h2>
-        <p class="section-desc">22 subsystems working in concert. Every component designed for the next decade of decentralized computing.</p>
-    </div>
+    <div class="container">
+        <div class="reveal">
+            <p class="eyebrow">Architecture</p>
+            <h2 class="title">Built different. Built to last.</h2>
+            <p class="desc">22 subsystems working in concert. Every component designed for the next decade of decentralized computing.</p>
+        </div>
 
-    <div class="arch-grid reveal">
-        <div class="arch-cell">
-            <div class="arch-icon-wrap blue">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <div class="arch-layout">
+            <div class="arch-primary">
+                <div class="arch-hero-feature reveal">
+                    <h3>Dual Execution Zones</h3>
+                    <p>Run EVM and SVM smart contracts side by side on a single L1. Add new execution environments without a hard fork. One chain, infinite possibilities.</p>
+                    <div class="tag" style="color: var(--accent);">EVM + SVM</div>
+                </div>
+                <div class="arch-hero-feature reveal">
+                    <h3>Proof of Participation</h3>
+                    <p>Zero-balance nodes earn 0.001 IOC per block by relaying transactions. The first blockchain where anyone can earn from absolutely nothing.</p>
+                    <div class="tag" style="color: var(--green);">Zero Entry</div>
+                </div>
+                <div class="arch-hero-feature reveal">
+                    <h3>Post-Quantum Cryptography</h3>
+                    <p>Dilithium, Falcon, and Kyber — NIST-approved algorithms protecting your assets before quantum computers arrive.</p>
+                    <div class="tag" style="color: var(--purple);">NIST PQC</div>
+                </div>
             </div>
-            <h3>Dual Execution Zones</h3>
-            <p>Run EVM and SVM smart contracts side by side on a single L1. Add new VMs without a hard fork.</p>
-            <span class="arch-tag blue">EVM + SVM</span>
-        </div>
-        <div class="arch-cell">
-            <div class="arch-icon-wrap green">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+
+            <div class="arch-secondary reveal">
+                <div class="arch-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <h4>W3C DID Identity</h4>
+                    <p>Native decentralized identifiers with aliases, agents, and device delegation.</p>
+                </div>
+                <div class="arch-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    <h4>Encrypted Messaging</h4>
+                    <p>AES-256 + RSA-4096 encrypted direct, group, and shadow messages.</p>
+                </div>
+                <div class="arch-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.5"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+                    <h4>Ethereum Bridge</h4>
+                    <p>HTLC atomic swaps and relayer consensus for trustless asset transfers.</p>
+                </div>
+                <div class="arch-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    <h4>Data Availability</h4>
+                    <p>Reed-Solomon erasure coding with 64+32 shards, 99.99% DA guarantee.</p>
+                </div>
+                <div class="arch-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <h4>Light Client</h4>
+                    <p>Headers-only sync in under 5 minutes with 0.5 IOC/block rewards.</p>
+                </div>
+                <div class="arch-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    <h4>Enhanced PoS</h4>
+                    <p>30s blocks, checkpoint finality, validator slashing, and delegation.</p>
+                </div>
             </div>
-            <h3>Proof of Participation</h3>
-            <p>Zero-balance nodes earn 0.001 IOC per block by relaying transactions. Earn from absolutely nothing.</p>
-            <span class="arch-tag green">Zero Entry</span>
-        </div>
-        <div class="arch-cell">
-            <div class="arch-icon-wrap purple">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h3>Post-Quantum Cryptography</h3>
-            <p>Dilithium, Falcon, and Kyber — NIST-approved algorithms with full ECDSA backward compatibility.</p>
-            <span class="arch-tag purple">NIST PQC</span>
-        </div>
-        <div class="arch-cell">
-            <div class="arch-icon-wrap yellow">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <h3>W3C DID Identity</h3>
-            <p>Native decentralized identifiers with aliases, agents, and device delegation built into the protocol.</p>
-            <span class="arch-tag yellow">W3C Standard</span>
-        </div>
-        <div class="arch-cell">
-            <div class="arch-icon-wrap teal">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <h3>Encrypted Messaging</h3>
-            <p>AES-256 + RSA-4096 encrypted direct, group, and shadow messages with tier-gated access.</p>
-            <span class="arch-tag teal">E2E Encrypted</span>
-        </div>
-        <div class="arch-cell">
-            <div class="arch-icon-wrap orange">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
-            </div>
-            <h3>Ethereum Bridge</h3>
-            <p>HTLC atomic swaps and relayer consensus for trustless cross-chain asset transfers.</p>
-            <span class="arch-tag orange">HTLC Swaps</span>
-        </div>
-        <div class="arch-cell">
-            <div class="arch-icon-wrap red">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-            </div>
-            <h3>Data Availability</h3>
-            <p>Reed-Solomon erasure coding with 64+32 shards providing 99.99% data availability guarantee.</p>
-            <span class="arch-tag red">96 Shards</span>
-        </div>
-        <div class="arch-cell">
-            <div class="arch-icon-wrap blue">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            </div>
-            <h3>Light Client</h3>
-            <p>Headers-only sync in under 5 minutes with 0.5 IOC per block rewards for light node operators.</p>
-            <span class="arch-tag blue">5 min Sync</span>
-        </div>
-        <div class="arch-cell">
-            <div class="arch-icon-wrap green">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            </div>
-            <h3>Enhanced PoS Consensus</h3>
-            <p>30-second blocks, checkpoint finality, validator slashing, jailing, and stake delegation.</p>
-            <span class="arch-tag green">30s Blocks</span>
         </div>
     </div>
 </section>
 
-<div class="divider"></div>
+<hr>
 
 <!-- ===== SECURITY ===== -->
 <section id="security">
-    <div class="reveal">
-        <p class="section-eyebrow">Security</p>
-        <h2 class="section-title">Audited. Verified. Hardened.</h2>
-        <p class="section-desc">10 rounds of deep verification. Every critical finding resolved before mainnet.</p>
-    </div>
+    <div class="container">
+        <div class="reveal">
+            <p class="eyebrow">Security</p>
+            <h2 class="title">Audited. Verified. Hardened.</h2>
+        </div>
 
-    <div class="security-hero reveal">
-        <div class="security-hero-left">
-            <div class="big-stat"><span class="counter" data-target="64">0</span>/<span class="counter" data-target="64">0</span></div>
-            <div class="big-stat-label">Codex Verification Checks Passed</div>
+        <div class="security-big reveal">
+            <span class="big-num"><span class="counter" data-target="64">0</span>/<span class="counter" data-target="64">0</span></span>
+            <span class="big-label">Codex verification checks passed across 10 audit rounds</span>
         </div>
-        <div class="security-hero-right">
-            <div class="security-mini-card">
-                <div class="mini-num green-num"><span class="counter" data-target="13">0</span></div>
-                <div class="mini-label">Findings Fixed</div>
-            </div>
-            <div class="security-mini-card">
-                <div class="mini-num blue-num"><span class="counter" data-target="511">0</span></div>
-                <div class="mini-label">Unit Tests</div>
-            </div>
-            <div class="security-mini-card">
-                <div class="mini-num purple-num"><span class="counter" data-target="28">0</span>/<span class="counter" data-target="28">0</span></div>
-                <div class="mini-label">E2E Testnet</div>
-            </div>
-            <div class="security-mini-card">
-                <div class="mini-num yellow-num"><span class="counter" data-target="10">0</span></div>
-                <div class="mini-label">Audit Rounds</div>
-            </div>
-        </div>
-    </div>
 
-    <div class="severity-list reveal">
-        <div class="severity-row">
-            <span class="severity-badge critical">Critical</span>
-            <span class="severity-text">Consensus trust, SVM ELF parser</span>
-            <span class="severity-status">Fixed</span>
-        </div>
-        <div class="severity-row">
-            <span class="severity-badge high">High</span>
-            <span class="severity-text">RPC validation, OpenSSL hardening, bridge stubs</span>
-            <span class="severity-status">Fixed</span>
-        </div>
-        <div class="severity-row">
-            <span class="severity-badge medium">Medium</span>
-            <span class="severity-text">JSON parser, WebSocket race, PoS kernel, LevelDB writes</span>
-            <span class="severity-status">Fixed</span>
-        </div>
-        <div class="severity-row">
-            <span class="severity-badge low">Low</span>
-            <span class="severity-text">DNS seeder, CLI injection, Explorer escape</span>
-            <span class="severity-status">Fixed</span>
-        </div>
-        <div class="severity-row">
-            <span class="severity-badge deferred">Deferred</span>
-            <span class="severity-text">TLS wiring (localhost-only), Alert broadcast (dead code)</span>
-            <span class="severity-status deferred-status">No Risk</span>
+        <table class="severity-table reveal">
+            <tr>
+                <td><span class="sev-badge sev-critical">Critical</span></td>
+                <td class="sev-text">Consensus trust, SVM ELF parser</td>
+                <td class="sev-status">Fixed</td>
+            </tr>
+            <tr>
+                <td><span class="sev-badge sev-high">High</span></td>
+                <td class="sev-text">RPC validation, OpenSSL hardening, bridge stubs</td>
+                <td class="sev-status">Fixed</td>
+            </tr>
+            <tr>
+                <td><span class="sev-badge sev-medium">Medium</span></td>
+                <td class="sev-text">JSON parser, WebSocket race, PoS kernel, LevelDB writes</td>
+                <td class="sev-status">Fixed</td>
+            </tr>
+            <tr>
+                <td><span class="sev-badge sev-low">Low</span></td>
+                <td class="sev-text">DNS seeder, CLI injection, Explorer escape</td>
+                <td class="sev-status">Fixed</td>
+            </tr>
+            <tr>
+                <td><span class="sev-badge sev-deferred">Deferred</span></td>
+                <td class="sev-text">TLS wiring (localhost-only), Alert broadcast (dead code)</td>
+                <td class="sev-status deferred">No Risk</td>
+            </tr>
+        </table>
+
+        <div class="security-stats reveal">
+            <div class="security-stat">
+                <div class="num"><span class="counter" data-target="13">0</span></div>
+                <div class="lbl">Findings Fixed</div>
+            </div>
+            <div class="security-stat">
+                <div class="num"><span class="counter" data-target="511">0</span></div>
+                <div class="lbl">Unit Tests</div>
+            </div>
+            <div class="security-stat">
+                <div class="num">28/28</div>
+                <div class="lbl">E2E Testnet</div>
+            </div>
+            <div class="security-stat">
+                <div class="num"><span class="counter" data-target="10">0</span></div>
+                <div class="lbl">Audit Rounds</div>
+            </div>
         </div>
     </div>
 </section>
 
-<div class="divider"></div>
+<hr>
 
 <!-- ===== WALLET CTA ===== -->
-<div class="cta-section" id="wallet">
-    <div class="reveal">
-        <p class="section-eyebrow" style="text-align:center;">Get Started</p>
-        <h2 class="cta-title">Download. Stake. Earn.</h2>
-        <p class="cta-desc">Download the DIONS wallet, stake your IOC, and start earning rewards immediately. Every tier unlocks more features.</p>
-    </div>
-
-    <div class="cta-buttons reveal">
-        <a href="#" class="cta-btn primary" onclick="return false;" style="cursor: default; opacity: 0.85;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Wallet <span class="coming-soon">Coming Soon</span>
-        </a>
-        <a href="https://github.com/IOCoin/DIONS" class="cta-btn secondary" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-            View on GitHub
-        </a>
-    </div>
-
-    <div class="rewards-grid reveal">
-        <div class="reward-card" style="--card-accent: #3b82f6;">
-            <div class="reward-icon" style="background: rgba(59,130,246,0.12); color: var(--accent);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <h4>Staking Rewards</h4>
-            <p>Earn block rewards by validating transactions with your staked IOC</p>
-            <div class="reward-amount" style="color: var(--accent);">~5% APY</div>
+<section class="cta-section" id="wallet">
+    <div class="container">
+        <div class="reveal">
+            <p class="eyebrow" style="text-align:center;">Get Started</p>
+            <h2 class="title" style="text-align:center;">Download. Stake. Earn.</h2>
+            <p class="desc">Download the DIONS wallet, stake your IOC, and start earning rewards immediately. Every tier unlocks more features.</p>
         </div>
-        <div class="reward-card" style="--card-accent: #22c55e;">
-            <div class="reward-icon" style="background: rgba(34,197,94,0.12); color: var(--green);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h4>Light Client</h4>
-            <p>Run a light node with minimal hardware and earn per block</p>
-            <div class="reward-amount" style="color: var(--green);">0.5 IOC/block</div>
-        </div>
-        <div class="reward-card" style="--card-accent: #a855f7;">
-            <div class="reward-icon" style="background: rgba(168,85,247,0.12); color: var(--purple);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            </div>
-            <h4>PoP Relay</h4>
-            <p>Zero balance needed. Relay transactions and earn from nothing</p>
-            <div class="reward-amount" style="color: var(--purple);">0.001 IOC/block</div>
-        </div>
-        <div class="reward-card" style="--card-accent: #eab308;">
-            <div class="reward-icon" style="background: rgba(234,179,8,0.12); color: var(--yellow);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <h4>Delegation</h4>
-            <p>Delegate your stake to validators and earn a share of their rewards</p>
-            <div class="reward-amount" style="color: var(--yellow);">Passive Income</div>
+        <div class="cta-buttons reveal reveal-d1">
+            <a class="btn" href="#">Coming Soon</a>
+            <a class="btn btn-outline" href="https://github.com/AltcoinCoop/iofficial" target="_blank">Current Wallet</a>
         </div>
     </div>
-</div>
+</section>
 
-<div class="divider"></div>
+<hr>
 
 <!-- ===== TIERS ===== -->
-<div class="cinematic-section" id="tiers" style="--glow-color: rgba(34,197,94,0.06);">
-    <div class="reveal">
-        <p class="section-eyebrow">Tier System</p>
-        <h2 class="section-title">Stake more. Do more.</h2>
-        <p class="section-desc">Five tiers from casual users to powerhouse validators. Every tier unlocks more storage, messaging, and features.</p>
-    </div>
+<section id="tiers">
+    <div class="container">
+        <div class="reveal">
+            <p class="eyebrow">Staking Tiers</p>
+            <h2 class="title">Stake more. Unlock more.</h2>
+            <p class="desc">Five tiers from free entry to unlimited access. Each tier adds storage, messaging, and feature capabilities.</p>
+        </div>
 
-    <div class="section-inner">
-        <div class="tier-grid">
-            <div class="tier-card reveal reveal-delay-1">
-                <div class="tier-name" style="color: var(--text);">Starter</div>
+        <div class="tiers-grid reveal reveal-d1">
+            <div class="tier">
+                <div class="tier-name">Starter</div>
                 <div class="tier-stake">25 <span>IOC</span></div>
-                <ul class="tier-features">
-                    <li><span class="check">&#10003;</span> 1 MB file storage</li>
-                    <li><span class="check">&#10003;</span> 100 msgs/month</li>
-                    <li><span class="check">&#10003;</span> Basic aliases</li>
+                <ul>
+                    <li>1 MB file storage</li>
+                    <li>100 msgs/month</li>
+                    <li>Basic aliases</li>
                 </ul>
             </div>
-            <div class="tier-card reveal reveal-delay-2">
-                <div class="tier-name" style="color: var(--green);">Standard</div>
+            <div class="tier">
+                <div class="tier-name">Standard</div>
                 <div class="tier-stake">500 <span>IOC</span></div>
-                <ul class="tier-features">
-                    <li><span class="check">&#10003;</span> 10 MB storage</li>
-                    <li><span class="check">&#10003;</span> 1,000 msgs/month</li>
-                    <li><span class="check">&#10003;</span> Public channels</li>
+                <ul>
+                    <li>10 MB storage</li>
+                    <li>1,000 msgs/month</li>
+                    <li>Public channels</li>
                 </ul>
             </div>
-            <div class="tier-card featured reveal reveal-delay-3">
+            <div class="tier featured">
                 <div class="tier-name" style="color: var(--accent);">Professional</div>
                 <div class="tier-stake">5K <span>IOC</span></div>
-                <ul class="tier-features">
-                    <li><span class="check">&#10003;</span> 50 MB storage</li>
-                    <li><span class="check">&#10003;</span> 10K msgs/month</li>
-                    <li><span class="check">&#10003;</span> Private channels</li>
-                    <li><span class="check">&#10003;</span> Validator staking</li>
+                <ul>
+                    <li>50 MB storage</li>
+                    <li>10K msgs/month</li>
+                    <li>Private channels</li>
+                    <li>Validator staking</li>
                 </ul>
             </div>
-            <div class="tier-card reveal reveal-delay-3">
-                <div class="tier-name" style="color: var(--purple);">Enterprise</div>
+            <div class="tier">
+                <div class="tier-name">Enterprise</div>
                 <div class="tier-stake">10K <span>IOC</span></div>
-                <ul class="tier-features">
-                    <li><span class="check">&#10003;</span> 200 MB storage</li>
-                    <li><span class="check">&#10003;</span> 50K msgs/month</li>
-                    <li><span class="check">&#10003;</span> Shadow messages</li>
-                    <li><span class="check">&#10003;</span> Priority relay</li>
+                <ul>
+                    <li>200 MB storage</li>
+                    <li>50K msgs/month</li>
+                    <li>Shadow messages</li>
+                    <li>Priority relay</li>
                 </ul>
             </div>
-            <div class="tier-card reveal reveal-delay-4">
-                <div class="tier-name" style="color: var(--yellow);">Unlimited</div>
+            <div class="tier">
+                <div class="tier-name">Unlimited</div>
                 <div class="tier-stake">25K <span>IOC</span></div>
-                <ul class="tier-features">
-                    <li><span class="check">&#10003;</span> 500 MB storage</li>
-                    <li><span class="check">&#10003;</span> Unlimited msgs</li>
-                    <li><span class="check">&#10003;</span> All features</li>
-                    <li><span class="check">&#10003;</span> Full delegation</li>
+                <ul>
+                    <li>500 MB storage</li>
+                    <li>Unlimited msgs</li>
+                    <li>All features</li>
+                    <li>Full delegation</li>
                 </ul>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<div class="divider"></div>
+<hr>
 
 <!-- ===== BUILD ===== -->
 <section id="build">
-    <div class="reveal">
-        <p class="section-eyebrow">Get Started</p>
-        <h2 class="section-title">Build from source.</h2>
-        <p class="section-desc">C++20, cmake, and a handful of dependencies. 13 binaries ready in minutes.</p>
-    </div>
+    <div class="container">
+        <div class="reveal">
+            <p class="eyebrow">Developer</p>
+            <h2 class="title">Build from source.</h2>
+            <p class="desc">C++20, cmake, and a handful of dependencies. 13 binaries ready in minutes.</p>
+        </div>
 
-    <div class="code-block reveal">
-        <span class="code-comment"># Clone and build</span><br>
-        <span class="code-keyword">cd</span> build<br>
-        cmake --build . -j$(<span class="code-string">nproc</span>)<br><br>
-        <span class="code-comment"># 13 binaries built:</span><br>
-        <span class="code-comment"># dions2d (validator), dions2-light (light client), dions-cli (wallet),</span><br>
-        <span class="code-comment"># dions-explorer, dions2-migrate, dions2-dns-seeder, dions-relayer,</span><br>
-        <span class="code-comment"># + 7 test binaries</span>
-    </div>
+        <div class="code-block reveal reveal-d1">
+            <span class="comment"># Clone and build</span><br>
+            <span class="keyword">cd</span> build<br>
+            cmake --build . -j$(<span class="string">nproc</span>)<br><br>
+            <span class="comment"># 13 binaries: dions2d, dions2-light, dions-cli,</span><br>
+            <span class="comment"># dions-explorer, dions2-migrate, dions2-dns-seeder,</span><br>
+            <span class="comment"># dions-relayer + 7 test binaries</span>
+        </div>
 
-    <div style="margin-top: 3rem;">
-        <div class="features-grid">
-            <div class="feature-card reveal reveal-delay-1">
-                <h3>Fork Details</h3>
-                <div class="feature-detail" style="margin-top: 0; padding-top: 0; border: none;">
-                    <p style="margin-bottom: 0.4rem;"><strong>Fork Height:</strong> 5,730,000</p>
-                    <p style="margin-bottom: 0.4rem;"><strong>Target Date:</strong> ~October 2026</p>
-                    <p style="margin-bottom: 0.4rem;"><strong>Commit:</strong> b90ee5a</p>
-                    <p><strong>Language:</strong> C++20</p>
-                </div>
+        <div class="build-details reveal reveal-d2">
+            <div class="build-detail">
+                <div class="key">Fork Height</div>
+                <div class="value">5,730,000</div>
             </div>
-            <div class="feature-card reveal reveal-delay-2">
-                <h3>Requirements</h3>
-                <div class="feature-detail" style="margin-top: 0; padding-top: 0; border: none;">
-                    <p style="margin-bottom: 0.4rem;"><strong>Validator:</strong> 4&#8211;8 GB RAM, 100 GB disk</p>
-                    <p style="margin-bottom: 0.4rem;"><strong>Light Client:</strong> 512 MB RAM, 100 MB disk</p>
-                    <p><strong>PoP Node:</strong> 256 MB RAM, zero balance</p>
-                </div>
+            <div class="build-detail">
+                <div class="key">Target Date</div>
+                <div class="value">~Oct 2026</div>
             </div>
-            <div class="feature-card reveal reveal-delay-3">
-                <h3>Backwards Compatible</h3>
-                <div class="feature-detail" style="margin-top: 0; padding-top: 0; border: none;">
-                    <p>Full backward compatibility with IOCoin (launched 2014). All existing wallets, transactions, and balances carry over seamlessly at fork height.</p>
-                </div>
+            <div class="build-detail">
+                <div class="key">Language</div>
+                <div class="value">C++20</div>
+            </div>
+            <div class="build-detail">
+                <div class="key">Commit</div>
+                <div class="value">b90ee5a</div>
+            </div>
+            <div class="build-detail">
+                <div class="key">Validator</div>
+                <div class="value">4-8 GB RAM</div>
+            </div>
+            <div class="build-detail">
+                <div class="key">Light Client</div>
+                <div class="value">512 MB RAM</div>
             </div>
         </div>
     </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- ===== FOOTER ===== -->
 <footer>
-    <p>&copy; 2014&ndash;2026 I/O Coin &middot; <a href="https://github.com/Wizrig/DIONS-2.0-Portal">Source</a></p>
+    <div class="container">
+        <p>&copy; 2014&ndash;2026 I/O Coin &middot; <a href="https://github.com/Wizrig/Dions-2.0">Source</a> &middot; Fair launched, no premine</p>
+    </div>
 </footer>
 
 <!-- ===== JAVASCRIPT ===== -->
 <script>
 (function() {
     'use strict';
+
+    // --- Animated Network Canvas ---
+    const canvas = document.getElementById('networkCanvas');
+    if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const ctx = canvas.getContext('2d');
+        let width, height, nodes = [], mouse = { x: 0, y: 0 };
+        const NODE_COUNT = 50;
+        const CONNECT_DIST = 150;
+        const ACCENT = { r: 108, g: 140, b: 255 };
+
+        function resize() {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+        }
+
+        function initNodes() {
+            nodes = [];
+            for (let i = 0; i < NODE_COUNT; i++) {
+                nodes.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    r: 1 + Math.random() * 1.5
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw connections
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < CONNECT_DIST) {
+                        const alpha = (1 - dist / CONNECT_DIST) * 0.15;
+                        ctx.strokeStyle = `rgba(${ACCENT.r},${ACCENT.g},${ACCENT.b},${alpha})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw nodes
+            for (const n of nodes) {
+                ctx.fillStyle = `rgba(${ACCENT.r},${ACCENT.g},${ACCENT.b},0.6)`;
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function update() {
+            for (const n of nodes) {
+                n.x += n.vx;
+                n.y += n.vy;
+
+                if (n.x < 0 || n.x > width) n.vx *= -1;
+                if (n.y < 0 || n.y > height) n.vy *= -1;
+
+                // Subtle mouse repulsion
+                const dx = n.x - mouse.x;
+                const dy = n.y - mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120 && dist > 0) {
+                    n.vx += (dx / dist) * 0.02;
+                    n.vy += (dy / dist) * 0.02;
+                }
+
+                // Dampen velocity
+                n.vx *= 0.999;
+                n.vy *= 0.999;
+            }
+        }
+
+        function loop() {
+            update();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+        resize();
+        initNodes();
+        loop();
+
+        window.addEventListener('resize', () => { resize(); initNodes(); });
+        document.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+    }
 
     // --- Scroll Reveal ---
     const revealObserver = new IntersectionObserver((entries) => {
@@ -2024,7 +1329,7 @@
     // --- Floating Nav ---
     const nav = document.getElementById('floatingNav');
     const heroSection = document.getElementById('hero');
-    const sections = document.querySelectorAll('section, .cinematic-section');
+    const sections = document.querySelectorAll('section');
 
     const navObserver = new IntersectionObserver(([entry]) => {
         nav.classList.toggle('visible', !entry.isIntersecting);
@@ -2052,15 +1357,15 @@
         const duration = 1800;
         const startTime = performance.now();
 
-        function update(currentTime) {
+        function tick(currentTime) {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
             const current = Math.round(eased * target);
             el.textContent = current.toLocaleString() + suffix;
-            if (progress < 1) requestAnimationFrame(update);
+            if (progress < 1) requestAnimationFrame(tick);
         }
-        requestAnimationFrame(update);
+        requestAnimationFrame(tick);
     }
 
     const counterObserver = new IntersectionObserver((entries) => {
@@ -2072,60 +1377,14 @@
         });
     }, { threshold: 0.5 });
 
-    document.querySelectorAll('.counter-value, .counter').forEach(el => {
+    document.querySelectorAll('.counter').forEach(el => {
         if (el.hasAttribute('data-target')) counterObserver.observe(el);
     });
 
-    // --- Cosmic Star Field ---
-    const starField = document.getElementById('starField');
-    if (starField && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        for (let i = 0; i < 100; i++) {
-            const s = document.createElement('div');
-            s.className = 'star';
-            s.style.left = Math.random() * 100 + '%';
-            s.style.top = Math.random() * 100 + '%';
-            const size = (0.5 + Math.random() * 2) + 'px';
-            s.style.width = size;
-            s.style.height = size;
-            s.style.animationDuration = (2 + Math.random() * 6) + 's';
-            s.style.animationDelay = (Math.random() * 5) + 's';
-            const r = Math.random();
-            if (r < 0.12) {
-                s.style.background = 'rgba(108,140,255,0.8)';
-                s.style.boxShadow = '0 0 3px rgba(108,140,255,0.4)';
-            } else if (r < 0.2) {
-                s.style.background = 'rgba(192,132,252,0.7)';
-                s.style.boxShadow = '0 0 3px rgba(192,132,252,0.3)';
-            } else if (r < 0.24) {
-                s.style.background = 'rgba(52,211,153,0.6)';
-                s.style.boxShadow = '0 0 3px rgba(52,211,153,0.3)';
-            }
-            starField.appendChild(s);
-        }
-
-        // --- Floating gradient orbs for depth ---
-        const orbColors = [
-            'rgba(108,140,255,0.04)',
-            'rgba(192,132,252,0.03)',
-            'rgba(52,211,153,0.025)'
-        ];
-        for (let i = 0; i < 5; i++) {
-            const orb = document.createElement('div');
-            const size = 200 + Math.random() * 400;
-            orb.style.cssText = 'position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(60px);' +
-                'width:' + size + 'px;height:' + size + 'px;' +
-                'left:' + (Math.random() * 100) + '%;top:' + (Math.random() * 100) + '%;' +
-                'background:' + orbColors[i % orbColors.length] + ';' +
-                'animation:orbFloat ' + (20 + Math.random() * 30) + 's ease-in-out infinite alternate;' +
-                'animation-delay:-' + (Math.random() * 20) + 's;';
-            starField.appendChild(orb);
-        }
-    }
-
     // --- Wix iframe height ---
     function notifyHeight() {
-        const height = document.documentElement.scrollHeight;
-        window.parent.postMessage({ type: 'setHeight', height: height }, '*');
+        const h = document.documentElement.scrollHeight;
+        window.parent.postMessage({ type: 'setHeight', height: h }, '*');
     }
     window.addEventListener('load', notifyHeight);
     window.addEventListener('resize', notifyHeight);
