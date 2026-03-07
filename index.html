@@ -1489,10 +1489,15 @@
     // --- Wix iframe height ---
     function notifyHeight() {
         const h = document.documentElement.scrollHeight;
-        // Try multiple message formats for Wix compatibility
-        window.parent.postMessage({ type: 'setHeight', height: h }, '*');
+        const src = window.location.href;
+        // Wix embed-site component formats
+        window.parent.postMessage({ src, type: 'heightChange', data: { height: h } }, '*');
+        window.parent.postMessage({ type: 'WixCodeHeightChanged', height: h, src }, '*');
+        window.parent.postMessage(JSON.stringify({ src, type: 'heightChange', height: h }), '*');
         window.parent.postMessage(JSON.stringify({ height: h }), '*');
-        window.parent.postMessage({ src: window.location.href, height: h }, '*');
+        // Generic formats
+        window.parent.postMessage({ type: 'setHeight', height: h }, '*');
+        window.parent.postMessage({ src, height: h }, '*');
     }
     window.addEventListener('load', notifyHeight);
     window.addEventListener('resize', notifyHeight);
