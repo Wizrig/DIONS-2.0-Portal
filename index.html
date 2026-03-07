@@ -494,35 +494,257 @@
         }
 
         /* ===== SECURITY SECTION ===== */
-        .security-grid {
+        .security-hero {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
         }
 
-        .security-card {
+        .security-hero-left .big-stat {
+            font-size: clamp(4rem, 10vw, 7rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            color: var(--green);
+            margin-bottom: 0.5rem;
+        }
+
+        .security-hero-left .big-stat-label {
+            font-size: 1.1rem;
+            color: var(--text-bright);
+            font-weight: 500;
+        }
+
+        .security-hero-right {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .security-mini-card {
             background: var(--card);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
+            border-radius: 14px;
+            padding: 1.5rem;
             text-align: center;
+            transition: border-color 0.3s ease;
         }
 
-        .security-card .security-number {
-            font-size: 2.5rem;
+        .security-mini-card:hover {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .security-mini-card .mini-num {
+            font-size: 2rem;
             font-weight: 800;
             letter-spacing: -0.03em;
             line-height: 1.1;
         }
 
-        .security-card .security-number.green-num { color: var(--green); }
-        .security-card .security-number.blue-num { color: var(--accent); }
-        .security-card .security-number.purple-num { color: var(--purple); }
+        .security-mini-card .mini-num.green-num { color: var(--green); }
+        .security-mini-card .mini-num.blue-num { color: var(--accent); }
+        .security-mini-card .mini-num.purple-num { color: var(--purple); }
+        .security-mini-card .mini-num.yellow-num { color: var(--yellow); }
 
-        .security-card .security-label {
-            font-size: 0.85rem;
+        .security-mini-card .mini-label {
+            font-size: 0.75rem;
             color: var(--text);
+            margin-top: 0.4rem;
+            line-height: 1.4;
+        }
+
+        .severity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .severity-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .severity-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 6px;
+            min-width: 72px;
+            text-align: center;
+        }
+
+        .severity-badge.critical { background: rgba(239,68,68,0.15); color: var(--red); }
+        .severity-badge.high { background: rgba(249,115,22,0.15); color: var(--orange); }
+        .severity-badge.medium { background: rgba(234,179,8,0.15); color: var(--yellow); }
+        .severity-badge.low { background: rgba(59,130,246,0.15); color: var(--accent); }
+        .severity-badge.deferred { background: rgba(255,255,255,0.05); color: var(--text); }
+
+        .severity-text {
+            font-size: 0.85rem;
+            color: var(--text-bright);
+        }
+
+        .severity-status {
+            margin-left: auto;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--green);
+        }
+
+        .severity-status.deferred-status {
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            .security-hero {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+
+        /* ===== WALLET CTA ===== */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            color: var(--heading);
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+
+        .cta-desc {
+            font-size: 1.1rem;
+            color: var(--text);
+            max-width: 550px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-btn.primary {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+        }
+
+        .cta-btn.primary:hover {
+            background: #2563eb;
+            box-shadow: 0 8px 30px rgba(59,130,246,0.4);
+            transform: translateY(-2px);
+        }
+
+        .cta-btn.secondary {
+            background: transparent;
+            color: var(--text-bright);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .cta-btn.secondary:hover {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.03);
+            transform: translateY(-2px);
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .reward-card {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .reward-card:hover {
+            border-color: rgba(59,130,246,0.2);
+            transform: translateY(-3px);
+        }
+
+        .reward-card .reward-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 0.75rem;
+            border-radius: 10px;
+        }
+
+        .reward-card h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--heading);
+            margin-bottom: 0.4rem;
+        }
+
+        .reward-card p {
+            font-size: 0.8rem;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .reward-card .reward-amount {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--green);
             margin-top: 0.5rem;
         }
 
@@ -800,6 +1022,7 @@
     <a href="#comparison">Compare</a>
     <a href="#architecture">Architecture</a>
     <a href="#security">Security</a>
+    <a href="#wallet">Wallet</a>
     <a href="#tiers">Tiers</a>
     <a href="#build">Build</a>
 </nav>
@@ -812,7 +1035,7 @@
         <span class="gradient-text">DIONS 2.0</span>
     </h1>
     <p class="hero-subtitle">
-        A revolutionary L1 with dual execution zones, post-quantum cryptography, and native identity. No ICO. No presale. Fair launch since 2014.
+        A revolutionary L1 with dual execution zones, post-quantum cryptography, and native identity. Fair launched in 2014.
     </p>
     <div class="hero-meta">
         <div class="hero-meta-item">
@@ -897,7 +1120,7 @@
             <div class="comp-cell label-cell">Min Stake</div>
             <div class="comp-cell"><span class="comp-value">32 ETH (~$96K)</span></div>
             <div class="comp-cell"><span class="comp-value">~1 SOL + extreme HW</span></div>
-            <div class="comp-cell winner"><span class="comp-value">10,000 IOC</span><span class="win-badge">Most Accessible</span></div>
+            <div class="comp-cell winner"><span class="comp-value">100 IOC</span><span class="win-badge">Most Accessible</span></div>
         </div>
 
         <div class="comparison-row reveal reveal-delay-2">
@@ -1054,49 +1277,119 @@
     <div class="reveal">
         <p class="section-eyebrow">Security</p>
         <h2 class="section-title">Audited. Verified. Hardened.</h2>
-        <p class="section-desc">64 Codex verification checks across 10 audit rounds. Every critical and high finding fixed.</p>
+        <p class="section-desc">10 rounds of deep verification. Every critical finding resolved before mainnet.</p>
     </div>
 
-    <div class="security-grid">
-        <div class="security-card reveal reveal-delay-1">
-            <div class="security-number green-num"><span class="counter" data-target="13">0</span></div>
-            <div class="security-label">Findings Fixed (all CRITICAL + HIGH + MEDIUM)</div>
+    <div class="security-hero reveal">
+        <div class="security-hero-left">
+            <div class="big-stat"><span class="counter" data-target="64">0</span>/<span class="counter" data-target="64">0</span></div>
+            <div class="big-stat-label">Codex Verification Checks Passed</div>
         </div>
-        <div class="security-card reveal reveal-delay-2">
-            <div class="security-number blue-num"><span class="counter" data-target="64">0</span>/<span class="counter" data-target="64">0</span></div>
-            <div class="security-label">Codex Verification PASS (10 rounds)</div>
-        </div>
-        <div class="security-card reveal reveal-delay-3">
-            <div class="security-number green-num"><span class="counter" data-target="511">0</span></div>
-            <div class="security-label">Unit Tests Across 8 Binaries</div>
-        </div>
-        <div class="security-card reveal reveal-delay-4">
-            <div class="security-number purple-num"><span class="counter" data-target="28">0</span>/<span class="counter" data-target="28">0</span></div>
-            <div class="security-label">E2E Tests PASS on Live Testnet</div>
+        <div class="security-hero-right">
+            <div class="security-mini-card">
+                <div class="mini-num green-num"><span class="counter" data-target="13">0</span></div>
+                <div class="mini-label">Findings Fixed</div>
+            </div>
+            <div class="security-mini-card">
+                <div class="mini-num blue-num"><span class="counter" data-target="511">0</span></div>
+                <div class="mini-label">Unit Tests</div>
+            </div>
+            <div class="security-mini-card">
+                <div class="mini-num purple-num"><span class="counter" data-target="28">0</span>/<span class="counter" data-target="28">0</span></div>
+                <div class="mini-label">E2E Testnet</div>
+            </div>
+            <div class="security-mini-card">
+                <div class="mini-num yellow-num"><span class="counter" data-target="10">0</span></div>
+                <div class="mini-label">Audit Rounds</div>
+            </div>
         </div>
     </div>
 
-    <div style="margin-top: 3rem;">
-        <div class="features-grid">
-            <div class="feature-card reveal">
-                <h3 style="color: var(--green);">What's Fixed</h3>
-                <div class="feature-detail" style="margin-top: 0; padding-top: 0; border: none;">
-                    <p style="margin-bottom: 0.5rem;"><span style="color: var(--red); font-weight: 700;">CRITICAL</span> &#8212; Consensus trust, SVM ELF parser</p>
-                    <p style="margin-bottom: 0.5rem;"><span style="color: var(--orange); font-weight: 700;">HIGH</span> &#8212; RPC validation, OpenSSL hardening, bridge stubs</p>
-                    <p style="margin-bottom: 0.5rem;"><span style="color: var(--yellow); font-weight: 700;">MEDIUM</span> &#8212; JSON parser limits, WebSocket race, PoS kernel, LevelDB writes</p>
-                    <p><span style="color: var(--accent); font-weight: 700;">LOW</span> &#8212; DNS seeder, CLI injection, Explorer escape</p>
-                </div>
-            </div>
-            <div class="feature-card reveal">
-                <h3 style="color: var(--text);">Deferred (No Risk)</h3>
-                <div class="feature-detail" style="margin-top: 0; padding-top: 0; border: none;">
-                    <p style="margin-bottom: 0.5rem;"><strong>M-02</strong> &#8212; TLS wiring (localhost-only RPC, not exposed)</p>
-                    <p><strong>M-03</strong> &#8212; Alert broadcast (dead code path)</p>
-                </div>
-            </div>
+    <div class="severity-list reveal">
+        <div class="severity-row">
+            <span class="severity-badge critical">Critical</span>
+            <span class="severity-text">Consensus trust, SVM ELF parser</span>
+            <span class="severity-status">Fixed</span>
+        </div>
+        <div class="severity-row">
+            <span class="severity-badge high">High</span>
+            <span class="severity-text">RPC validation, OpenSSL hardening, bridge stubs</span>
+            <span class="severity-status">Fixed</span>
+        </div>
+        <div class="severity-row">
+            <span class="severity-badge medium">Medium</span>
+            <span class="severity-text">JSON parser, WebSocket race, PoS kernel, LevelDB writes</span>
+            <span class="severity-status">Fixed</span>
+        </div>
+        <div class="severity-row">
+            <span class="severity-badge low">Low</span>
+            <span class="severity-text">DNS seeder, CLI injection, Explorer escape</span>
+            <span class="severity-status">Fixed</span>
+        </div>
+        <div class="severity-row">
+            <span class="severity-badge deferred">Deferred</span>
+            <span class="severity-text">TLS wiring (localhost-only), Alert broadcast (dead code)</span>
+            <span class="severity-status deferred-status">No Risk</span>
         </div>
     </div>
 </section>
+
+<div class="divider"></div>
+
+<!-- ===== WALLET CTA ===== -->
+<div class="cta-section" id="wallet">
+    <div class="reveal">
+        <p class="section-eyebrow" style="text-align:center;">Get Started</p>
+        <h2 class="cta-title">Download. Stake. Earn.</h2>
+        <p class="cta-desc">Download the DIONS wallet, stake your IOC, and start earning rewards immediately. Every tier unlocks more features.</p>
+    </div>
+
+    <div class="cta-buttons reveal">
+        <a href="#" class="cta-btn primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Wallet
+        </a>
+        <a href="#" class="cta-btn secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            View on GitHub
+        </a>
+    </div>
+
+    <div class="rewards-grid reveal">
+        <div class="reward-card">
+            <div class="reward-icon" style="background: rgba(59,130,246,0.12); color: var(--accent);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h4>Staking Rewards</h4>
+            <p>Earn block rewards by validating transactions with your staked IOC</p>
+            <div class="reward-amount">~5% APY</div>
+        </div>
+        <div class="reward-card">
+            <div class="reward-icon" style="background: rgba(34,197,94,0.12); color: var(--green);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h4>Light Client</h4>
+            <p>Run a light node with minimal hardware and earn per block</p>
+            <div class="reward-amount">0.5 IOC/block</div>
+        </div>
+        <div class="reward-card">
+            <div class="reward-icon" style="background: rgba(168,85,247,0.12); color: var(--purple);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </div>
+            <h4>PoP Relay</h4>
+            <p>Zero balance needed. Relay transactions and earn from nothing</p>
+            <div class="reward-amount">0.001 IOC/block</div>
+        </div>
+        <div class="reward-card">
+            <div class="reward-icon" style="background: rgba(234,179,8,0.12); color: var(--yellow);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h4>Delegation</h4>
+            <p>Delegate your stake to validators and earn a share of their rewards</p>
+            <div class="reward-amount">Passive Income</div>
+        </div>
+    </div>
+</div>
 
 <div class="divider"></div>
 
@@ -1111,8 +1404,8 @@
     <div class="section-inner">
         <div class="tier-grid">
             <div class="tier-card reveal reveal-delay-1">
-                <div class="tier-name" style="color: var(--text);">Basic</div>
-                <div class="tier-stake">1K <span>IOC</span></div>
+                <div class="tier-name" style="color: var(--text);">Starter</div>
+                <div class="tier-stake">100 <span>IOC</span></div>
                 <ul class="tier-features">
                     <li><span class="check">&#10003;</span> 1 MB file storage</li>
                     <li><span class="check">&#10003;</span> 100 msgs/month</li>
@@ -1121,7 +1414,7 @@
             </div>
             <div class="tier-card reveal reveal-delay-2">
                 <div class="tier-name" style="color: var(--green);">Standard</div>
-                <div class="tier-stake">5K <span>IOC</span></div>
+                <div class="tier-stake">500 <span>IOC</span></div>
                 <ul class="tier-features">
                     <li><span class="check">&#10003;</span> 10 MB storage</li>
                     <li><span class="check">&#10003;</span> 1,000 msgs/month</li>
@@ -1130,7 +1423,7 @@
             </div>
             <div class="tier-card featured reveal reveal-delay-3">
                 <div class="tier-name" style="color: var(--accent);">Professional</div>
-                <div class="tier-stake">10K <span>IOC</span></div>
+                <div class="tier-stake">2,500 <span>IOC</span></div>
                 <ul class="tier-features">
                     <li><span class="check">&#10003;</span> 50 MB storage</li>
                     <li><span class="check">&#10003;</span> 10K msgs/month</li>
@@ -1140,7 +1433,7 @@
             </div>
             <div class="tier-card reveal reveal-delay-3">
                 <div class="tier-name" style="color: var(--purple);">Enterprise</div>
-                <div class="tier-stake">50K <span>IOC</span></div>
+                <div class="tier-stake">10K <span>IOC</span></div>
                 <ul class="tier-features">
                     <li><span class="check">&#10003;</span> 200 MB storage</li>
                     <li><span class="check">&#10003;</span> 50K msgs/month</li>
@@ -1150,7 +1443,7 @@
             </div>
             <div class="tier-card reveal reveal-delay-4">
                 <div class="tier-name" style="color: var(--yellow);">Unlimited</div>
-                <div class="tier-stake">100K <span>IOC</span></div>
+                <div class="tier-stake">25K <span>IOC</span></div>
                 <ul class="tier-features">
                     <li><span class="check">&#10003;</span> 500 MB storage</li>
                     <li><span class="check">&#10003;</span> Unlimited msgs</li>
