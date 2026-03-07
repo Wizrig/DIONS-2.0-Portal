@@ -225,8 +225,8 @@
 
         .hero-logo-wrapper {
             position: relative;
-            width: 100px;
-            height: 100px;
+            width: 140px;
+            height: 140px;
             margin-bottom: 2.5rem;
             animation: fadeInScale 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
         }
@@ -244,15 +244,66 @@
 
         .logo-glow {
             position: absolute;
-            inset: -15px;
+            inset: -20px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(108,140,255,0.12) 0%, rgba(192,132,252,0.06) 50%, transparent 70%);
+            background: radial-gradient(circle, rgba(108,140,255,0.1) 0%, rgba(192,132,252,0.05) 50%, transparent 70%);
             animation: logoBreath 4s ease-in-out infinite;
         }
 
         @keyframes logoBreath {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.15); opacity: 1; }
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* Orbital rings */
+        .orbital-ring {
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(108,140,255,0.15);
+            border-radius: 50%;
+            animation: orbitalSpin 14s linear infinite;
+        }
+
+        .orbital-ring::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(108,140,255,0.3);
+        }
+
+        .orbital-ring:nth-child(3) {
+            inset: -12px;
+            border-color: rgba(192,132,252,0.12);
+            animation-duration: 20s;
+            animation-direction: reverse;
+        }
+
+        .orbital-ring:nth-child(3)::after {
+            background: var(--purple);
+            box-shadow: 0 0 10px var(--purple), 0 0 20px rgba(192,132,252,0.3);
+        }
+
+        .orbital-ring:nth-child(4) {
+            inset: -26px;
+            border-color: rgba(52,211,153,0.08);
+            animation-duration: 28s;
+        }
+
+        .orbital-ring:nth-child(4)::after {
+            background: var(--green);
+            box-shadow: 0 0 8px var(--green);
+            width: 4px;
+            height: 4px;
+        }
+
+        @keyframes orbitalSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .hero-eyebrow {
@@ -342,7 +393,7 @@
         /* ===== SECTION COMMON (Apple spacing) ===== */
         section {
             padding: 10rem 2rem;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             position: relative;
         }
@@ -353,7 +404,7 @@
         }
 
         .section-inner {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 0 2rem;
         }
@@ -388,7 +439,7 @@
         /* ===== DIVIDER ===== */
         .divider {
             height: 1px;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             position: relative;
             background: linear-gradient(90deg, transparent, rgba(108,140,255,0.1), rgba(192,132,252,0.08), transparent);
@@ -566,7 +617,7 @@
             grid-template-columns: repeat(5, 1fr);
             gap: 2rem;
             padding: 5rem 2rem;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             text-align: center;
         }
@@ -839,7 +890,7 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.25rem;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 0 2rem;
         }
@@ -1113,8 +1164,8 @@
         /* ===== MOBILE ===== */
         @media (max-width: 768px) {
             .hero-logo-wrapper {
-                width: 80px;
-                height: 80px;
+                width: 110px;
+                height: 110px;
                 margin-bottom: 1.5rem;
             }
 
@@ -1122,6 +1173,8 @@
                 width: 60px;
                 height: 60px;
             }
+
+            .orbital-ring:nth-child(4) { display: none; }
 
             .floating-nav {
                 display: none;
@@ -1320,7 +1373,7 @@
         @media (prefers-reduced-motion: reduce) {
             .reveal { transition: none; opacity: 1; transform: none; }
             * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-            body::before, body::after, .star-field { display: none !important; }
+            body::before, body::after, .star-field, .orbital-ring { display: none !important; }
         }
     </style>
 </head>
@@ -1344,6 +1397,9 @@
 <section class="hero" id="hero">
     <div class="hero-logo-wrapper">
         <div class="logo-glow"></div>
+        <div class="orbital-ring"></div>
+        <div class="orbital-ring"></div>
+        <div class="orbital-ring"></div>
         <img src="https://raw.githubusercontent.com/IOCoin/DIONS/main-legacy/doc/IOC-QT250PX.svg" alt="IOCoin" class="hero-logo" onerror="this.style.display='none'">
     </div>
     <p class="hero-eyebrow">IOCoin Protocol Upgrade</p>
