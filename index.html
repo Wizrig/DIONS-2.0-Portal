@@ -130,7 +130,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 6rem 2rem 5rem;
+            padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 3vw, 2rem) clamp(2.5rem, 5vw, 5rem);
             position: relative;
             overflow: hidden;
         }
@@ -180,7 +180,7 @@
 
         .hero-meta-item .counter-value {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: 800;
             color: var(--heading);
             letter-spacing: -0.03em;
@@ -208,7 +208,7 @@
 
         /* ===== SECTION COMMON ===== */
         section {
-            padding: 6rem 3%;
+            padding: clamp(3rem, 6vw, 6rem) 3%;
             width: 100%;
             margin: 0 auto;
             position: relative;
@@ -216,7 +216,7 @@
 
         .section-full {
             max-width: 100%;
-            padding: 6rem 0;
+            padding: clamp(3rem, 6vw, 6rem) 0;
         }
 
         .section-inner {
@@ -245,11 +245,11 @@
         }
 
         .section-desc {
-            font-size: 1.1rem;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
             color: var(--text);
             max-width: 600px;
             line-height: 1.7;
-            margin-bottom: 4rem;
+            margin-bottom: clamp(2rem, 4vw, 4rem);
         }
 
         /* ===== DIVIDER ===== */
@@ -274,7 +274,7 @@
 
         .comparison-row {
             display: grid;
-            grid-template-columns: 200px 1fr 1fr 1fr;
+            grid-template-columns: minmax(120px, 200px) 1fr 1fr 1fr;
             gap: 1px;
             background: rgba(255,255,255,0.03);
             border-radius: 16px;
@@ -353,9 +353,9 @@
         .arch-item {
             display: grid;
             grid-template-columns: 3rem 1fr 1.8fr;
-            gap: 2rem;
+            gap: clamp(1rem, 2vw, 2rem);
             align-items: start;
-            padding: 2.5rem 0;
+            padding: clamp(1.5rem, 3vw, 2.5rem) 0;
             border-bottom: 1px solid var(--border);
             transition: background 0.3s ease;
         }
@@ -488,8 +488,8 @@
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 2rem;
-            padding: 4rem 2rem;
+            gap: clamp(0.75rem, 2vw, 2rem);
+            padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 3vw, 2rem);
             width: 100%;
             margin: 0 auto;
             text-align: center;
@@ -497,7 +497,7 @@
 
         .stat-item .stat-number {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
+            font-size: clamp(1.75rem, 4vw, 3rem);
             font-weight: 800;
             color: var(--heading);
             letter-spacing: -0.03em;
@@ -506,7 +506,7 @@
         }
 
         .stat-item .stat-number .stat-suffix {
-            font-size: 1.5rem;
+            font-size: clamp(0.85rem, 2vw, 1.5rem);
             color: var(--cyan);
             font-weight: 700;
         }
@@ -522,7 +522,7 @@
 
         /* ===== CINEMATIC FEATURE SECTION ===== */
         .cinematic-section {
-            padding: 10rem 2rem;
+            padding: clamp(4rem, 8vw, 10rem) clamp(1rem, 3vw, 2rem);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -542,7 +542,7 @@
         }
 
         .cinematic-section .section-desc {
-            margin: 0 auto 4rem;
+            margin: 0 auto clamp(2rem, 4vw, 4rem);
             text-align: center;
         }
 
@@ -550,9 +550,9 @@
         .security-hero {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: clamp(1.5rem, 3vw, 3rem);
             align-items: center;
-            margin-bottom: 4rem;
+            margin-bottom: clamp(2rem, 4vw, 4rem);
         }
 
         .security-hero-left .big-stat {
@@ -662,18 +662,10 @@
             color: var(--text);
         }
 
-        @media (max-width: 768px) {
-            .security-hero {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                text-align: center;
-            }
-        }
-
         /* ===== WALLET CTA ===== */
         .cta-section {
             text-align: center;
-            padding: 8rem 2rem;
+            padding: clamp(3rem, 6vw, 8rem) clamp(1rem, 3vw, 2rem);
             position: relative;
             overflow: hidden;
         }
@@ -764,10 +756,10 @@
         .rewards-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.25rem;
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
             width: 100%;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 clamp(0.5rem, 2vw, 2rem);
         }
 
         .reward-card {
@@ -1057,43 +1049,21 @@
                 padding: 4rem 1.25rem 3rem;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
+            .floating-nav {
+                padding: 4px 4px;
+                gap: 1px;
             }
-
-            .hero-subtitle {
-                font-size: 0.95rem;
-                padding: 0 0.5rem;
+            .floating-nav a {
+                font-size: 0.7rem;
+                padding: 6px 12px;
             }
 
             .hero-meta {
                 gap: 1.25rem;
             }
 
-            .hero-meta-item .counter-value {
-                font-size: 1.75rem;
-            }
-
-            .hero-meta-item .counter-label {
-                font-size: 0.65rem;
-            }
-
             .stats-bar {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 1.25rem;
-                padding: 3rem 1.25rem;
-            }
-
-            .stat-item .stat-number {
-                font-size: 2rem;
-            }
-
-            .stat-item .stat-number .stat-suffix {
-                font-size: 1rem;
-            }
-
-            .stat-item .stat-label {
-                font-size: 0.65rem;
             }
 
             .comparison-row {
@@ -1136,10 +1106,6 @@
                 text-align: center;
             }
 
-            .security-hero-left .big-stat {
-                font-size: 3.5rem;
-            }
-
             .severity-row {
                 flex-wrap: wrap;
                 gap: 0.5rem;
@@ -1149,14 +1115,6 @@
                 margin-left: 0;
                 width: 100%;
                 text-align: right;
-            }
-
-            .cta-title {
-                font-size: 2rem;
-            }
-
-            .cta-desc {
-                font-size: 1rem;
             }
 
             .rewards-grid {
@@ -1198,15 +1156,6 @@
                 padding: 0 1.25rem;
             }
 
-            .section-title {
-                font-size: 1.75rem;
-            }
-
-            .section-desc {
-                font-size: 0.95rem;
-                margin-bottom: 2.5rem;
-            }
-
             .code-block {
                 font-size: 0.75rem;
                 padding: 1.25rem;
@@ -1239,6 +1188,20 @@
 
             .security-hero-right {
                 grid-template-columns: 1fr 1fr;
+            }
+
+            .arch-body {
+                padding-left: 0;
+            }
+
+            .severity-badge {
+                min-width: 60px;
+                font-size: 0.6rem;
+                padding: 3px 6px;
+            }
+
+            .severity-text {
+                font-size: 0.75rem;
             }
         }
 
