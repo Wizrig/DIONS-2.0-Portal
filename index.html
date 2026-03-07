@@ -46,7 +46,7 @@
         /* ===== LAYOUT ===== */
         .container {
             margin: 0 auto;
-            padding: 0 5%;
+            padding: 0 2%;
             width: 100%;
         }
 
@@ -58,7 +58,7 @@
             border: none;
             height: 1px;
             background: var(--border);
-            margin: 0 5%;
+            margin: 0 2%;
         }
 
         /* ===== FLOATING NAV ===== */
@@ -1489,10 +1489,16 @@
     // --- Wix iframe height ---
     function notifyHeight() {
         const h = document.documentElement.scrollHeight;
+        // Try multiple message formats for Wix compatibility
         window.parent.postMessage({ type: 'setHeight', height: h }, '*');
+        window.parent.postMessage(JSON.stringify({ height: h }), '*');
+        window.parent.postMessage({ src: window.location.href, height: h }, '*');
     }
     window.addEventListener('load', notifyHeight);
     window.addEventListener('resize', notifyHeight);
+    setTimeout(notifyHeight, 500);
+    setTimeout(notifyHeight, 1500);
+    setTimeout(notifyHeight, 3000);
     new MutationObserver(notifyHeight).observe(document.body, { childList: true, subtree: true });
 })();
 </script>
