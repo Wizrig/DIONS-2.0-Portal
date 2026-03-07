@@ -253,106 +253,185 @@
             display: block;
         }
 
-        /* ===== METRICS BAR ===== */
-        .metrics {
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 3rem 0;
-        }
-
-        .metrics-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .metric {
-            text-align: center;
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .metric .val {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: clamp(1.75rem, 3vw, 2.5rem);
-            font-weight: 700;
-            color: var(--heading);
-            line-height: 1;
-        }
-
-        .metric .val .suffix {
-            font-size: 0.5em;
-            color: var(--accent);
-            font-weight: 500;
-        }
-
-        .metric .lbl {
-            font-size: 0.75rem;
-            color: #555;
-            margin-top: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
+        /* (metrics bar removed) */
 
         /* ===== COMPARISON ===== */
-        .comp-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 3rem;
+        .comp-grid {
+            margin-top: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
         }
 
-        .comp-table th,
-        .comp-table td {
-            padding: 1rem 1.25rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
+        .comp-header {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr 1.3fr;
+            gap: 0;
+            padding: 0 0 1.25rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            margin-bottom: 0.5rem;
         }
 
-        .comp-table thead th {
+        .comp-header span {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
             font-weight: 600;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: #555;
-            padding-bottom: 1.25rem;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
+            color: #444;
+            padding: 0 1.25rem;
         }
 
-        .comp-table tbody td {
+        .comp-header .dions-header {
+            color: var(--accent);
+            position: relative;
+            padding-left: 1.75rem;
+        }
+
+        .comp-header .dions-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent), 0 0 24px rgba(108,140,255,0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .comp-row {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr 1.3fr;
+            gap: 0;
+            padding: 0;
+            border-radius: 8px;
+            transition: background 0.25s ease;
+            position: relative;
+        }
+
+        .comp-row:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .comp-row::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1.25rem;
+            right: 1.25rem;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .comp-row:last-child::after {
+            display: none;
+        }
+
+        .comp-cell {
+            padding: 1.1rem 1.25rem;
+            font-size: 0.9rem;
             color: var(--text);
+            display: flex;
+            align-items: center;
         }
 
-        .comp-table tbody td:first-child {
+        .comp-cell.label {
             color: var(--text-bright);
             font-weight: 500;
+            font-size: 0.88rem;
         }
 
-        .comp-table .dions-col {
+        .comp-cell.dions {
             color: var(--heading);
             font-weight: 500;
-            background: rgba(108,140,255,0.04);
+            position: relative;
+            background: linear-gradient(90deg, rgba(108,140,255,0.06) 0%, rgba(192,132,252,0.03) 50%, transparent 100%);
+            border-left: 2px solid var(--accent);
         }
 
-        .comp-table thead .dions-col {
-            color: var(--accent);
-        }
-
-        .comp-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .win {
-            color: var(--accent);
-            font-size: 0.65rem;
-            font-weight: 600;
+        .comp-cell.dions .win-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-left: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            margin-left: 0.5rem;
+            color: var(--green);
+            background: rgba(52,211,153,0.1);
+            border: 1px solid rgba(52,211,153,0.2);
+            padding: 0.15rem 0.5rem;
+            border-radius: 100px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .comp-cell.dions .win-badge svg {
+            width: 10px;
+            height: 10px;
+        }
+
+        .comp-row:hover .comp-cell.dions {
+            background: linear-gradient(90deg, rgba(108,140,255,0.1) 0%, rgba(192,132,252,0.05) 50%, transparent 100%);
+            border-left-color: var(--purple);
+        }
+
+        .comp-summary {
+            margin-top: 2rem;
+            padding: 1.5rem 1.75rem;
+            background: linear-gradient(135deg, rgba(108,140,255,0.06) 0%, rgba(192,132,252,0.04) 50%, rgba(52,211,153,0.03) 100%);
+            border: 1px solid rgba(108,140,255,0.12);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .comp-summary-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-bright);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .comp-summary-text .count {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .comp-summary-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .comp-summary-stat {
+            text-align: center;
+        }
+
+        .comp-summary-stat .val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--heading);
+        }
+
+        .comp-summary-stat .lbl {
+            font-size: 0.65rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-top: 0.15rem;
         }
 
         /* ===== ARCHITECTURE ===== */
@@ -759,10 +838,33 @@
             .hero-title { font-size: clamp(3rem, 12vw, 5rem); }
             .hero-stats { gap: 1.5rem; }
 
-            .metrics-row { justify-content: center; }
-
-            .comp-table { font-size: 0.8rem; }
-            .comp-table th, .comp-table td { padding: 0.75rem 0.6rem; }
+            .comp-header { display: none; }
+            .comp-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                margin-bottom: 0.75rem;
+                padding: 0.5rem 0;
+            }
+            .comp-row::after { display: none; }
+            .comp-cell { padding: 0.5rem 1rem; font-size: 0.85rem; }
+            .comp-cell.label {
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: #555;
+                padding-bottom: 0.25rem;
+            }
+            .comp-cell.dions {
+                border-left: none;
+                border-top: 1px solid var(--border);
+                background: rgba(108,140,255,0.04);
+                border-radius: 0 0 10px 10px;
+            }
+            .comp-summary { flex-direction: column; text-align: center; }
+            .comp-summary-stats { justify-content: center; }
 
             .arch-secondary {
                 grid-template-columns: 1fr;
@@ -840,34 +942,6 @@
     </div>
 </section>
 
-<!-- ===== METRICS BAR ===== -->
-<div class="metrics">
-    <div class="container">
-        <div class="metrics-row">
-            <div class="metric reveal">
-                <div class="val"><span class="counter" data-target="2" data-suffix=".7">0</span> <span class="suffix">TPS</span></div>
-                <div class="lbl">Throughput</div>
-            </div>
-            <div class="metric reveal reveal-d1">
-                <div class="val">0.001 <span class="suffix">IOC</span></div>
-                <div class="lbl">Entry Cost</div>
-            </div>
-            <div class="metric reveal reveal-d2">
-                <div class="val">1 <span class="suffix">s</span></div>
-                <div class="lbl">Block Time</div>
-            </div>
-            <div class="metric reveal reveal-d3">
-                <div class="val">1 <span class="suffix">%</span></div>
-                <div class="lbl">Annual Staking</div>
-            </div>
-            <div class="metric reveal reveal-d4">
-                <div class="val"><span class="counter" data-target="0">0</span></div>
-                <div class="lbl">Downtime</div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- ===== COMPARISON ===== -->
 <section id="compare">
     <div class="container">
@@ -877,72 +951,89 @@
             <p class="desc">Side-by-side against the two largest smart contract platforms.</p>
         </div>
 
-        <table class="comp-table reveal reveal-d1">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Ethereum</th>
-                    <th>Solana</th>
-                    <th class="dions-col">DIONS 2.0</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Consensus</td>
-                    <td>PoS (32 ETH min)</td>
-                    <td>PoH + Tower BFT</td>
-                    <td class="dions-col">PoS + PoP (zero min) <span class="win">Best</span></td>
-                </tr>
-                <tr>
-                    <td>Smart Contracts</td>
-                    <td>EVM only</td>
-                    <td>SVM only</td>
-                    <td class="dions-col">Both EVM + SVM <span class="win">Best</span></td>
-                </tr>
-                <tr>
-                    <td>Block Time</td>
-                    <td>~12s</td>
-                    <td>~0.4s</td>
-                    <td class="dions-col">30s (checkpoint finality)</td>
-                </tr>
-                <tr>
-                    <td>Quantum Resistance</td>
-                    <td>No</td>
-                    <td>No</td>
-                    <td class="dions-col">Dilithium + Falcon + Kyber <span class="win">Best</span></td>
-                </tr>
-                <tr>
-                    <td>Native Identity</td>
-                    <td>No (ENS = off-chain)</td>
-                    <td>No</td>
-                    <td class="dions-col">W3C DID Core 1.0 <span class="win">Best</span></td>
-                </tr>
-                <tr>
-                    <td>Native Messaging</td>
-                    <td>No</td>
-                    <td>No</td>
-                    <td class="dions-col">AES-256 + RSA-4096 <span class="win">Best</span></td>
-                </tr>
-                <tr>
-                    <td>File Storage</td>
-                    <td>No (IPFS)</td>
-                    <td>No</td>
-                    <td class="dions-col">On-chain with tiers <span class="win">Best</span></td>
-                </tr>
-                <tr>
-                    <td>Minimum Stake</td>
-                    <td>32 ETH (~$80K)</td>
-                    <td>~$100+</td>
-                    <td class="dions-col">0 IOC (PoP relay) <span class="win">Best</span></td>
-                </tr>
-                <tr>
-                    <td>Storage Required</td>
-                    <td>~2 TB</td>
-                    <td>~2 TB</td>
-                    <td class="dions-col">100 GB / 100 MB light <span class="win">Best</span></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="comp-grid reveal reveal-d1">
+            <div class="comp-header">
+                <span></span>
+                <span>Ethereum</span>
+                <span>Solana</span>
+                <span class="dions-header">DIONS 2.0</span>
+            </div>
+            <div class="comp-row">
+                <div class="comp-cell label">Consensus</div>
+                <div class="comp-cell">PoS (32 ETH min)</div>
+                <div class="comp-cell">PoH + Tower BFT</div>
+                <div class="comp-cell dions">PoS + PoP (zero min) <span class="win-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Best</span></div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-cell label">Smart Contracts</div>
+                <div class="comp-cell">EVM only</div>
+                <div class="comp-cell">SVM only</div>
+                <div class="comp-cell dions">Both EVM + SVM <span class="win-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Best</span></div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-cell label">Block Time</div>
+                <div class="comp-cell">~12s</div>
+                <div class="comp-cell">~0.4s</div>
+                <div class="comp-cell dions">30s (checkpoint finality)</div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-cell label">Quantum Resistance</div>
+                <div class="comp-cell">No</div>
+                <div class="comp-cell">No</div>
+                <div class="comp-cell dions">Dilithium + Falcon + Kyber <span class="win-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Best</span></div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-cell label">Native Identity</div>
+                <div class="comp-cell">No (ENS = off-chain)</div>
+                <div class="comp-cell">No</div>
+                <div class="comp-cell dions">W3C DID Core 1.0 <span class="win-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Best</span></div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-cell label">Native Messaging</div>
+                <div class="comp-cell">No</div>
+                <div class="comp-cell">No</div>
+                <div class="comp-cell dions">AES-256 + RSA-4096 <span class="win-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Best</span></div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-cell label">File Storage</div>
+                <div class="comp-cell">No (IPFS)</div>
+                <div class="comp-cell">No</div>
+                <div class="comp-cell dions">On-chain with tiers <span class="win-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Best</span></div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-cell label">Minimum Stake</div>
+                <div class="comp-cell">32 ETH (~$80K)</div>
+                <div class="comp-cell">~$100+</div>
+                <div class="comp-cell dions">0 IOC (PoP relay) <span class="win-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Best</span></div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-cell label">Storage Required</div>
+                <div class="comp-cell">~2 TB</div>
+                <div class="comp-cell">~2 TB</div>
+                <div class="comp-cell dions">100 GB / 100 MB light <span class="win-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Best</span></div>
+            </div>
+        </div>
+
+        <div class="comp-summary reveal reveal-d2">
+            <div class="comp-summary-text">
+                <span class="count">8/9</span>
+                <span>categories won by DIONS 2.0</span>
+            </div>
+            <div class="comp-summary-stats">
+                <div class="comp-summary-stat">
+                    <div class="val">0.001</div>
+                    <div class="lbl">IOC Entry</div>
+                </div>
+                <div class="comp-summary-stat">
+                    <div class="val">2.7</div>
+                    <div class="lbl">TPS</div>
+                </div>
+                <div class="comp-summary-stat">
+                    <div class="val">1s</div>
+                    <div class="lbl">Finality</div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
