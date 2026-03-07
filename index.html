@@ -8,15 +8,16 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
         :root {
-            --bg: #05060f;
-            --surface: #0c0d1a;
-            --card: rgba(12,14,30,0.55);
-            --border: rgba(255,255,255,0.07);
-            --text: #9ca3af;
+            --bg: #030408;
+            --surface: #0a0b16;
+            --card: rgba(10,12,28,0.6);
+            --border: rgba(255,255,255,0.06);
+            --text: #8b95a5;
             --text-bright: #e5e7eb;
             --heading: #f9fafb;
             --accent: #6c8cff;
-            --accent-glow: rgba(108,140,255,0.12);
+            --accent-bright: #8ba4ff;
+            --accent-glow: rgba(108,140,255,0.2);
             --green: #34d399;
             --red: #f87171;
             --yellow: #fbbf24;
@@ -27,9 +28,6 @@
             --sol: #34d399;
             --ioc-legacy: #e5a126;
             --dions: #6c8cff;
-            --nebula-1: rgba(108,140,255,0.06);
-            --nebula-2: rgba(192,132,252,0.05);
-            --nebula-3: rgba(52,211,153,0.04);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -55,10 +53,11 @@
             position: fixed;
             inset: 0;
             background:
-                radial-gradient(ellipse at 15% 20%, rgba(108,140,255,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 85% 25%, rgba(192,132,252,0.06) 0%, transparent 45%),
-                radial-gradient(ellipse at 50% 80%, rgba(52,211,153,0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 60%, rgba(108,140,255,0.03) 0%, transparent 40%);
+                radial-gradient(ellipse 800px 600px at 15% 15%, rgba(108,140,255,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 700px 500px at 85% 20%, rgba(192,132,252,0.14) 0%, transparent 70%),
+                radial-gradient(ellipse 900px 700px at 50% 75%, rgba(52,211,153,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 600px 400px at 70% 55%, rgba(108,140,255,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 500px at 30% 50%, rgba(192,132,252,0.06) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
             animation: nebulaShift 30s ease-in-out infinite alternate;
@@ -119,8 +118,13 @@
         }
 
         @keyframes starTwinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.8); }
-            50% { opacity: 0.8; transform: scale(1.2); }
+            0%, 100% { opacity: 0.15; transform: scale(0.8); }
+            50% { opacity: 0.9; transform: scale(1.2); }
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, -60px) scale(1.2); }
         }
 
         /* ===== SCROLL ANIMATIONS (Apple-style) ===== */
@@ -189,20 +193,22 @@
             padding: 8rem 2rem 6rem;
             position: relative;
             overflow: hidden;
+            max-width: 100%;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: -30%;
+            top: -40%;
             left: 50%;
             transform: translateX(-50%);
-            width: 900px;
-            height: 900px;
+            width: 1400px;
+            height: 1200px;
             background:
-                radial-gradient(circle at 35% 40%, rgba(108,140,255,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 65% 55%, rgba(192,132,252,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 45%, rgba(108,140,255,0.06) 0%, transparent 60%);
+                radial-gradient(circle at 50% 50%, rgba(108,140,255,0.22) 0%, transparent 40%),
+                radial-gradient(circle at 35% 40%, rgba(192,132,252,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 65% 55%, rgba(108,140,255,0.12) 0%, transparent 55%),
+                radial-gradient(circle at 50% 60%, rgba(52,211,153,0.06) 0%, transparent 50%);
             pointer-events: none;
             animation: heroGlow 12s ease-in-out infinite alternate;
         }
@@ -219,8 +225,8 @@
         }
 
         @keyframes heroGlow {
-            0% { opacity: 0.6; transform: translateX(-50%) scale(1); }
-            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+            0% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.15); }
         }
 
         .hero-logo-wrapper {
@@ -244,9 +250,9 @@
 
         .logo-glow {
             position: absolute;
-            inset: -20px;
+            inset: -30px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(108,140,255,0.1) 0%, rgba(192,132,252,0.05) 50%, transparent 70%);
+            background: radial-gradient(circle, rgba(108,140,255,0.15) 0%, rgba(192,132,252,0.08) 40%, transparent 70%);
             animation: logoBreath 4s ease-in-out infinite;
         }
 
@@ -329,13 +335,13 @@
         }
 
         .hero h1 .gradient-text {
-            background: linear-gradient(135deg, #6c8cff 0%, #a78bfa 30%, #c084fc 50%, #a78bfa 70%, #6c8cff 100%);
+            background: linear-gradient(135deg, #7b9eff 0%, #b08dff 25%, #d4a0ff 50%, #b08dff 75%, #7b9eff 100%);
             background-size: 300% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 8s ease infinite;
-            filter: drop-shadow(0 0 60px rgba(108,140,255,0.15));
+            animation: gradientShift 6s ease infinite;
+            filter: drop-shadow(0 0 80px rgba(108,140,255,0.35)) drop-shadow(0 0 120px rgba(192,132,252,0.2));
         }
 
         @keyframes gradientShift {
@@ -444,7 +450,16 @@
             max-width: 1600px;
             margin: 0 auto;
             position: relative;
-            background: linear-gradient(90deg, transparent, rgba(108,140,255,0.1), rgba(192,132,252,0.08), transparent);
+            background: linear-gradient(90deg, transparent 5%, rgba(108,140,255,0.2) 30%, rgba(192,132,252,0.15) 50%, rgba(108,140,255,0.2) 70%, transparent 95%);
+        }
+
+        .divider::after {
+            content: '';
+            position: absolute;
+            inset: -8px 0;
+            background: linear-gradient(90deg, transparent 5%, rgba(108,140,255,0.04) 30%, rgba(192,132,252,0.03) 50%, rgba(108,140,255,0.04) 70%, transparent 95%);
+            filter: blur(8px);
+            pointer-events: none;
         }
 
         /* ===== COMPARISON SCORECARDS ===== */
@@ -505,13 +520,23 @@
         }
 
         .comp-cell.winner {
-            background: rgba(108,140,255,0.06);
-            border: 1px solid rgba(108,140,255,0.12);
+            background: rgba(108,140,255,0.08);
+            border: 1px solid rgba(108,140,255,0.15);
+            box-shadow: inset 0 0 30px rgba(108,140,255,0.04);
         }
 
         .comp-cell.winner .comp-value {
             color: var(--heading);
             font-weight: 600;
+        }
+
+        .comparison-row:hover .comp-cell {
+            background: rgba(17,17,24,0.6);
+        }
+
+        .comparison-row:hover .comp-cell.winner {
+            background: rgba(108,140,255,0.1);
+            box-shadow: inset 0 0 40px rgba(108,140,255,0.06);
         }
 
         .win-badge {
@@ -524,120 +549,174 @@
             margin-top: 0.25rem;
         }
 
-        /* ===== BENTO FEATURE GRID ===== */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: auto;
-            gap: 1.25rem;
+        /* ===== SPOTLIGHT FEATURE PANELS ===== */
+        .spotlight-panels {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
         }
 
-        .bento-card {
-            background: rgba(12,14,30,0.45);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+        .spotlight-panel {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+            background: rgba(10,12,28,0.5);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 24px;
-            padding: 2.5rem;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 28px;
+            padding: 3rem 3.5rem;
             position: relative;
             overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
         }
 
-        .bento-card::before {
+        .spotlight-panel::before {
             content: '';
             position: absolute;
-            inset: 0;
-            border-radius: 24px;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--panel-gradient, linear-gradient(90deg, transparent, rgba(108,140,255,0.4), transparent));
             opacity: 0;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.5s ease;
         }
 
-        .bento-card:hover {
+        .spotlight-panel::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--panel-glow, rgba(108,140,255,0.06)) 0%, transparent 70%);
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            opacity: 0.5;
+        }
+
+        .spotlight-panel:hover {
             border-color: rgba(255,255,255,0.1);
             transform: translateY(-4px);
             box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5);
         }
 
-        .bento-card:hover::before {
-            opacity: 1;
-        }
+        .spotlight-panel:hover::before { opacity: 1; }
+        .spotlight-panel:hover::after { opacity: 1; }
 
-        /* Hero cards span 2 columns */
-        .bento-card.hero-card {
-            grid-column: span 2;
-            padding: 3.25rem;
-        }
-
-        .bento-card.hero-card .feature-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            font-size: 1.6rem;
-            margin-bottom: 1.75rem;
-        }
-
-        .bento-card.hero-card h3 {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-        }
-
-        .bento-card.hero-card p {
-            font-size: 1rem;
-            max-width: 480px;
-        }
-
-        /* Color-tinted hero cards */
-        .bento-card.hero-card.tint-blue {
-            background: linear-gradient(135deg, rgba(108,140,255,0.08) 0%, rgba(12,14,30,0.5) 60%);
-        }
-        .bento-card.hero-card.tint-blue::before {
-            background: linear-gradient(135deg, rgba(108,140,255,0.06) 0%, transparent 50%);
-        }
-
-        .bento-card.hero-card.tint-purple {
-            background: linear-gradient(135deg, rgba(192,132,252,0.08) 0%, rgba(12,14,30,0.5) 60%);
-        }
-        .bento-card.hero-card.tint-purple::before {
-            background: linear-gradient(135deg, rgba(192,132,252,0.06) 0%, transparent 50%);
-        }
-
-        /* Full-width banner card */
-        .bento-card.banner-card {
-            grid-column: 1 / -1;
-            padding: 3rem 3.25rem;
+        .spotlight-panel .panel-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 2.5rem;
-            background: linear-gradient(135deg, rgba(248,113,113,0.06) 0%, rgba(12,14,30,0.5) 40%);
-        }
-
-        .bento-card.banner-card::before {
-            background: linear-gradient(135deg, rgba(248,113,113,0.05) 0%, transparent 40%);
-        }
-
-        .bento-card.banner-card .banner-content {
-            flex: 1;
-        }
-
-        .bento-card.banner-card h3 {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .bento-card.banner-card .feature-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 18px;
+            justify-content: center;
             font-size: 1.8rem;
             flex-shrink: 0;
         }
 
-        .bento-card.banner-card .feature-detail {
-            margin-top: 0.75rem;
+        .spotlight-panel h3 {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--heading);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .spotlight-panel p {
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 560px;
+        }
+
+        .panel-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .panel-tags .tag {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            padding: 5px 14px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-bright);
+        }
+
+        /* Compact feature grid for remaining features */
+        .compact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .compact-card {
+            background: rgba(10,12,28,0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 22px;
+            padding: 2.25rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .compact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--card-gradient, linear-gradient(90deg, transparent 20%, rgba(108,140,255,0.3), transparent 80%));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .compact-card:hover {
+            border-color: rgba(255,255,255,0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px -15px rgba(0,0,0,0.4);
+        }
+
+        .compact-card:hover::before { opacity: 1; }
+
+        .compact-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--heading);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .compact-card p {
+            font-size: 0.85rem;
+            color: var(--text);
+            line-height: 1.65;
+        }
+
+        .compact-card .feature-detail {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.78rem;
+            color: var(--text);
+        }
+
+        .compact-card .feature-detail strong {
+            color: var(--text-bright);
         }
 
         /* Standard feature card styles within bento */
@@ -673,10 +752,10 @@
         }
 
         .feature-card:hover {
-            border-color: rgba(108,140,255,0.1);
+            border-color: rgba(108,140,255,0.12);
             transform: translateY(-6px);
-            box-shadow: 0 30px 80px -20px rgba(108,140,255,0.12), 0 0 60px -10px rgba(108,140,255,0.04);
-            background: rgba(15,17,35,0.6);
+            box-shadow: 0 30px 80px -20px rgba(108,140,255,0.15), 0 0 80px -15px rgba(108,140,255,0.06);
+            background: rgba(12,15,32,0.7);
         }
 
         .feature-card:hover::before {
@@ -751,9 +830,25 @@
 
         .stat-item .stat-number .stat-suffix {
             font-size: 0.5em;
-            color: var(--accent);
+            color: var(--accent-bright);
             font-weight: 600;
         }
+
+        .stat-item {
+            position: relative;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.06), transparent);
+        }
+
+        .stat-item:last-child::after { display: none; }
 
         .stat-item .stat-label {
             font-size: 0.72rem;
@@ -776,7 +871,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at 50% 50%, var(--glow-color, rgba(59,130,246,0.06)) 0%, transparent 60%);
+            background: radial-gradient(ellipse 900px 600px at 50% 30%, var(--glow-color, rgba(59,130,246,0.08)) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -805,7 +900,11 @@
             font-weight: 700;
             letter-spacing: -0.05em;
             line-height: 0.95;
-            color: var(--green);
+            background: linear-gradient(135deg, #34d399, #6ee7b7, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 40px rgba(52,211,153,0.2));
             margin-bottom: 0.75rem;
         }
 
@@ -927,9 +1026,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 900px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(108,140,255,0.08) 0%, rgba(192,132,252,0.04) 40%, transparent 70%);
+            width: 1200px;
+            height: 900px;
+            background: radial-gradient(circle, rgba(108,140,255,0.12) 0%, rgba(192,132,252,0.06) 35%, transparent 65%);
             pointer-events: none;
         }
 
@@ -980,7 +1079,7 @@
         }
 
         .cta-btn.primary:hover {
-            box-shadow: 0 12px 40px rgba(108,140,255,0.45);
+            box-shadow: 0 12px 40px rgba(108,140,255,0.5), 0 0 80px rgba(108,140,255,0.15);
             transform: translateY(-3px) scale(1.02);
         }
 
@@ -1040,8 +1139,8 @@
 
         .reward-card:hover {
             border-color: rgba(255,255,255,0.12);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.5), 0 0 40px rgba(var(--card-accent-rgb, 108,140,255), 0.06);
         }
 
         .reward-card:hover::before {
@@ -1112,8 +1211,9 @@
         }
 
         .tier-card.featured {
-            border-color: rgba(108,140,255,0.2);
-            box-shadow: 0 0 50px rgba(108,140,255,0.06);
+            border-color: rgba(108,140,255,0.25);
+            box-shadow: 0 0 60px rgba(108,140,255,0.08), 0 0 120px rgba(108,140,255,0.03);
+            background: rgba(15,18,38,0.6);
         }
 
         .tier-card.featured::before {
@@ -1367,18 +1467,19 @@
                 padding: 0.75rem 1.25rem;
             }
 
-            .bento-grid {
+            .spotlight-panel {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 2rem;
             }
 
-            .bento-card.hero-card,
-            .bento-card.banner-card {
-                grid-column: span 1;
+            .spotlight-panel .panel-icon {
+                width: 56px !important;
+                height: 56px !important;
             }
 
-            .bento-card.banner-card {
-                flex-direction: column;
-                text-align: center;
+            .compact-grid {
+                grid-template-columns: 1fr;
             }
 
             .features-grid {
@@ -1689,102 +1790,109 @@
     </div>
 
     <div class="section-inner">
-        <div class="bento-grid">
-            <!-- Row 1: Two hero cards -->
-            <div class="bento-card hero-card tint-blue reveal reveal-delay-1">
-                <div class="feature-icon blue">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <!-- 3 Spotlight feature panels -->
+        <div class="spotlight-panels">
+            <div class="spotlight-panel reveal reveal-delay-1" style="--panel-gradient: linear-gradient(90deg, transparent, rgba(108,140,255,0.5), transparent); --panel-glow: rgba(108,140,255,0.08);">
+                <div class="panel-icon feature-icon blue" style="width:72px;height:72px;border-radius:20px;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
                 </div>
-                <h3>Dual Execution Zones</h3>
-                <p>Run EVM and SVM smart contracts side by side. Add new execution zones without a hard fork. One chain, infinite possibilities.</p>
-                <div class="feature-detail"><strong>EVM</strong> for Solidity | <strong>SVM</strong> for Rust/BPF programs</div>
+                <div>
+                    <h3>Dual Execution Zones</h3>
+                    <p>Run EVM and SVM smart contracts side by side on a single L1. Add new execution zones without a hard fork. One chain, infinite possibilities.</p>
+                    <div class="panel-tags">
+                        <span class="tag">EVM / Solidity</span>
+                        <span class="tag">SVM / Rust + BPF</span>
+                        <span class="tag">Extensible</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="bento-card reveal reveal-delay-2" style="background: linear-gradient(135deg, rgba(192,132,252,0.06) 0%, rgba(12,14,30,0.5) 60%);">
-                <div class="feature-icon purple">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <div class="spotlight-panel reveal reveal-delay-2" style="--panel-gradient: linear-gradient(90deg, transparent, rgba(52,211,153,0.5), transparent); --panel-glow: rgba(52,211,153,0.06);">
+                <div class="panel-icon feature-icon green" style="width:72px;height:72px;border-radius:20px;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
                 </div>
-                <h3>Post-Quantum Crypto</h3>
-                <p>Dilithium, Falcon, and Kyber. NIST-approved and ready before quantum arrives.</p>
-                <div class="feature-detail"><strong>ECDSA</strong> compat + <strong>PQC</strong> hybrid</div>
+                <div>
+                    <h3>Proof of Participation — Earn from Nothing</h3>
+                    <p>Zero-balance nodes earn 0.001 IOC per block by relaying transactions. The first blockchain where anyone can earn from absolutely nothing. No hardware requirements.</p>
+                    <div class="panel-tags">
+                        <span class="tag">Zero Balance Entry</span>
+                        <span class="tag">Relay Rewards</span>
+                        <span class="tag">No Minimum</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Row 2: Three equal cards -->
-            <div class="bento-card reveal reveal-delay-1" style="background: linear-gradient(160deg, rgba(52,211,153,0.06) 0%, rgba(12,14,30,0.5) 60%);">
+            <div class="spotlight-panel reveal reveal-delay-3" style="--panel-gradient: linear-gradient(90deg, transparent, rgba(192,132,252,0.5), transparent); --panel-glow: rgba(192,132,252,0.06);">
+                <div class="panel-icon feature-icon purple" style="width:72px;height:72px;border-radius:20px;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <div>
+                    <h3>Post-Quantum Cryptography</h3>
+                    <p>Dilithium, Falcon, and Kyber — NIST-approved algorithms protecting your assets before quantum computers arrive. Full ECDSA backward compatibility.</p>
+                    <div class="panel-tags">
+                        <span class="tag">Dilithium</span>
+                        <span class="tag">Falcon</span>
+                        <span class="tag">Kyber</span>
+                        <span class="tag">Hybrid Mode</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compact grid for remaining features -->
+        <div class="compact-grid">
+            <div class="compact-card reveal reveal-delay-1" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(52,211,153,0.3), transparent 90%);">
                 <div class="feature-icon green">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </div>
                 <h3>W3C DID Identity</h3>
-                <p>Native decentralized identifiers. Aliases, agents, and device delegation built in.</p>
+                <p>Native decentralized identifiers. Aliases, agents, and device delegation built into the protocol.</p>
                 <div class="feature-detail"><strong>did:dions:</strong> namespace</div>
             </div>
 
-            <div class="bento-card reveal reveal-delay-2" style="background: linear-gradient(160deg, rgba(251,191,36,0.05) 0%, rgba(12,14,30,0.5) 60%);">
+            <div class="compact-card reveal reveal-delay-2" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(251,191,36,0.3), transparent 90%);">
                 <div class="feature-icon yellow">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 </div>
                 <h3>Encrypted Messaging</h3>
-                <p>AES-256-CBC + RSA-4096 messages and private channels. Censorship-resistant.</p>
+                <p>AES-256 + RSA-4096 encrypted messages and channels. Censorship-resistant.</p>
                 <div class="feature-detail"><strong>Direct</strong> | <strong>Group</strong> | <strong>Shadow</strong></div>
             </div>
 
-            <div class="bento-card reveal reveal-delay-3" style="background: linear-gradient(160deg, rgba(251,146,60,0.05) 0%, rgba(12,14,30,0.5) 60%);">
+            <div class="compact-card reveal reveal-delay-3" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(251,146,60,0.3), transparent 90%);">
                 <div class="feature-icon orange">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                 </div>
                 <h3>Ethereum Bridge</h3>
-                <p>HTLC atomic swaps and relayer consensus. Move assets trustlessly.</p>
+                <p>HTLC atomic swaps and relayer consensus. Move assets trustlessly between chains.</p>
                 <div class="feature-detail"><strong>HTLC</strong> swaps | <strong>Relayer</strong> consensus</div>
             </div>
 
-            <!-- Row 3: One card + hero card -->
-            <div class="bento-card reveal reveal-delay-1" style="background: linear-gradient(160deg, rgba(45,212,191,0.05) 0%, rgba(12,14,30,0.5) 60%);">
+            <div class="compact-card reveal reveal-delay-1" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(45,212,191,0.3), transparent 90%);">
                 <div class="feature-icon teal">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                 </div>
                 <h3>Data Availability</h3>
-                <p>Reed-Solomon erasure coding. 64+32 shards with 99.99% DA guarantee.</p>
+                <p>Reed-Solomon erasure coding with 64+32 shards. 99.99% DA guarantee.</p>
                 <div class="feature-detail"><strong>64+32</strong> shards | <strong>DA</strong> sampling</div>
             </div>
 
-            <div class="bento-card hero-card tint-blue reveal reveal-delay-2">
+            <div class="compact-card reveal reveal-delay-2" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(108,140,255,0.3), transparent 90%);">
                 <div class="feature-icon blue">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                 </div>
                 <h3>Light Client</h3>
-                <p>Headers-only sync in under 5 minutes. Earn 0.5 IOC per block by running a light node. Under 100 MB total storage required.</p>
-                <div class="feature-detail"><strong>5 min</strong> sync | <strong>0.5 IOC</strong> block reward | <strong>100 MB</strong> storage</div>
+                <p>Headers-only sync in under 5 minutes. Earn 0.5 IOC/block with under 100 MB storage.</p>
+                <div class="feature-detail"><strong>5 min</strong> sync | <strong>0.5 IOC</strong> reward</div>
             </div>
 
-            <!-- Row 4: Full-width banner -->
-            <div class="bento-card banner-card reveal reveal-delay-1">
-                <div class="feature-icon red">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                </div>
-                <div class="banner-content">
-                    <h3>Proof of Participation — Earn from Nothing</h3>
-                    <p>Zero-balance nodes earn 0.001 IOC per block by relaying transactions. The first blockchain where anyone can earn from absolutely nothing.</p>
-                    <div class="feature-detail"><strong>Zero</strong> balance entry | <strong>Relay</strong> rewards | <strong>No hardware</strong> requirements</div>
-                </div>
-            </div>
-
-            <!-- Enhanced PoS as standalone -->
-            <div class="bento-card hero-card reveal reveal-delay-2" style="background: linear-gradient(135deg, rgba(52,211,153,0.06) 0%, rgba(12,14,30,0.5) 60%); grid-column: span 2;">
+            <div class="compact-card reveal reveal-delay-3" style="--card-gradient: linear-gradient(90deg, transparent 10%, rgba(52,211,153,0.3), transparent 90%);">
                 <div class="feature-icon green">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 </div>
-                <h3>Enhanced PoS Consensus</h3>
-                <p>30-second blocks with checkpoint finality. Validator slashing, jailing, and full stake delegation for a secure and decentralized network.</p>
-                <div class="feature-detail"><strong>67%</strong> finality threshold | <strong>Slashing</strong> + jailing | <strong>Delegation</strong></div>
-            </div>
-
-            <div class="bento-card reveal reveal-delay-3" style="background: linear-gradient(160deg, rgba(108,140,255,0.05) 0%, rgba(12,14,30,0.5) 60%);">
-                <div class="feature-icon blue">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                </div>
-                <h3>WebSocket Real-Time</h3>
-                <p>7 subscription topics. Live block, transaction, and event streaming.</p>
-                <div class="feature-detail"><strong>7</strong> topics | <strong>Per-address</strong> filtering</div>
+                <h3>Enhanced PoS</h3>
+                <p>30s blocks, checkpoint finality, validator slashing, jailing, and stake delegation.</p>
+                <div class="feature-detail"><strong>67%</strong> finality | <strong>Slashing</strong></div>
             </div>
         </div>
     </div>
@@ -2106,22 +2214,46 @@
     // --- Cosmic Star Field ---
     const starField = document.getElementById('starField');
     if (starField && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 100; i++) {
             const s = document.createElement('div');
             s.className = 'star';
             s.style.left = Math.random() * 100 + '%';
             s.style.top = Math.random() * 100 + '%';
-            const size = (0.5 + Math.random() * 1.5) + 'px';
+            const size = (0.5 + Math.random() * 2) + 'px';
             s.style.width = size;
             s.style.height = size;
-            s.style.animationDuration = (3 + Math.random() * 5) + 's';
+            s.style.animationDuration = (2 + Math.random() * 6) + 's';
             s.style.animationDelay = (Math.random() * 5) + 's';
-            if (Math.random() < 0.15) {
-                s.style.background = 'rgba(108,140,255,0.7)';
-            } else if (Math.random() < 0.1) {
-                s.style.background = 'rgba(192,132,252,0.6)';
+            const r = Math.random();
+            if (r < 0.12) {
+                s.style.background = 'rgba(108,140,255,0.8)';
+                s.style.boxShadow = '0 0 3px rgba(108,140,255,0.4)';
+            } else if (r < 0.2) {
+                s.style.background = 'rgba(192,132,252,0.7)';
+                s.style.boxShadow = '0 0 3px rgba(192,132,252,0.3)';
+            } else if (r < 0.24) {
+                s.style.background = 'rgba(52,211,153,0.6)';
+                s.style.boxShadow = '0 0 3px rgba(52,211,153,0.3)';
             }
             starField.appendChild(s);
+        }
+
+        // --- Floating gradient orbs for depth ---
+        const orbColors = [
+            'rgba(108,140,255,0.04)',
+            'rgba(192,132,252,0.03)',
+            'rgba(52,211,153,0.025)'
+        ];
+        for (let i = 0; i < 5; i++) {
+            const orb = document.createElement('div');
+            const size = 200 + Math.random() * 400;
+            orb.style.cssText = 'position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(60px);' +
+                'width:' + size + 'px;height:' + size + 'px;' +
+                'left:' + (Math.random() * 100) + '%;top:' + (Math.random() * 100) + '%;' +
+                'background:' + orbColors[i % orbColors.length] + ';' +
+                'animation:orbFloat ' + (20 + Math.random() * 30) + 's ease-in-out infinite alternate;' +
+                'animation-delay:-' + (Math.random() * 20) + 's;';
+            starField.appendChild(orb);
         }
     }
 
