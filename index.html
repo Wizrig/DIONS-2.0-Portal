@@ -439,17 +439,18 @@
         }
 
         .arch-item:hover {
-            background: rgba(255,255,255,0.015);
-            margin: 0 -1.5rem;
+            background: rgba(255,255,255,0.02);
+            border-left: 2px solid var(--accent);
             padding-left: 1.5rem;
-            padding-right: 1.5rem;
+            margin-left: -1.5rem;
         }
 
         .arch-num {
             font-family: 'Orbitron', monospace;
             font-size: 0.75rem;
             font-weight: 600;
-            color: rgba(255,255,255,0.2);
+            color: var(--accent);
+            opacity: 0.6;
             padding-top: 0.15rem;
         }
 
@@ -459,22 +460,35 @@
             color: var(--heading);
             letter-spacing: -0.02em;
             line-height: 1.3;
+            background: linear-gradient(135deg, #e4e4e7 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .arch-title .arch-tag {
             display: inline-block;
             font-family: 'Orbitron', monospace;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 600;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: var(--accent);
-            background: rgba(59,130,246,0.1);
-            padding: 2px 8px;
+            padding: 3px 8px;
             border-radius: 3px;
             margin-left: 0.75rem;
             vertical-align: middle;
+            -webkit-text-fill-color: initial;
         }
+
+        .arch-tag.tag-core { color: var(--accent); background: rgba(59,130,246,0.12); }
+        .arch-tag.tag-security { color: var(--purple); background: rgba(168,85,247,0.12); }
+        .arch-tag.tag-identity { color: var(--green); background: rgba(34,197,94,0.12); }
+        .arch-tag.tag-privacy { color: var(--yellow); background: rgba(234,179,8,0.12); }
+        .arch-tag.tag-interop { color: var(--orange); background: rgba(249,115,22,0.12); }
+        .arch-tag.tag-storage { color: var(--teal); background: rgba(20,184,166,0.12); }
+        .arch-tag.tag-access { color: var(--cyan); background: rgba(0,240,255,0.1); }
+        .arch-tag.tag-consensus { color: var(--green); background: rgba(34,197,94,0.12); }
+        .arch-tag.tag-inclusive { color: var(--red); background: rgba(239,68,68,0.12); }
 
         .arch-body {
             display: flex;
@@ -491,12 +505,12 @@
         .arch-body .arch-spec {
             font-family: 'Orbitron', monospace;
             font-size: 0.7rem;
-            color: rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.35);
             letter-spacing: 0.03em;
         }
 
         .arch-body .arch-spec strong {
-            color: var(--text);
+            color: var(--cyan);
         }
 
         /* ===== BUILD INFO GRID ===== */
@@ -1332,13 +1346,6 @@
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="hero">
-    <div class="hero-logo-wrapper">
-        <div class="orbital-ring"></div>
-        <div class="orbital-ring"></div>
-        <div class="orbital-ring"></div>
-        <img src="https://raw.githubusercontent.com/IOCoin/DIONS/main-legacy/doc/IOC-QT250PX.svg" alt="IOCoin" class="hero-logo" onerror="this.style.display='none'">
-    </div>
-    <p class="hero-eyebrow">IOCoin Protocol Upgrade</p>
     <h1>
         <span class="gradient-text">DIONS 2.0</span>
     </h1>
@@ -1495,7 +1502,7 @@
     <div class="arch-list">
         <div class="arch-item reveal">
             <span class="arch-num">01</span>
-            <div class="arch-title">Dual Execution Zones<span class="arch-tag">Core</span></div>
+            <div class="arch-title">Dual Execution Zones<span class="arch-tag tag-core">Core</span></div>
             <div class="arch-body">
                 <p>Run EVM and SVM smart contracts side by side. Add new execution zones without a hard fork.</p>
                 <div class="arch-spec"><strong>EVM</strong> Solidity &middot; <strong>SVM</strong> Rust/BPF &middot; <strong>11,000+</strong> combined TPS</div>
@@ -1504,7 +1511,7 @@
 
         <div class="arch-item reveal">
             <span class="arch-num">02</span>
-            <div class="arch-title">Post-Quantum Cryptography<span class="arch-tag">Security</span></div>
+            <div class="arch-title">Post-Quantum Cryptography<span class="arch-tag tag-security">Security</span></div>
             <div class="arch-body">
                 <p>NIST-approved Dilithium, Falcon, and Kyber. Hybrid mode runs PQC alongside ECDSA for backward compatibility.</p>
                 <div class="arch-spec"><strong>Dilithium</strong> signatures &middot; <strong>Falcon</strong> compact &middot; <strong>Kyber</strong> key exchange</div>
@@ -1513,7 +1520,7 @@
 
         <div class="arch-item reveal">
             <span class="arch-num">03</span>
-            <div class="arch-title">W3C DID Identity<span class="arch-tag">Identity</span></div>
+            <div class="arch-title">W3C DID Identity<span class="arch-tag tag-identity">Identity</span></div>
             <div class="arch-body">
                 <p>Native decentralized identifiers following W3C DID Core 1.0. Aliases, agents, and device delegation built into the protocol.</p>
                 <div class="arch-spec"><strong>did:dions:</strong> namespace &middot; Agent DIDs &middot; Device delegation</div>
@@ -1522,7 +1529,7 @@
 
         <div class="arch-item reveal">
             <span class="arch-num">04</span>
-            <div class="arch-title">Encrypted Messaging<span class="arch-tag">Privacy</span></div>
+            <div class="arch-title">Encrypted Messaging<span class="arch-tag tag-privacy">Privacy</span></div>
             <div class="arch-body">
                 <p>AES-256-CBC + RSA-4096 encrypted messages and private channels. On-chain, censorship-resistant communication.</p>
                 <div class="arch-spec"><strong>Direct</strong> messages &middot; <strong>Group</strong> channels &middot; <strong>Shadow</strong> messages</div>
@@ -1531,7 +1538,7 @@
 
         <div class="arch-item reveal">
             <span class="arch-num">05</span>
-            <div class="arch-title">Ethereum Bridge<span class="arch-tag">Interop</span></div>
+            <div class="arch-title">Ethereum Bridge<span class="arch-tag tag-interop">Interop</span></div>
             <div class="arch-body">
                 <p>Native bridge with relayer consensus and HTLC atomic swaps. Move assets between IOCoin and Ethereum trustlessly.</p>
                 <div class="arch-spec"><strong>HTLC</strong> atomic swaps &middot; <strong>Relayer</strong> consensus &middot; Multi-sig validation</div>
@@ -1540,7 +1547,7 @@
 
         <div class="arch-item reveal">
             <span class="arch-num">06</span>
-            <div class="arch-title">Data Availability<span class="arch-tag">Storage</span></div>
+            <div class="arch-title">Data Availability<span class="arch-tag tag-storage">Storage</span></div>
             <div class="arch-body">
                 <p>Reed-Solomon erasure coding with sharded storage. 99.99% data availability sampling guarantee.</p>
                 <div class="arch-spec"><strong>64+32</strong> erasure shards &middot; <strong>DA</strong> sampling &middot; On-chain file storage</div>
@@ -1549,7 +1556,7 @@
 
         <div class="arch-item reveal">
             <span class="arch-num">07</span>
-            <div class="arch-title">Light Client<span class="arch-tag">Access</span></div>
+            <div class="arch-title">Light Client<span class="arch-tag tag-access">Access</span></div>
             <div class="arch-body">
                 <p>Headers-only sync in ~5 minutes. Earn 0.5 IOC per block by running a light node. Under 100 MB storage.</p>
                 <div class="arch-spec"><strong>5 min</strong> sync &middot; <strong>0.5 IOC</strong> block reward &middot; <strong>100 MB</strong> storage</div>
@@ -1558,7 +1565,7 @@
 
         <div class="arch-item reveal">
             <span class="arch-num">08</span>
-            <div class="arch-title">Enhanced PoS Consensus<span class="arch-tag">Consensus</span></div>
+            <div class="arch-title">Enhanced PoS Consensus<span class="arch-tag tag-consensus">Consensus</span></div>
             <div class="arch-body">
                 <p>30-second blocks with checkpoint finality. Validator slashing for double-sign, jailing, and stake delegation.</p>
                 <div class="arch-spec"><strong>67%</strong> finality &middot; <strong>Slashing</strong> + jailing &middot; Stake delegation</div>
@@ -1567,7 +1574,7 @@
 
         <div class="arch-item reveal">
             <span class="arch-num">09</span>
-            <div class="arch-title">Proof of Participation<span class="arch-tag">Inclusive</span></div>
+            <div class="arch-title">Proof of Participation<span class="arch-tag tag-inclusive">Inclusive</span></div>
             <div class="arch-body">
                 <p>Zero-balance nodes earn 0.001 IOC per block by relaying transactions. The first blockchain where anyone can earn from nothing.</p>
                 <div class="arch-spec"><strong>Zero</strong> balance entry &middot; <strong>Relay</strong> rewards &middot; <strong>0.001 IOC</strong>/block</div>
