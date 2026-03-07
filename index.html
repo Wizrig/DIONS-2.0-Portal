@@ -258,47 +258,49 @@
         /* Orbital rings */
         .orbital-ring {
             position: absolute;
-            inset: 0;
-            border: 1px solid rgba(108,140,255,0.15);
+            inset: 5px;
+            border: 1.5px solid rgba(108,140,255,0.25);
             border-radius: 50%;
-            animation: orbitalSpin 14s linear infinite;
+            animation: orbitalSpin 12s linear infinite;
         }
 
         .orbital-ring::after {
             content: '';
             position: absolute;
-            top: -3px;
+            top: -4px;
             left: 50%;
-            width: 5px;
-            height: 5px;
+            width: 7px;
+            height: 7px;
             background: var(--accent);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(108,140,255,0.3);
+            box-shadow: 0 0 12px var(--accent), 0 0 25px rgba(108,140,255,0.5);
         }
 
         .orbital-ring:nth-child(3) {
-            inset: -12px;
-            border-color: rgba(192,132,252,0.12);
-            animation-duration: 20s;
+            inset: -10px;
+            border-color: rgba(192,132,252,0.2);
+            animation-duration: 18s;
             animation-direction: reverse;
         }
 
         .orbital-ring:nth-child(3)::after {
             background: var(--purple);
-            box-shadow: 0 0 10px var(--purple), 0 0 20px rgba(192,132,252,0.3);
+            box-shadow: 0 0 12px var(--purple), 0 0 25px rgba(192,132,252,0.5);
+            width: 6px;
+            height: 6px;
         }
 
         .orbital-ring:nth-child(4) {
-            inset: -26px;
-            border-color: rgba(52,211,153,0.08);
-            animation-duration: 28s;
+            inset: -28px;
+            border-color: rgba(52,211,153,0.12);
+            animation-duration: 26s;
         }
 
         .orbital-ring:nth-child(4)::after {
             background: var(--green);
-            box-shadow: 0 0 8px var(--green);
-            width: 4px;
-            height: 4px;
+            box-shadow: 0 0 10px var(--green), 0 0 20px rgba(52,211,153,0.4);
+            width: 5px;
+            height: 5px;
         }
 
         @keyframes orbitalSpin {
