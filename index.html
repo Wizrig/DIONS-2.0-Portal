@@ -83,24 +83,7 @@
 
         /* Scan line sweep */
         .scan-line {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-            opacity: 0.15;
-            z-index: 2;
-            animation: scanSweep 8s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes scanSweep {
-            0%, 100% { top: -2px; opacity: 0; }
-            10% { opacity: 0.15; }
-            90% { opacity: 0.15; }
-            95% { opacity: 0; }
-            50% { top: 100vh; }
+            display: none;
         }
 
         /* Floating particles */
@@ -440,21 +423,7 @@
         }
 
         .divider::after {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--cyan), var(--accent));
-            border-radius: 2px;
-            box-shadow: 0 0 15px var(--cyan), 0 0 30px rgba(0,240,255,0.3);
-            animation: dividerGlow 6s ease-in-out infinite;
-        }
-
-        @keyframes dividerGlow {
-            0%, 100% { left: 0; opacity: 0.6; }
-            50% { left: calc(100% - 80px); opacity: 1; }
+            display: none;
         }
 
         /* ===== COMPARISON SCORECARDS ===== */
