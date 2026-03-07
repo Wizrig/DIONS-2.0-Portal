@@ -549,104 +549,80 @@
             margin-top: 0.25rem;
         }
 
-        /* ===== FEATURE FLOW — Apple keynote typography reveals ===== */
-        .feature-flow {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            margin-bottom: 0;
-        }
-
-        .feature-flow-item {
-            position: relative;
-            padding: 5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-
-        .feature-flow-item:last-child {
-            border-bottom: none;
-        }
-
-        .feature-flow-item .flow-label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 1.25rem;
-        }
-
-        .feature-flow-item h3 {
-            font-family: 'Sora', 'Inter', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.25rem);
-            font-weight: 700;
-            color: var(--heading);
-            letter-spacing: -0.035em;
-            line-height: 1.1;
-            margin-bottom: 1.25rem;
-        }
-
-        .feature-flow-item p {
-            font-size: clamp(1rem, 1.5vw, 1.15rem);
-            color: var(--text);
-            line-height: 1.75;
-            max-width: 620px;
-        }
-
-        .flow-tags {
-            display: flex;
-            gap: 0.6rem;
-            margin-top: 1.75rem;
-            flex-wrap: wrap;
-        }
-
-        .flow-tag {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            padding: 6px 16px;
-            border-radius: 50px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.07);
-            color: var(--text-bright);
-        }
-
-        /* Spec grid — remaining features as clean two-column list */
-        .spec-grid {
+        /* ===== ARCHITECTURE FEATURE LIST ===== */
+        .arch-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            margin-top: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.06);
         }
 
-        .spec-item {
-            padding: 2.25rem 2.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
+        .arch-cell {
+            background: rgba(8,10,22,0.9);
+            padding: 2.5rem 2rem;
+            position: relative;
             transition: background 0.3s ease;
         }
 
-        .spec-item:nth-child(odd) {
-            border-right: 1px solid rgba(255,255,255,0.04);
+        .arch-cell:hover {
+            background: rgba(14,16,32,0.95);
         }
 
-        .spec-item:hover {
-            background: rgba(108,140,255,0.02);
+        .arch-cell .arch-icon-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.2rem;
         }
 
-        .spec-item h4 {
+        .arch-icon-wrap.blue { background: rgba(108,140,255,0.1); color: var(--accent); }
+        .arch-icon-wrap.green { background: rgba(52,211,153,0.1); color: var(--green); }
+        .arch-icon-wrap.purple { background: rgba(192,132,252,0.1); color: var(--purple); }
+        .arch-icon-wrap.yellow { background: rgba(251,191,36,0.1); color: var(--yellow); }
+        .arch-icon-wrap.teal { background: rgba(45,212,191,0.1); color: var(--teal); }
+        .arch-icon-wrap.orange { background: rgba(251,146,60,0.1); color: var(--orange); }
+        .arch-icon-wrap.red { background: rgba(248,113,113,0.1); color: var(--red); }
+
+        .arch-cell h3 {
             font-family: 'Sora', 'Inter', sans-serif;
             font-size: 1.05rem;
             font-weight: 700;
             color: var(--heading);
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.6rem;
             letter-spacing: -0.01em;
         }
 
-        .spec-item p {
-            font-size: 0.88rem;
+        .arch-cell p {
+            font-size: 0.875rem;
             color: var(--text);
             line-height: 1.65;
         }
+
+        .arch-cell .arch-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        .arch-tag.blue { background: rgba(108,140,255,0.1); color: var(--accent); }
+        .arch-tag.green { background: rgba(52,211,153,0.1); color: var(--green); }
+        .arch-tag.purple { background: rgba(192,132,252,0.1); color: var(--purple); }
+        .arch-tag.yellow { background: rgba(251,191,36,0.1); color: var(--yellow); }
+        .arch-tag.teal { background: rgba(45,212,191,0.1); color: var(--teal); }
+        .arch-tag.orange { background: rgba(251,146,60,0.1); color: var(--orange); }
+        .arch-tag.red { background: rgba(248,113,113,0.1); color: var(--red); }
 
         /* Standard feature card styles within bento */
         .features-grid {
@@ -1396,20 +1372,12 @@
                 padding: 0.75rem 1.25rem;
             }
 
-            .feature-flow-item {
-                padding: 3rem 0;
-            }
-
-            .feature-flow-item h3 {
-                font-size: 1.75rem;
-            }
-
-            .spec-grid {
+            .arch-grid {
                 grid-template-columns: 1fr;
             }
 
-            .spec-item:nth-child(odd) {
-                border-right: none;
+            .arch-cell {
+                padding: 1.75rem 1.5rem;
             }
 
             .features-grid {
@@ -1712,80 +1680,88 @@
 <div class="divider"></div>
 
 <!-- ===== ARCHITECTURE ===== -->
-<div class="cinematic-section" id="architecture" style="--glow-color: rgba(168,85,247,0.06);">
+<section id="architecture">
     <div class="reveal">
         <p class="section-eyebrow">Architecture</p>
         <h2 class="section-title">Built different.<br>Built to last.</h2>
         <p class="section-desc">22 subsystems working in concert. Every component designed for the next decade of decentralized computing.</p>
     </div>
 
-    <div class="section-inner">
-        <!-- 3 hero features — pure typography, no cards -->
-        <div class="feature-flow">
-            <div class="feature-flow-item reveal">
-                <div class="flow-label" style="color: var(--accent);">01 — Execution</div>
-                <h3>Dual Execution Zones</h3>
-                <p>Run EVM and SVM smart contracts side by side on a single L1. Add new execution environments without a hard fork. One chain, infinite possibilities.</p>
-                <div class="flow-tags">
-                    <span class="flow-tag">EVM / Solidity</span>
-                    <span class="flow-tag">SVM / Rust + BPF</span>
-                    <span class="flow-tag">Extensible</span>
-                </div>
+    <div class="arch-grid reveal">
+        <div class="arch-cell">
+            <div class="arch-icon-wrap blue">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             </div>
-
-            <div class="feature-flow-item reveal">
-                <div class="flow-label" style="color: var(--green);">02 — Earning</div>
-                <h3>Earn from Nothing</h3>
-                <p>Zero-balance nodes earn 0.001 IOC per block by relaying transactions. The first blockchain where anyone can earn from absolutely nothing. No hardware requirements.</p>
-                <div class="flow-tags">
-                    <span class="flow-tag">Proof of Participation</span>
-                    <span class="flow-tag">Zero Balance Entry</span>
-                    <span class="flow-tag">Relay Rewards</span>
-                </div>
-            </div>
-
-            <div class="feature-flow-item reveal">
-                <div class="flow-label" style="color: var(--purple);">03 — Security</div>
-                <h3>Post-Quantum Ready</h3>
-                <p>Dilithium, Falcon, and Kyber — NIST-approved algorithms protecting your assets before quantum computers arrive. Full backward compatibility with ECDSA.</p>
-                <div class="flow-tags">
-                    <span class="flow-tag">Dilithium</span>
-                    <span class="flow-tag">Falcon</span>
-                    <span class="flow-tag">Kyber</span>
-                    <span class="flow-tag">Hybrid Mode</span>
-                </div>
-            </div>
+            <h3>Dual Execution Zones</h3>
+            <p>Run EVM and SVM smart contracts side by side on a single L1. Add new VMs without a hard fork.</p>
+            <span class="arch-tag blue">EVM + SVM</span>
         </div>
-
-        <!-- Remaining features as clean two-column spec list -->
-        <div class="spec-grid">
-            <div class="spec-item reveal">
-                <h4>W3C DID Identity</h4>
-                <p>Native decentralized identifiers with aliases, agents, and device delegation</p>
+        <div class="arch-cell">
+            <div class="arch-icon-wrap green">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
-            <div class="spec-item reveal">
-                <h4>Encrypted Messaging</h4>
-                <p>AES-256 + RSA-4096 encrypted direct, group, and shadow messages</p>
+            <h3>Proof of Participation</h3>
+            <p>Zero-balance nodes earn 0.001 IOC per block by relaying transactions. Earn from absolutely nothing.</p>
+            <span class="arch-tag green">Zero Entry</span>
+        </div>
+        <div class="arch-cell">
+            <div class="arch-icon-wrap purple">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <div class="spec-item reveal">
-                <h4>Ethereum Bridge</h4>
-                <p>HTLC atomic swaps and relayer consensus for trustless asset transfers</p>
+            <h3>Post-Quantum Cryptography</h3>
+            <p>Dilithium, Falcon, and Kyber — NIST-approved algorithms with full ECDSA backward compatibility.</p>
+            <span class="arch-tag purple">NIST PQC</span>
+        </div>
+        <div class="arch-cell">
+            <div class="arch-icon-wrap yellow">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </div>
-            <div class="spec-item reveal">
-                <h4>Data Availability</h4>
-                <p>Reed-Solomon erasure coding with 64+32 shards, 99.99% DA guarantee</p>
+            <h3>W3C DID Identity</h3>
+            <p>Native decentralized identifiers with aliases, agents, and device delegation built into the protocol.</p>
+            <span class="arch-tag yellow">W3C Standard</span>
+        </div>
+        <div class="arch-cell">
+            <div class="arch-icon-wrap teal">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </div>
-            <div class="spec-item reveal">
-                <h4>Light Client</h4>
-                <p>Headers-only sync in under 5 minutes with 0.5 IOC/block rewards</p>
+            <h3>Encrypted Messaging</h3>
+            <p>AES-256 + RSA-4096 encrypted direct, group, and shadow messages with tier-gated access.</p>
+            <span class="arch-tag teal">E2E Encrypted</span>
+        </div>
+        <div class="arch-cell">
+            <div class="arch-icon-wrap orange">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
             </div>
-            <div class="spec-item reveal">
-                <h4>Enhanced PoS Consensus</h4>
-                <p>30s blocks, checkpoint finality, validator slashing, jailing, and delegation</p>
+            <h3>Ethereum Bridge</h3>
+            <p>HTLC atomic swaps and relayer consensus for trustless cross-chain asset transfers.</p>
+            <span class="arch-tag orange">HTLC Swaps</span>
+        </div>
+        <div class="arch-cell">
+            <div class="arch-icon-wrap red">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
             </div>
+            <h3>Data Availability</h3>
+            <p>Reed-Solomon erasure coding with 64+32 shards providing 99.99% data availability guarantee.</p>
+            <span class="arch-tag red">96 Shards</span>
+        </div>
+        <div class="arch-cell">
+            <div class="arch-icon-wrap blue">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <h3>Light Client</h3>
+            <p>Headers-only sync in under 5 minutes with 0.5 IOC per block rewards for light node operators.</p>
+            <span class="arch-tag blue">5 min Sync</span>
+        </div>
+        <div class="arch-cell">
+            <div class="arch-icon-wrap green">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h3>Enhanced PoS Consensus</h3>
+            <p>30-second blocks, checkpoint finality, validator slashing, jailing, and stake delegation.</p>
+            <span class="arch-tag green">30s Blocks</span>
         </div>
     </div>
-</div>
+</section>
 
 <div class="divider"></div>
 
