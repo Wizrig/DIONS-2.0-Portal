@@ -1332,6 +1332,13 @@
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+    // Immediately reveal hero elements that are already in viewport
+    requestAnimationFrame(() => {
+        document.querySelectorAll('.hero .reveal').forEach(el => {
+            el.classList.add('visible');
+        });
+    });
+
     // --- Floating Nav ---
     const nav = document.getElementById('floatingNav');
     const heroSection = document.getElementById('hero');
