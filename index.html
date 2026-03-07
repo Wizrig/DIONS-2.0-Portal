@@ -1336,7 +1336,105 @@
             body::before, body::after, .scan-line, .particles, .orbital-ring { display: none !important; }
             .divider::after { animation: none; left: 50%; transform: translateX(-50%); }
         }
+        /* ===== JS-DETECTED MOBILE (Wix iframe where media queries don't trigger) ===== */
+        html.is-mobile body::before { background-size: 40px 40px; }
+        html.is-mobile .scan-line { display: none; }
+        html.is-mobile .floating-nav { display: none; }
+        html.is-mobile section { padding: 2.5rem 1rem; }
+        html.is-mobile .cinematic-section { padding: 2.5rem 1rem; }
+        html.is-mobile .cta-section { padding: 2.5rem 1rem; }
+        html.is-mobile .hero { padding: 2.5rem 1rem 2rem; }
+        html.is-mobile .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
+        html.is-mobile .hero-subtitle { font-size: 0.9rem; margin-bottom: 2rem; line-height: 1.5; }
+        html.is-mobile .hero-meta { gap: 1rem; }
+        html.is-mobile .hero-meta-item .counter-value { font-size: 1.4rem; }
+        html.is-mobile .hero-meta-item .counter-label { font-size: 0.6rem; letter-spacing: 0.08em; }
+        html.is-mobile .section-title { font-size: 1.5rem; }
+        html.is-mobile .section-desc { font-size: 0.85rem; margin-bottom: 1.5rem; }
+        html.is-mobile .section-eyebrow { font-size: 0.7rem; margin-bottom: 0.5rem; }
+        html.is-mobile .stats-bar { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; padding: 1.5rem 0.75rem; }
+        html.is-mobile .stat-item .stat-number { font-size: 1.5rem; }
+        html.is-mobile .stat-item .stat-number .stat-suffix { font-size: 0.75rem; }
+        html.is-mobile .stat-item .stat-label { font-size: 0.55rem; letter-spacing: 0.06em; margin-top: 0.25rem; }
+        html.is-mobile .comparison-row { grid-template-columns: 1fr; }
+        html.is-mobile .comparison-row.header-row { display: none; }
+        html.is-mobile .comp-cell { padding: 0.6rem 0.85rem; }
+        html.is-mobile .comp-cell.label-cell { background: rgba(59,130,246,0.05); font-size: 0.8rem; padding: 0.6rem 0.85rem; }
+        html.is-mobile .comp-cell .comp-value { font-size: 0.85rem; }
+        html.is-mobile .comparison-grid { gap: 0.5rem; }
+        html.is-mobile .comparison-grid .reveal,
+        html.is-mobile .comparison-grid .reveal-delay-1,
+        html.is-mobile .comparison-grid .reveal-delay-2,
+        html.is-mobile .comparison-grid .reveal-delay-3,
+        html.is-mobile .comparison-grid .reveal-delay-4 { opacity: 1 !important; transform: none !important; transition: none !important; }
+        html.is-mobile .arch-item { grid-template-columns: 2rem 1fr; gap: 0.75rem; padding: 1.25rem 0; }
+        html.is-mobile .arch-num { width: 32px; height: 32px; border-radius: 8px; }
+        html.is-mobile .arch-num svg { width: 18px; height: 18px; }
+        html.is-mobile .arch-title { font-size: 0.95rem; }
+        html.is-mobile .arch-title .arch-tag { font-size: 0.45rem; padding: 2px 5px; margin-left: 0.5rem; }
+        html.is-mobile .arch-body { grid-column: 1 / -1; padding-left: 2.75rem; }
+        html.is-mobile .arch-body p { font-size: 0.8rem; line-height: 1.5; }
+        html.is-mobile .arch-body .arch-spec { font-size: 0.6rem; }
+        html.is-mobile .build-grid { grid-template-columns: 1fr; }
+        html.is-mobile .build-card { padding: 1.5rem 1.25rem; border-right: none; border-bottom: 1px solid var(--border); }
+        html.is-mobile .build-card:last-child { border-bottom: none; }
+        html.is-mobile .build-card h3 { font-size: 0.9rem; }
+        html.is-mobile .build-card p { font-size: 0.8rem; }
+        html.is-mobile .security-hero { grid-template-columns: 1fr; gap: 1.5rem; text-align: center; }
+        html.is-mobile .security-hero-left .big-stat { font-size: 3rem; }
+        html.is-mobile .security-hero-left .big-stat-label { font-size: 0.9rem; }
+        html.is-mobile .security-mini-card { padding: 1rem; }
+        html.is-mobile .security-mini-card .mini-num { font-size: 1.5rem; }
+        html.is-mobile .security-mini-card .mini-label { font-size: 0.65rem; }
+        html.is-mobile .severity-row { flex-wrap: wrap; gap: 0.4rem; padding: 0.6rem 0.85rem; }
+        html.is-mobile .severity-text { font-size: 0.75rem; }
+        html.is-mobile .severity-status { margin-left: 0; width: 100%; text-align: right; font-size: 0.6rem; }
+        html.is-mobile .cta-title { font-size: 1.75rem; }
+        html.is-mobile .cta-desc { font-size: 0.9rem; margin-bottom: 2rem; }
+        html.is-mobile .cta-btn { padding: 12px 24px; font-size: 0.8rem; }
+        html.is-mobile .rewards-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; padding: 0; }
+        html.is-mobile .reward-card { padding: 1.25rem 1rem; }
+        html.is-mobile .reward-card .reward-icon { width: 40px; height: 40px; margin-bottom: 0.75rem; }
+        html.is-mobile .reward-card h4 { font-size: 0.8rem; }
+        html.is-mobile .reward-card p { font-size: 0.7rem; }
+        html.is-mobile .reward-card .reward-amount { font-size: 0.9rem; }
+        html.is-mobile .tier-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+        html.is-mobile .tier-card { padding: 1.25rem 0.75rem; }
+        html.is-mobile .tier-name { font-size: 0.65rem; }
+        html.is-mobile .tier-stake { font-size: 1.25rem; }
+        html.is-mobile .tier-features li { font-size: 0.7rem; }
+        html.is-mobile .section-inner { padding: 0 0.5rem; }
+        html.is-mobile .code-block { font-size: 0.7rem; padding: 1rem; }
+        html.is-mobile .divider { margin: 0; }
+        html.is-mobile footer { padding: 2rem 1rem; }
+        html.is-mobile footer p { font-size: 0.7rem; }
+
+        /* Small mobile (phones ≤ 480px screen) */
+        html.is-small-mobile .hero h1 { font-size: 1.8rem; }
+        html.is-small-mobile .hero-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+        html.is-small-mobile .hero-meta-item .counter-value { font-size: 1.2rem; }
+        html.is-small-mobile .stats-bar { grid-template-columns: repeat(2, 1fr); padding: 1.25rem 0.5rem; }
+        html.is-small-mobile .stat-item .stat-number { font-size: 1.3rem; }
+        html.is-small-mobile .stat-item .stat-label { font-size: 0.5rem; }
+        html.is-small-mobile .section-title { font-size: 1.3rem; }
+        html.is-small-mobile .tier-grid { grid-template-columns: 1fr; }
+        html.is-small-mobile .rewards-grid { grid-template-columns: 1fr; }
+        html.is-small-mobile .security-hero-right { grid-template-columns: 1fr 1fr; }
+        html.is-small-mobile .arch-body { padding-left: 0; }
+        html.is-small-mobile .severity-badge { min-width: 55px; font-size: 0.55rem; padding: 2px 5px; }
+        html.is-small-mobile .severity-text { font-size: 0.7rem; }
+        html.is-small-mobile .security-hero-left .big-stat { font-size: 2.5rem; }
+        html.is-small-mobile .cta-title { font-size: 1.4rem; }
     </style>
+    <script>
+    // Detect mobile device by screen size (works inside iframes where media queries check iframe width, not device width)
+    (function(){
+        var w = Math.min(screen.width, screen.height);
+        var h = document.documentElement;
+        if (w <= 768) h.classList.add('is-mobile');
+        if (w <= 480) h.classList.add('is-small-mobile');
+    })();
+    </script>
 </head>
 <body>
 
