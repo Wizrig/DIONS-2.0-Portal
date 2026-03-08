@@ -715,6 +715,84 @@
             text-decoration: none;
         }
 
+        /* ===== UPGRADE TABLE ===== */
+        .upgrade-grid {
+            display: grid;
+            gap: 1px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .upgrade-row {
+            display: grid;
+            grid-template-columns: 180px 1fr 1fr 140px;
+            gap: 1px;
+        }
+        .upgrade-row.upgrade-header {
+            background: transparent;
+        }
+        .upgrade-row.upgrade-header .upgrade-cell {
+            background: rgba(59,130,246,0.06);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-bright);
+            padding: 1rem 1.25rem;
+        }
+        .upgrade-cell {
+            padding: 1rem 1.25rem;
+            background: rgba(17,17,24,0.4);
+            font-size: 0.9rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+        }
+        .upgrade-cell.label-cell {
+            font-weight: 600;
+            color: var(--text-bright);
+            background: rgba(17,17,24,0.6);
+            font-size: 0.85rem;
+        }
+        .upgrade-cell.legacy-cell {
+            color: var(--text);
+            opacity: 0.7;
+        }
+        .upgrade-cell.new-cell {
+            color: var(--heading);
+            font-weight: 600;
+        }
+        .upgrade-cell.gain-cell {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--green);
+        }
+        @media (max-width: 768px) {
+            .upgrade-row {
+                grid-template-columns: 1fr;
+            }
+            .upgrade-row.upgrade-header { display: none; }
+            .upgrade-cell { padding: 0.75rem 1rem; }
+            .upgrade-cell.label-cell {
+                background: rgba(59,130,246,0.05);
+                font-size: 0.8rem;
+                padding: 0.6rem 1rem;
+            }
+            .upgrade-cell::before {
+                font-size: 0.6rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                opacity: 0.5;
+                margin-right: 0.75rem;
+                min-width: 60px;
+            }
+            .upgrade-cell.legacy-cell::before { content: 'Legacy'; }
+            .upgrade-cell.new-cell::before { content: 'DIONS 2.0'; }
+            .upgrade-cell.gain-cell::before { content: 'Gain'; }
+        }
+
         /* ===== ARCHITECTURE PIPE DIAGRAM ===== */
         .arch-diagram { position: relative; padding: 60px 0 40px; }
         .arch-pipeline { position: relative; max-width: 1100px; margin: 0 auto; }
@@ -871,6 +949,7 @@
 <!-- ===== FLOATING NAV ===== -->
 <nav class="floating-nav" id="floatingNav">
     <a href="#hero">Home</a>
+    <a href="#upgrade">Upgrade</a>
     <a href="#comparison">Compare</a>
     <a href="#architecture">System</a>
     <a href="#security">Security</a>
@@ -933,6 +1012,104 @@
         <div class="stat-label">Binary Targets</div>
     </div>
 </div>
+
+<div class="divider"></div>
+
+<!-- ===== LEGACY UPGRADE ===== -->
+<section id="upgrade">
+    <div class="reveal">
+        <p class="section-eyebrow">Why Upgrade</p>
+        <h2 class="section-title">DIONS (2017) vs DIONS 2.0</h2>
+        <p class="section-desc">The original DIONS protocol launched on I/O Coin in 2017. DIONS 2.0 is a ground-up C++20 rewrite &mdash; every subsystem rebuilt for speed, scale, and the next decade.</p>
+    </div>
+
+    <div class="upgrade-grid">
+        <div class="upgrade-row upgrade-header reveal">
+            <div class="upgrade-cell">Metric</div>
+            <div class="upgrade-cell">DIONS (Legacy)</div>
+            <div class="upgrade-cell">DIONS 2.0</div>
+            <div class="upgrade-cell">Improvement</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-1">
+            <div class="upgrade-cell label-cell">Block Time</div>
+            <div class="upgrade-cell legacy-cell">16&#8211;60s variable</div>
+            <div class="upgrade-cell new-cell">30s fixed</div>
+            <div class="upgrade-cell gain-cell">Predictable</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-1">
+            <div class="upgrade-cell label-cell">L1 TPS</div>
+            <div class="upgrade-cell legacy-cell">~10</div>
+            <div class="upgrade-cell new-cell">88</div>
+            <div class="upgrade-cell gain-cell">8.8x faster</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-2">
+            <div class="upgrade-cell label-cell">Combined TPS</div>
+            <div class="upgrade-cell legacy-cell">~10</div>
+            <div class="upgrade-cell new-cell">11,000+</div>
+            <div class="upgrade-cell gain-cell">1,100x faster</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-2">
+            <div class="upgrade-cell label-cell">Finality</div>
+            <div class="upgrade-cell legacy-cell">Unpredictable</div>
+            <div class="upgrade-cell new-cell">30 seconds</div>
+            <div class="upgrade-cell gain-cell">Guaranteed</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-2">
+            <div class="upgrade-cell label-cell">Consensus</div>
+            <div class="upgrade-cell legacy-cell">PoS v2 (stake grinding)</div>
+            <div class="upgrade-cell new-cell">PoS + DAS + checkpoints</div>
+            <div class="upgrade-cell gain-cell">Secure</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-3">
+            <div class="upgrade-cell label-cell">Reorg Protection</div>
+            <div class="upgrade-cell legacy-cell">None</div>
+            <div class="upgrade-cell new-cell">500-block max depth</div>
+            <div class="upgrade-cell gain-cell">New</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-3">
+            <div class="upgrade-cell label-cell">Smart Contracts</div>
+            <div class="upgrade-cell legacy-cell">None</div>
+            <div class="upgrade-cell new-cell">EVM + SVM zones</div>
+            <div class="upgrade-cell gain-cell">New</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-3">
+            <div class="upgrade-cell label-cell">Identity</div>
+            <div class="upgrade-cell legacy-cell">None</div>
+            <div class="upgrade-cell new-cell">W3C DID (Agent + Device)</div>
+            <div class="upgrade-cell gain-cell">New</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-3">
+            <div class="upgrade-cell label-cell">Peer Discovery</div>
+            <div class="upgrade-cell legacy-cell">15 seed nodes</div>
+            <div class="upgrade-cell new-cell">Kademlia DHT</div>
+            <div class="upgrade-cell gain-cell">Decentralized</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-4">
+            <div class="upgrade-cell label-cell">Data Storage</div>
+            <div class="upgrade-cell legacy-cell">Full replication (100%)</div>
+            <div class="upgrade-cell new-cell">Reed-Solomon sharding (1&#8211;10%)</div>
+            <div class="upgrade-cell gain-cell">90% less</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-4">
+            <div class="upgrade-cell label-cell">Min Storage</div>
+            <div class="upgrade-cell legacy-cell">~2 TB</div>
+            <div class="upgrade-cell new-cell">100 MB (light client)</div>
+            <div class="upgrade-cell gain-cell">20,000x less</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-4">
+            <div class="upgrade-cell label-cell">Alias Lookup</div>
+            <div class="upgrade-cell legacy-cell">O(n) blockchain scan</div>
+            <div class="upgrade-cell new-cell">O(1) LevelDB instant</div>
+            <div class="upgrade-cell gain-cell">Instant</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-4">
+            <div class="upgrade-cell label-cell">Earn from Zero</div>
+            <div class="upgrade-cell legacy-cell">Impossible</div>
+            <div class="upgrade-cell new-cell">PoP relay rewards</div>
+            <div class="upgrade-cell gain-cell">New</div>
+        </div>
+    </div>
+</section>
 
 <div class="divider"></div>
 
