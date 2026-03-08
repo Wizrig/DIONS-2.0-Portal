@@ -313,6 +313,415 @@ footer p { margin-bottom: 8px; }
   .profiles-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+/* Architecture Pipe Diagram */
+.arch-diagram { position: relative; padding: 60px 0 40px; }
+
+.arch-pipeline {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* L1 Core Block */
+.arch-l1-core {
+  position: relative;
+  background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(59,130,246,0.08));
+  border: 1px solid rgba(124,58,237,0.35);
+  border-radius: 20px;
+  padding: 28px 32px;
+  margin-bottom: 0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.arch-l1-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.arch-l1-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 8px;
+  background: rgba(124,58,237,0.25);
+  border: 1px solid rgba(124,58,237,0.5);
+  color: var(--heading);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+}
+
+.arch-l1-badge .badge-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(34,197,94,0.6);
+  animation: archPulse 2s ease-in-out infinite;
+}
+
+@keyframes archPulse { 0%,100%{opacity:0.6;box-shadow:0 0 4px rgba(34,197,94,0.4)} 50%{opacity:1;box-shadow:0 0 12px rgba(34,197,94,0.8)} }
+
+.arch-block-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: rgba(6,182,212,0.12);
+  border: 1px solid rgba(6,182,212,0.3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--nebula-teal);
+  font-weight: 600;
+}
+
+.arch-block-timer .timer-bar {
+  width: 60px; height: 4px; border-radius: 2px;
+  background: rgba(6,182,212,0.2);
+  overflow: hidden;
+  position: relative;
+}
+
+.arch-block-timer .timer-fill {
+  position: absolute; left: 0; top: 0; height: 100%;
+  background: linear-gradient(90deg, var(--nebula-teal), var(--nebula-blue));
+  border-radius: 2px;
+  animation: blockTimer 30s linear infinite;
+}
+
+@keyframes blockTimer { 0%{width:0%} 100%{width:100%} }
+
+/* Feature pills row */
+.arch-features-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.arch-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.arch-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.arch-pill.pill-consensus { background: rgba(124,58,237,0.15); color: #c4b5fd; border-color: rgba(124,58,237,0.25); }
+.arch-pill.pill-consensus:hover { background: rgba(124,58,237,0.3); border-color: rgba(124,58,237,0.5); }
+.arch-pill.pill-crypto { background: rgba(6,182,212,0.15); color: #67e8f9; border-color: rgba(6,182,212,0.25); }
+.arch-pill.pill-crypto:hover { background: rgba(6,182,212,0.3); border-color: rgba(6,182,212,0.5); }
+.arch-pill.pill-identity { background: rgba(59,130,246,0.15); color: #93c5fd; border-color: rgba(59,130,246,0.25); }
+.arch-pill.pill-identity:hover { background: rgba(59,130,246,0.3); border-color: rgba(59,130,246,0.5); }
+.arch-pill.pill-network { background: rgba(34,197,94,0.12); color: #86efac; border-color: rgba(34,197,94,0.2); }
+.arch-pill.pill-network:hover { background: rgba(34,197,94,0.25); border-color: rgba(34,197,94,0.4); }
+
+.arch-pill .pill-icon { font-size: 0.8rem; }
+
+/* Stats strip */
+.arch-stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(124,58,237,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.arch-stat {
+  background: rgba(10,10,25,0.6);
+  padding: 12px 8px;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.arch-stat:hover { background: rgba(124,58,237,0.08); }
+
+.arch-stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--heading);
+}
+
+.arch-stat-label {
+  font-size: 0.68rem;
+  color: var(--text);
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Connector pipes from L1 to L2 */
+.arch-connectors {
+  display: flex;
+  justify-content: center;
+  gap: 200px;
+  position: relative;
+  height: 60px;
+}
+
+.arch-pipe {
+  width: 2px;
+  height: 100%;
+  position: relative;
+}
+
+.arch-pipe::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(124,58,237,0.5), rgba(124,58,237,0.2));
+}
+
+.arch-pipe .pipe-flow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--nebula-purple);
+  box-shadow: 0 0 8px rgba(124,58,237,0.8);
+  animation: pipeFlow 2s ease-in-out infinite;
+}
+
+.arch-pipe.pipe-evm .pipe-flow {
+  background: var(--nebula-blue);
+  box-shadow: 0 0 8px rgba(59,130,246,0.8);
+  animation-delay: 0.5s;
+}
+
+.arch-pipe.pipe-svm .pipe-flow {
+  background: var(--nebula-purple);
+  box-shadow: 0 0 8px rgba(124,58,237,0.8);
+}
+
+@keyframes pipeFlow { 0%{top:0;opacity:0} 20%{opacity:1} 80%{opacity:1} 100%{top:100%;opacity:0} }
+
+/* L2 Zones */
+.arch-l2-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.arch-zone {
+  border-radius: 16px;
+  padding: 20px 24px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.arch-zone:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.arch-zone-evm {
+  background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.04));
+  border: 1px solid rgba(59,130,246,0.3);
+}
+
+.arch-zone-evm:hover { border-color: rgba(59,130,246,0.6); }
+
+.arch-zone-svm {
+  background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(124,58,237,0.04));
+  border: 1px solid rgba(124,58,237,0.3);
+}
+
+.arch-zone-svm:hover { border-color: rgba(124,58,237,0.6); }
+
+.arch-zone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.arch-zone-name {
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--heading);
+}
+
+.arch-zone-tps {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.arch-zone-evm .arch-zone-tps {
+  color: var(--nebula-blue);
+  background: rgba(59,130,246,0.15);
+}
+
+.arch-zone-svm .arch-zone-tps {
+  color: var(--nebula-purple);
+  background: rgba(124,58,237,0.15);
+}
+
+.arch-zone-features {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+}
+
+.arch-zone-features li {
+  font-size: 0.7rem;
+  color: var(--text-bright);
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+}
+
+/* Detail popover on pill click */
+.arch-detail-popover {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 220px;
+  padding: 14px 16px;
+  background: rgba(15,15,35,0.95);
+  border: 1px solid rgba(124,58,237,0.4);
+  border-radius: 10px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-size: 0.78rem;
+  color: var(--text-bright);
+  z-index: 10;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  line-height: 1.5;
+  white-space: normal;
+}
+
+.arch-detail-popover::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: rgba(15,15,35,0.95);
+  border-left: 1px solid rgba(124,58,237,0.4);
+  border-top: 1px solid rgba(124,58,237,0.4);
+}
+
+.arch-pill.active .arch-detail-popover { display: block; }
+
+.arch-pill.popover-up .arch-detail-popover {
+  top: auto;
+  bottom: calc(100% + 8px);
+}
+
+.arch-pill.popover-up .arch-detail-popover::before {
+  top: auto;
+  bottom: -6px;
+  border-left: none;
+  border-top: none;
+  border-right: 1px solid rgba(124,58,237,0.4);
+  border-bottom: 1px solid rgba(124,58,237,0.4);
+}
+
+.arch-detail-title {
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 4px;
+  font-size: 0.82rem;
+}
+
+/* Combined throughput bar */
+.arch-throughput-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: rgba(124,58,237,0.06);
+  border: 1px solid rgba(124,58,237,0.15);
+}
+
+.arch-throughput-label {
+  font-size: 0.75rem;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.arch-throughput-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--nebula-purple), var(--nebula-teal));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.arch-throughput-viz {
+  flex: 1;
+  max-width: 300px;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+.arch-throughput-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--nebula-blue), var(--nebula-purple), var(--nebula-teal));
+  animation: throughputPulse 3s ease-in-out infinite;
+}
+
+@keyframes throughputPulse { 0%,100%{width:85%;opacity:0.7} 50%{width:100%;opacity:1} }
+
+/* Responsive */
+@media (max-width: 767px) {
+  .arch-l2-grid { grid-template-columns: 1fr; }
+  .arch-connectors { gap: 80px; height: 40px; }
+  .arch-stats-strip { grid-template-columns: repeat(2, 1fr); }
+  .arch-l1-header { justify-content: center; text-align: center; }
+  .arch-throughput-bar { flex-direction: column; gap: 8px; }
+  .arch-throughput-viz { max-width: 100%; width: 100%; }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
@@ -463,6 +872,166 @@ footer p { margin-bottom: 8px; }
 <div class="metric">
 <div class="metric-value mono">~2.5%</div>
 <div class="metric-label">Annual Inflation</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Architecture Pipe Diagram -->
+<section id="architecture" class="arch-diagram">
+<div class="container">
+<div class="eyebrow reveal">System Architecture</div>
+<h2 class="section-title reveal">L1 Settlement + L2 Execution Zones</h2>
+<p class="section-desc reveal">One chain, modular design. L1 handles consensus and settlement. L2 zones handle execution at scale.</p>
+
+<div class="arch-pipeline reveal">
+<!-- L1 Core -->
+<div class="arch-l1-core">
+<div class="arch-l1-header">
+<div class="arch-l1-badge">
+<span class="badge-dot"></span>
+L1 &mdash; DIONS Base Layer
+</div>
+<div class="arch-block-timer">
+<span>30s blocks</span>
+<span class="timer-bar"><span class="timer-fill"></span></span>
+</div>
+</div>
+
+<!-- Interactive feature pills -->
+<div class="arch-features-row">
+<div class="arch-pill pill-consensus" data-arch-detail="consensus">
+<span class="pill-icon">&#9670;</span> Enhanced PoS
+<div class="arch-detail-popover">
+<div class="arch-detail-title">Proof of Stake Consensus</div>
+Stake-weighted block production with 30s fixed intervals. Checkpoints every 100 blocks. 67% finality threshold. Deep reorg protection at 500 blocks. Validator minimum: 10,000 IOC.
+</div>
+</div>
+<div class="arch-pill pill-consensus" data-arch-detail="slashing">
+<span class="pill-icon">&#9888;</span> Slashing
+<div class="arch-detail-popover">
+<div class="arch-detail-title">Slashing &amp; Jailing</div>
+Double-sign detection via ECDSA signature verification. 10% stake slash for invalid execution. 24-hour jail period. States: Active, Inactive, Slashed, Jailed, Banned.
+</div>
+</div>
+<div class="arch-pill pill-consensus" data-arch-detail="delegation">
+<span class="pill-icon">&#8644;</span> Delegation
+<div class="arch-detail-popover">
+<div class="arch-detail-title">Native Delegation</div>
+Delegate stake to validators without transferring custody. 7-day unbonding period. No third-party pools needed (unlike Ethereum's Lido).
+</div>
+</div>
+<div class="arch-pill pill-crypto" data-arch-detail="pqc">
+<span class="pill-icon">&#128274;</span> PQC
+<div class="arch-detail-popover">
+<div class="arch-detail-title">Post-Quantum Cryptography</div>
+NIST-standardized: Dilithium (L2/3/5), Falcon-512/1024, SPHINCS+, Kyber KEM. Hybrid PQC + Ed25519 dual signatures. Quantum-safe before quantum computers arrive.
+</div>
+</div>
+<div class="arch-pill pill-identity" data-arch-detail="did">
+<span class="pill-icon">&#128100;</span> W3C DID
+<div class="arch-detail-popover">
+<div class="arch-detail-title">Decentralized Identity</div>
+W3C DID Core 1.0 on-chain. Three identity types: Agent (AI/bot), Device (IoT/sensor), Alias (human). Key types: ECDSA + RSA-4096 + PQC.
+</div>
+</div>
+<div class="arch-pill pill-identity popover-up" data-arch-detail="messaging">
+<span class="pill-icon">&#9993;</span> Messaging
+<div class="arch-detail-popover">
+<div class="arch-detail-title">Encrypted On-Chain Messaging</div>
+AES-256-CBC (random key per message) + RSA-4096 (key encryption) + SHA-256 (integrity). Direct, group channels, shadow messages. 5-tier staking quotas.
+</div>
+</div>
+<div class="arch-pill pill-network popover-up" data-arch-detail="da">
+<span class="pill-icon">&#9638;</span> Data Availability
+<div class="arch-detail-popover">
+<div class="arch-detail-title">Reed-Solomon Erasure Coding</div>
+64 data + 32 parity shards. Recover from any 64 of 96. Light clients sample 20 random shards for 99.99% detection confidence. Per-node storage: 1-10% (~50GB).
+</div>
+</div>
+<div class="arch-pill pill-network popover-up" data-arch-detail="bridge">
+<span class="pill-icon">&#9732;</span> ETH Bridge
+<div class="arch-detail-popover">
+<div class="arch-detail-title">Native Ethereum Bridge</div>
+Consensus-layer HTLC with SHA-256 preimage. Lock IOC &harr; Mint/Burn ERC20. Relayer daemon monitors and relays proofs. 6 confirmations, 0.5% fee.
+</div>
+</div>
+</div>
+
+<!-- L1 Stats -->
+<div class="arch-stats-strip">
+<div class="arch-stat">
+<div class="arch-stat-value">88</div>
+<div class="arch-stat-label">L1 TPS</div>
+</div>
+<div class="arch-stat">
+<div class="arch-stat-value">30s</div>
+<div class="arch-stat-label">Block Time</div>
+</div>
+<div class="arch-stat">
+<div class="arch-stat-value">150</div>
+<div class="arch-stat-label">RPC Methods</div>
+</div>
+<div class="arch-stat">
+<div class="arch-stat-value">524</div>
+<div class="arch-stat-label">Tests</div>
+</div>
+</div>
+</div>
+
+<!-- Connector pipes -->
+<div class="arch-connectors">
+<div class="arch-pipe pipe-evm">
+<div class="pipe-flow"></div>
+</div>
+<div class="arch-pipe pipe-svm">
+<div class="pipe-flow"></div>
+</div>
+</div>
+
+<!-- L2 Zones -->
+<div class="arch-l2-grid">
+<div class="arch-zone arch-zone-evm">
+<div class="arch-zone-header">
+<div class="arch-zone-name">L2 &mdash; EVM Zone</div>
+<div class="arch-zone-tps">1,000+ TPS</div>
+</div>
+<ul class="arch-zone-features">
+<li>Solidity / Vyper</li>
+<li>evmone engine</li>
+<li>EIP-1153</li>
+<li>EIP-2200</li>
+<li>EIP-2929</li>
+<li>eth_* JSON-RPC</li>
+<li>24KB bytecode limit</li>
+<li>Chain ID: 8377</li>
+</ul>
+</div>
+<div class="arch-zone arch-zone-svm">
+<div class="arch-zone-header">
+<div class="arch-zone-name">L2 &mdash; SVM Zone</div>
+<div class="arch-zone-tps">10,000+ TPS</div>
+</div>
+<ul class="arch-zone-features">
+<li>Rust / C (BPF)</li>
+<li>Account model</li>
+<li>PDAs</li>
+<li>CPI (depth 4)</li>
+<li>22 syscalls</li>
+<li>System/Token/Stake</li>
+<li>Dispute: 200-block</li>
+<li>Compute budget</li>
+</ul>
+</div>
+</div>
+
+<!-- Combined throughput -->
+<div class="arch-throughput-bar">
+<div class="arch-throughput-label">Combined Throughput</div>
+<div class="arch-throughput-viz">
+<div class="arch-throughput-fill"></div>
+</div>
+<div class="arch-throughput-value">11,000+ TPS</div>
 </div>
 </div>
 </div>
@@ -1150,6 +1719,25 @@ document.querySelectorAll('.tab-btn').forEach(function(btn) {
 
   document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
   document.querySelectorAll('[data-target]').forEach(function(el) { observer.observe(el); });
+})();
+
+// Architecture pill popovers (click to toggle)
+(function() {
+  var pills = document.querySelectorAll('.arch-pill[data-arch-detail]');
+  pills.forEach(function(pill) {
+    pill.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var wasActive = this.classList.contains('active');
+      // Close all
+      pills.forEach(function(p) { p.classList.remove('active'); });
+      // Toggle current
+      if (!wasActive) this.classList.add('active');
+    });
+  });
+  // Close on outside click
+  document.addEventListener('click', function() {
+    pills.forEach(function(p) { p.classList.remove('active'); });
+  });
 })();
 
 // Wix iframe height notification
