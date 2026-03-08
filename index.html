@@ -254,6 +254,7 @@
             text-transform: uppercase;
             color: var(--accent);
             margin-bottom: 1rem;
+            text-align: center;
         }
 
         .section-title {
@@ -262,7 +263,9 @@
             color: var(--heading);
             letter-spacing: -0.03em;
             line-height: 1.1;
-            margin-bottom: 1rem;
+            margin: 0 auto 1rem;
+            max-width: 800px;
+            text-align: center;
         }
 
         .section-desc {
@@ -270,7 +273,8 @@
             color: var(--text);
             max-width: 600px;
             line-height: 1.7;
-            margin-bottom: 4rem;
+            margin: 0 auto 4rem;
+            text-align: center;
         }
 
         /* ===== DIVIDER ===== */
@@ -1338,10 +1342,10 @@
 <!-- ===== SYSTEM ARCHITECTURE (Pipe Diagram) ===== -->
 <section id="architecture" class="arch-diagram" style="max-width: 100%; padding: 6rem 2rem;">
 <div style="max-width: 1200px; margin: 0 auto;">
-    <div class="reveal" style="text-align: center;">
+    <div class="reveal">
         <p class="section-eyebrow">System Architecture</p>
-        <h2 class="section-title" style="max-width: 800px; margin: 0 auto 1rem;">L1 Settlement + L2 Execution Zones</h2>
-        <p class="section-desc" style="margin: 0 auto 4rem;">One chain, modular design. L1 handles consensus and settlement. L2 zones handle execution at scale.</p>
+        <h2 class="section-title">L1 Settlement + L2 Execution Zones</h2>
+        <p class="section-desc">One chain, modular design. L1 handles consensus and settlement. L2 zones handle execution at scale.</p>
     </div>
 
     <div class="arch-pipeline reveal">
