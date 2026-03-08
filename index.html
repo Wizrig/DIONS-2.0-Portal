@@ -663,6 +663,199 @@
             .security-shield svg { width: 44px; height: 44px; }
         }
 
+        /* ===== SECTION BACKGROUNDS ===== */
+        .section-surface { background: #050508; }
+
+        .section-tinted { position: relative; }
+        .section-tinted::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .section-tinted > * { position: relative; z-index: 1; }
+
+        .tint-purple::after { background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.04) 0%, transparent 60%); }
+        .tint-blue::after { background: radial-gradient(ellipse at 50% 30%, rgba(59,130,246,0.04) 0%, transparent 60%); }
+        .tint-green::after { background: radial-gradient(ellipse at 50% 20%, rgba(34,197,94,0.03) 0%, transparent 55%); }
+        .tint-teal::after { background: radial-gradient(ellipse at 50% 30%, rgba(6,182,212,0.04) 0%, transparent 60%); }
+        .tint-gold::after { background: radial-gradient(ellipse at 50% 0%, rgba(210,153,34,0.04) 0%, transparent 60%); }
+
+        /* ===== DIVIDER VARIANTS ===== */
+        .divider-fade {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.08) 50%, transparent 95%);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .divider-glow {
+            height: 1px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .divider-glow::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 10%;
+            right: 10%;
+            height: 40px;
+            background: radial-gradient(ellipse at 50% 50%, var(--divider-color, rgba(59,130,246,0.06)) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .divider-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 2rem 0;
+        }
+        .divider-dots span {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* ===== DUAL EXECUTION ===== */
+        .dual-grid { display: grid; gap: 1.5rem; }
+        .zone-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+        .zone-badge {
+            display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 0.7rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;
+        }
+        .zone-evm .zone-badge { background: rgba(59,130,246,0.15); color: var(--nebula-blue); }
+        .zone-svm .zone-badge { background: rgba(124,58,237,0.15); color: var(--nebula-purple); }
+        .zone-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--heading); margin-bottom: 0.75rem; }
+        .zone-list { list-style: none; }
+        .zone-list li { padding: 4px 0; font-size: 0.85rem; color: var(--text-bright); }
+        .zone-list li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+        .zone-evm .zone-list li::before { background: var(--nebula-blue); }
+        .zone-svm .zone-list li::before { background: var(--nebula-purple); }
+        .zone-note { text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text); font-style: italic; }
+
+        /* ===== TABLES (shared) ===== */
+        .table-wrap { position: relative; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border: 1px solid var(--border); }
+        .table-wrap table { width: 100%; border-collapse: collapse; min-width: 600px; font-size: 0.82rem; }
+        .table-wrap th {
+            text-align: left; padding: 12px 14px; background: rgba(255,255,255,0.03);
+            color: var(--heading); font-weight: 700; font-size: 0.72rem; text-transform: uppercase;
+            letter-spacing: 0.05em; white-space: nowrap;
+        }
+        .table-wrap td { padding: 10px 14px; border-top: 1px solid var(--border); white-space: nowrap; }
+        .table-wrap tr:hover td { background: rgba(255,255,255,0.02); }
+        .table-compact table { min-width: auto; }
+        .scroll-hint { text-align: center; font-size: 0.7rem; color: var(--text); margin-top: 8px; opacity: 0.6; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .win { color: var(--green); }
+        .tier-highlight { background: rgba(124,58,237,0.06); }
+
+        /* ===== PARAM LISTS (shared) ===== */
+        .param-list { list-style: none; }
+        .param-list li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; display: flex; justify-content: space-between; gap: 12px; }
+        .param-list li:last-child { border-bottom: none; }
+        .param-label { color: var(--text); }
+        .param-value { font-family: 'JetBrains Mono', monospace; color: var(--heading); font-weight: 500; text-align: right; }
+
+        /* ===== PQC PROFILES ===== */
+        .profiles-grid { display: grid; gap: 12px; margin-top: 1.5rem; }
+        .profile-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; }
+        .profile-name { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--nebula-teal); font-size: 0.85rem; margin-bottom: 4px; }
+        .profile-detail { font-size: 0.82rem; color: var(--text-bright); }
+
+        /* ===== DID CARDS ===== */
+        .did-types { display: grid; gap: 1rem; margin-bottom: 1.5rem; }
+        .did-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+        .did-label { font-weight: 700; color: var(--heading); font-size: 0.95rem; margin-bottom: 4px; }
+        .did-uri { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--nebula-teal); margin-bottom: 4px; }
+        .did-desc { font-size: 0.82rem; }
+
+        /* ===== CODE BLOCKS ===== */
+        .code-json {
+            background: rgba(10,10,25,0.9); border: 1px solid var(--border); border-radius: 12px;
+            padding: 1.25rem; overflow-x: auto; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem; line-height: 1.7; color: var(--text-bright);
+        }
+        .code-json .key { color: var(--nebula-teal); }
+        .code-json .str { color: var(--green); }
+        .code-json .punct { color: var(--text); }
+
+        /* ===== BRIDGE FLOW ===== */
+        .bridge-flow {
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+            margin-bottom: 2rem; padding: 2rem;
+        }
+        .bridge-node {
+            padding: 1rem 1.5rem; border-radius: 12px; text-align: center; width: 100%; max-width: 300px;
+        }
+        .bridge-node.dions { background: rgba(124,58,237,0.12); border: 1px solid rgba(124,58,237,0.25); }
+        .bridge-node.relayer { background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.25); }
+        .bridge-node.eth { background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); }
+        .bridge-arrow { font-size: 1.5rem; color: var(--nebula-teal); transform: rotate(90deg); }
+        .bridge-node-title { font-weight: 800; color: var(--heading); font-size: 0.95rem; margin-bottom: 4px; }
+        .bridge-node-desc { font-size: 0.82rem; color: var(--text-bright); }
+
+        /* ===== CONSENSUS ===== */
+        .consensus-grid { display: grid; gap: 1.5rem; }
+        .consensus-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 2rem; }
+        .consensus-card h3 { color: var(--heading); font-weight: 700; margin-bottom: 0.75rem; font-size: 1rem; }
+
+        /* ===== EARN CARDS ===== */
+        .earn-grid { display: grid; gap: 1rem; }
+        .earn-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; text-align: center; }
+        .earn-amount { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+        .earn-role { font-weight: 800; color: var(--heading); font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .earn-desc { font-size: 0.85rem; }
+        .earn-validator .earn-amount { color: var(--nebula-purple); }
+        .earn-light .earn-amount { color: var(--nebula-blue); }
+        .earn-pop .earn-amount { color: var(--nebula-teal); }
+
+        /* ===== DATA AVAILABILITY ===== */
+        .da-visual { display: flex; flex-wrap: wrap; gap: 3px; justify-content: center; margin-bottom: 1.5rem; padding: 1.25rem; }
+        .shard { width: 16px; height: 16px; border-radius: 3px; }
+        .shard-data { background: rgba(124,58,237,0.6); border: 1px solid rgba(124,58,237,0.8); }
+        .shard-parity { background: rgba(6,182,212,0.5); border: 1px solid rgba(6,182,212,0.7); }
+        .da-legend { display: flex; justify-content: center; gap: 24px; font-size: 0.8rem; margin-bottom: 1.5rem; }
+        .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+
+        /* ===== NETWORK ===== */
+        .network-grid { display: grid; gap: 1.5rem; }
+
+        /* ===== SECTION EYEBROW COLORS ===== */
+        #zones .section-eyebrow { color: var(--nebula-purple); }
+        #pqc .section-eyebrow { color: var(--nebula-teal); }
+        #did .section-eyebrow { color: var(--nebula-teal); }
+        #messaging .section-eyebrow { color: var(--nebula-teal); }
+        #bridge .section-eyebrow { color: var(--nebula-blue); }
+        #consensus .section-eyebrow { color: var(--green); }
+        #data-availability .section-eyebrow { color: var(--nebula-teal); }
+        #light-client .section-eyebrow { color: var(--nebula-blue); }
+        #economics .section-eyebrow { color: var(--nebula-teal); }
+        #network-section .section-eyebrow { color: var(--nebula-teal); }
+        #upgrade .section-eyebrow { color: var(--ioc-legacy); }
+        #build .section-eyebrow { color: var(--nebula-purple); }
+
+        /* ===== RESPONSIVE for new sections ===== */
+        @media (min-width: 768px) {
+            .dual-grid { grid-template-columns: 1fr 1fr; }
+            .profiles-grid { grid-template-columns: repeat(2, 1fr); }
+            .did-types { grid-template-columns: repeat(3, 1fr); }
+            .consensus-grid { grid-template-columns: 1fr 1fr; }
+            .earn-grid { grid-template-columns: repeat(3, 1fr); }
+            .network-grid { grid-template-columns: 1fr 1fr; }
+            .bridge-flow { flex-direction: row; }
+            .bridge-arrow { transform: rotate(0deg); }
+            .scroll-hint { display: none; }
+        }
+        @media (min-width: 1024px) {
+            .profiles-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
         /* ===== TIER SYSTEM ===== */
         .tier-grid {
             display: grid;
@@ -1122,10 +1315,10 @@
     </div>
 </section>
 
-<div class="divider"></div>
+<div class="divider-fade"></div>
 
 <!-- ===== LEGACY UPGRADE ===== -->
-<section id="upgrade">
+<section id="upgrade" class="section-surface section-tinted tint-gold">
     <div class="reveal">
         <p class="section-eyebrow">Why Upgrade</p>
         <h2 class="section-title">DIONS (2017) vs DIONS 2.0</h2>
@@ -1220,7 +1413,7 @@
     </div>
 </section>
 
-<div class="divider"></div>
+<div class="divider-dots"><span></span><span></span><span></span></div>
 
 <!-- ===== STATS BAR ===== -->
 <div class="stats-bar reveal">
@@ -1246,10 +1439,10 @@
     </div>
 </div>
 
-<div class="divider"></div>
+<div class="divider-dots"><span></span><span></span><span></span></div>
 
 <!-- ===== COMPARISON ===== -->
-<section id="comparison">
+<section id="comparison" class="section-surface section-tinted tint-blue">
     <div class="reveal">
         <p class="section-eyebrow">Chain Comparison</p>
         <h2 class="section-title">How DIONS 2.0 stacks up.</h2>
@@ -1337,7 +1530,47 @@
     </div>
 </section>
 
-<div class="divider"></div>
+<div class="divider-glow" style="--divider-color: rgba(124,58,237,0.08)"></div>
+
+<!-- ===== DUAL EXECUTION ===== -->
+<section id="zones" class="section-surface section-tinted tint-purple">
+    <div class="reveal">
+        <p class="section-eyebrow">Dual Execution</p>
+        <h2 class="section-title">Two VMs, One Chain</h2>
+        <p class="section-desc">Run Solidity and Rust smart contracts side by side. Both zones post state roots to L1.</p>
+    </div>
+    <div class="dual-grid reveal">
+        <div class="zone-card zone-evm">
+            <div class="zone-badge">EVM Zone</div>
+            <h3>Ethereum Virtual Machine</h3>
+            <ul class="zone-list">
+                <li>evmone execution engine</li>
+                <li>Solidity / Vyper contracts</li>
+                <li>1,000+ TPS throughput</li>
+                <li>EIP-1153 transient storage</li>
+                <li>EIP-2200 metered SSTORE</li>
+                <li>EIP-2929 warm/cold gas accounting</li>
+                <li>Full eth_* JSON-RPC layer</li>
+            </ul>
+        </div>
+        <div class="zone-card zone-svm">
+            <div class="zone-badge">SVM Zone</div>
+            <h3>Solana Virtual Machine</h3>
+            <ul class="zone-list">
+                <li>BPF interpreter (native)</li>
+                <li>Rust / C programs</li>
+                <li>Account model (Lamports)</li>
+                <li>Program Derived Addresses (PDAs)</li>
+                <li>Cross-Program Invocation (CPI)</li>
+                <li>22 syscalls, System/Token/Rent built-ins</li>
+                <li>Dispute: 200-block challenge, 100 IOC bond, 10% slash</li>
+            </ul>
+        </div>
+    </div>
+    <p class="zone-note reveal">Both zones post state roots to L1 via CBlockHeader::zoneRoot. New zones added without a hard fork.</p>
+</section>
+
+<div class="divider-fade"></div>
 
 <!-- ===== SYSTEM ARCHITECTURE (Pipe Diagram) ===== -->
 <section id="architecture" class="arch-diagram" style="max-width: 100%; padding: 6rem 2rem;">
@@ -1382,10 +1615,274 @@
 </div>
 </section>
 
-<div class="divider"></div>
+<div class="divider-glow" style="--divider-color: rgba(34,197,94,0.08)"></div>
+
+<!-- ===== CONSENSUS ===== -->
+<section id="consensus" class="section-surface section-tinted tint-green">
+    <div class="reveal">
+        <p class="section-eyebrow">Consensus</p>
+        <h2 class="section-title">Proof of Stake &amp; Validators</h2>
+        <p class="section-desc">Enhanced PoS with checkpoints, slashing, and delegated staking.</p>
+    </div>
+    <div class="consensus-grid reveal">
+        <div class="consensus-card">
+            <h3>PoS Parameters</h3>
+            <ul class="param-list">
+                <li><span class="param-label">Block time</span><span class="param-value">30s fixed</span></li>
+                <li><span class="param-label">COIN</span><span class="param-value">100,000,000 (8 dec)</span></li>
+                <li><span class="param-label">Stake min age</span><span class="param-value">30 seconds</span></li>
+                <li><span class="param-label">Stake max age</span><span class="param-value">90 days</span></li>
+                <li><span class="param-label">Coinbase maturity</span><span class="param-value">20 blocks</span></li>
+                <li><span class="param-label">Deep reorg protection</span><span class="param-value">500-block max</span></li>
+                <li><span class="param-label">Fork height</span><span class="param-value">5,730,000</span></li>
+            </ul>
+        </div>
+        <div class="consensus-card">
+            <h3>Validator System</h3>
+            <ul class="param-list">
+                <li><span class="param-label">Min stake</span><span class="param-value">25 IOC</span></li>
+                <li><span class="param-label">Checkpoints</span><span class="param-value">Every 100 blocks</span></li>
+                <li><span class="param-label">Finality</span><span class="param-value">67% total stake</span></li>
+                <li><span class="param-label">Unbonding</span><span class="param-value">7 days</span></li>
+                <li><span class="param-label">Jail duration</span><span class="param-value">24 hours</span></li>
+                <li><span class="param-label">Slash penalty</span><span class="param-value">10% for invalid exec</span></li>
+                <li><span class="param-label">States</span><span class="param-value">Active / Inactive / Slashed / Jailed / Banned</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="consensus-card reveal" style="margin-top: 1.5rem;">
+        <h3>Proof of Participation (PoP)</h3>
+        <ul class="param-list">
+            <li><span class="param-label">Reward per block</span><span class="param-value">0.001 IOC/node</span></li>
+            <li><span class="param-label">Max participants/block</span><span class="param-value">50</span></li>
+            <li><span class="param-label">Cooldown</span><span class="param-value">10 blocks (~5 min)</span></li>
+            <li><span class="param-label">Max emission/block</span><span class="param-value">0.05 IOC</span></li>
+            <li><span class="param-label">Sybil resistance</span><span class="param-value">DHT PoW (8-bit)</span></li>
+        </ul>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--nebula-teal); font-style: italic;">Any node &mdash; human, AI, robot, IoT &mdash; can earn from zero balance.</p>
+    </div>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== DATA AVAILABILITY ===== -->
+<section id="data-availability">
+    <div class="reveal">
+        <p class="section-eyebrow">Data Availability</p>
+        <h2 class="section-title">Reed-Solomon Erasure Coding</h2>
+        <p class="section-desc">64 data shards + 32 parity shards. Recover from any 64 of 96.</p>
+    </div>
+    <div class="reveal" style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem;">
+        <div class="da-visual" aria-label="64 data shards (purple) and 32 parity shards (teal)">
+            <!-- 64 data shards -->
+            <div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div>
+            <!-- 32 parity shards -->
+            <div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div>
+        </div>
+        <div class="da-legend">
+            <span><span class="legend-dot" style="background:rgba(124,58,237,0.7)"></span>64 Data Shards</span>
+            <span><span class="legend-dot" style="background:rgba(6,182,212,0.6)"></span>32 Parity Shards</span>
+        </div>
+        <ul class="param-list" style="max-width: 500px; margin: 0 auto;">
+            <li><span class="param-label">Per-node storage</span><span class="param-value">1-10% (~50GB)</span></li>
+            <li><span class="param-label">Retention</span><span class="param-value">10,000 blocks (~1 week)</span></li>
+            <li><span class="param-label">Light client sampling</span><span class="param-value">20 random shards</span></li>
+            <li><span class="param-label">Detection confidence</span><span class="param-value">99.99%</span></li>
+            <li><span class="param-label">Recovery threshold</span><span class="param-value">ANY 64 of 96</span></li>
+        </ul>
+    </div>
+</section>
+
+<div class="divider-glow" style="--divider-color: rgba(6,182,212,0.06)"></div>
+
+<!-- ===== POST-QUANTUM SECURITY ===== -->
+<section id="pqc" class="section-surface section-tinted tint-teal">
+    <div class="reveal">
+        <p class="section-eyebrow">Post-Quantum Security</p>
+        <h2 class="section-title">Quantum-Resistant Cryptography</h2>
+        <p class="section-desc">NIST-standardized lattice and hash-based algorithms. Ready before quantum computers arrive.</p>
+    </div>
+    <div class="table-wrap reveal">
+        <table>
+            <thead><tr><th>Algorithm</th><th>NIST Level</th><th>Key Size</th><th>Signature</th><th>Use Case</th></tr></thead>
+            <tbody>
+                <tr><td>Dilithium-2</td><td class="mono">2</td><td class="mono">1,312 B</td><td class="mono">1,387 B</td><td>General purpose</td></tr>
+                <tr><td>Dilithium-3</td><td class="mono">3</td><td class="mono">1,952 B</td><td class="mono">2,044 B</td><td>Robot / Server</td></tr>
+                <tr><td>Dilithium-5</td><td class="mono">5</td><td class="mono">2,701 B</td><td class="mono">3,293 B</td><td>Maximum security</td></tr>
+                <tr><td>Falcon-512</td><td class="mono">1</td><td class="mono">897 B</td><td class="mono">~500 B</td><td>IoT (compact)</td></tr>
+                <tr><td>Falcon-1024</td><td class="mono">5</td><td class="mono">1,793 B</td><td class="mono">~800 B</td><td>High-security IoT</td></tr>
+                <tr><td>Kyber-512/768/1024</td><td class="mono">1/3/5</td><td class="mono">800-1,568 B</td><td class="mono">N/A (KEM)</td><td>Key encapsulation</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="scroll-hint">Scroll to see all columns</div>
+    <h3 style="color: var(--heading); font-weight: 700; margin: 2rem 0 1rem; font-size: 1.1rem;" class="reveal">Device Profiles</h3>
+    <div class="profiles-grid reveal">
+        <div class="profile-card"><div class="profile-name">IOT_MINIMAL</div><div class="profile-detail">Kyber-512 + Falcon-512</div></div>
+        <div class="profile-card"><div class="profile-name">IOT_STANDARD</div><div class="profile-detail">Kyber-768 + Falcon-512</div></div>
+        <div class="profile-card"><div class="profile-name">ROBOT_STANDARD</div><div class="profile-detail">Kyber-768 + Dilithium-3</div></div>
+        <div class="profile-card"><div class="profile-name">ROBOT_PREMIUM</div><div class="profile-detail">Kyber-1024 + Dilithium-5</div></div>
+        <div class="profile-card"><div class="profile-name">SERVER</div><div class="profile-detail">Kyber-1024 + Dilithium-5</div></div>
+    </div>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== DECENTRALIZED IDENTITY ===== -->
+<section id="did">
+    <div class="reveal">
+        <p class="section-eyebrow">Decentralized Identity</p>
+        <h2 class="section-title">W3C DID Core 1.0</h2>
+        <p class="section-desc">On-chain identity for humans, AI agents, robots, and IoT devices. Key types: ECDSA secp256k1 + RSA-4096 + PQC.</p>
+    </div>
+    <div class="did-types reveal">
+        <div class="did-card"><div class="did-label">Agent</div><div class="did-uri">did:dions:agent:bot1</div><div class="did-desc">Autonomous entity. Owns and delegates to devices.</div></div>
+        <div class="did-card"><div class="did-label">Device</div><div class="did-uri">did:dions:device:sensor7</div><div class="did-desc">Hardware identity. Delegated authority from agent.</div></div>
+        <div class="did-card"><div class="did-label">Alias</div><div class="did-uri">did:dions:alice</div><div class="did-desc">Human-readable identity. Linked to wallet address.</div></div>
+    </div>
+    <div class="code-json reveal">
+<span class="punct">{</span>
+  <span class="key">"@context"</span><span class="punct">:</span> <span class="str">"https://www.w3.org/ns/did/v1"</span><span class="punct">,</span>
+  <span class="key">"id"</span><span class="punct">:</span> <span class="str">"did:dions:agent:bot1"</span><span class="punct">,</span>
+  <span class="key">"verificationMethod"</span><span class="punct">: [{</span>
+    <span class="key">"type"</span><span class="punct">:</span> <span class="str">"EcdsaSecp256k1VerificationKey2019"</span>
+  <span class="punct">}],</span>
+  <span class="key">"service"</span><span class="punct">: [{</span>
+    <span class="key">"type"</span><span class="punct">:</span> <span class="str">"DionsMessaging"</span><span class="punct">,</span>
+    <span class="key">"serviceEndpoint"</span><span class="punct">:</span> <span class="str">"dions://msg/bot1"</span>
+  <span class="punct">}]</span>
+<span class="punct">}</span>
+    </div>
+</section>
+
+<div class="divider-glow" style="--divider-color: rgba(6,182,212,0.06)"></div>
+
+<!-- ===== ENCRYPTED MESSAGING ===== -->
+<section id="messaging" class="section-surface section-tinted tint-teal">
+    <div class="reveal">
+        <p class="section-eyebrow">Encrypted Messaging</p>
+        <h2 class="section-title">Native On-Chain Messaging</h2>
+        <p class="section-desc">AES-256-CBC (random key per message) + RSA-4096 (encrypts key) + SHA-256 (integrity). Direct messages, group channels, shadow messages.</p>
+    </div>
+    <h3 style="color: var(--heading); font-weight: 700; margin-bottom: 1rem; font-size: 1.1rem;" class="reveal">Staking Tiers</h3>
+    <div class="table-wrap reveal">
+        <table>
+            <thead><tr><th>Tier</th><th>Staked IOC</th><th>Msgs/Month</th><th>Max File</th><th>Aliases</th><th>Retention</th></tr></thead>
+            <tbody>
+                <tr><td>Basic</td><td class="mono">1,000</td><td class="mono">50</td><td class="mono">1 MB</td><td class="mono">1</td><td>30 days</td></tr>
+                <tr><td>Standard</td><td class="mono">5,000</td><td class="mono">200</td><td class="mono">10 MB</td><td class="mono">3</td><td>30-60 days</td></tr>
+                <tr class="tier-highlight"><td>Premium</td><td class="mono">10,000</td><td class="mono">500</td><td class="mono">50 MB</td><td class="mono">10</td><td>60-90 days</td></tr>
+                <tr><td>Enterprise</td><td class="mono">50,000</td><td class="mono">2,000</td><td class="mono">100 MB</td><td class="mono">50</td><td>90-180 days</td></tr>
+                <tr><td>Unlimited</td><td class="mono">100,000</td><td class="mono">10,000</td><td class="mono">500 MB</td><td class="mono">100</td><td>365 days</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="scroll-hint">Scroll to see all columns</div>
+    <p style="font-size: 0.82rem; color: var(--text); margin-top: 0.75rem; text-align: center;" class="reveal">Basic IOC transfers require no minimum stake &mdash; only DIONS features are tiered.</p>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== CROSS-CHAIN ===== -->
+<section id="bridge">
+    <div class="reveal">
+        <p class="section-eyebrow">Cross-Chain</p>
+        <h2 class="section-title">Ethereum Bridge &amp; HTLC</h2>
+        <p class="section-desc">Native bridge with hash time-locked contracts at the consensus layer.</p>
+    </div>
+    <div class="bridge-flow reveal">
+        <div class="bridge-node dions"><div class="bridge-node-title">DIONS Chain</div><div class="bridge-node-desc">Lock IOC (escrow)</div></div>
+        <div class="bridge-arrow" aria-hidden="true">&#8596;</div>
+        <div class="bridge-node relayer"><div class="bridge-node-title">Relayer</div><div class="bridge-node-desc">Monitor &amp; relay proofs</div></div>
+        <div class="bridge-arrow" aria-hidden="true">&#8596;</div>
+        <div class="bridge-node eth"><div class="bridge-node-title">Ethereum</div><div class="bridge-node-desc">Mint/Burn ERC20 (IOC20)</div></div>
+    </div>
+    <div class="reveal" style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 2rem; max-width: 600px; margin: 0 auto;">
+        <h3 style="color: var(--heading); font-weight: 700; margin-bottom: 0.75rem; font-size: 1rem;">HTLC Specifications</h3>
+        <ul class="param-list">
+            <li><span class="param-label">Hash Algorithm</span><span class="param-value">SHA-256 preimage</span></li>
+            <li><span class="param-label">Minimum</span><span class="param-value">0.001 IOC</span></li>
+            <li><span class="param-label">Maximum</span><span class="param-value">10 IOC</span></li>
+            <li><span class="param-label">Fee</span><span class="param-value">0.5% (50 bps)</span></li>
+            <li><span class="param-label">Confirmations</span><span class="param-value">6</span></li>
+            <li><span class="param-label">States</span><span class="param-value">PENDING &rarr; CLAIMED / REFUNDED / EXPIRED</span></li>
+        </ul>
+    </div>
+</section>
+
+<div class="divider-glow" style="--divider-color: rgba(6,182,212,0.06)"></div>
+
+<!-- ===== REWARDS & ECONOMICS ===== -->
+<section id="economics" class="section-surface section-tinted tint-teal">
+    <div class="reveal">
+        <p class="section-eyebrow">Tokenomics</p>
+        <h2 class="section-title">Rewards &amp; Economics</h2>
+        <p class="section-desc">Three earning paths. No ICO. No presale. Fair launch continuation since 2014.</p>
+    </div>
+    <div class="earn-grid reveal">
+        <div class="earn-card earn-validator"><div class="earn-amount">1.5 IOC/block</div><div class="earn-role">Validator</div><div class="earn-desc">Full validation, block production. Stake 25 IOC minimum.</div></div>
+        <div class="earn-card earn-light"><div class="earn-amount">0.5 IOC/block</div><div class="earn-role">Light Client</div><div class="earn-desc">Header sync + DA sampling. ~100 MB disk, ~42 MB/year bandwidth.</div></div>
+        <div class="earn-card earn-pop"><div class="earn-amount">0.001 IOC/block</div><div class="earn-role">PoP Node</div><div class="earn-desc">Relay blocks &amp; transactions. Zero balance required to start.</div></div>
+    </div>
+    <div class="reveal" style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; margin-top: 1.5rem; padding: 1.5rem 2rem;">
+        <ul class="param-list" style="max-width: 500px; margin: 0 auto;">
+            <li><span class="param-label">Annual inflation</span><span class="param-value">~2.5%</span></li>
+            <li><span class="param-label">Halving</span><span class="param-value">None</span></li>
+            <li><span class="param-label">Max supply</span><span class="param-value">None</span></li>
+            <li><span class="param-label">Coinbase maturity</span><span class="param-value">20 blocks</span></li>
+        </ul>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--nebula-teal); font-style: italic; text-align: center;">Fair launch since 2014. No ICO. No presale. Same IOC.</p>
+    </div>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== NETWORK & PROTOCOL ===== -->
+<section id="network-section">
+    <div class="reveal">
+        <p class="section-eyebrow">Infrastructure</p>
+        <h2 class="section-title">Network &amp; Protocol</h2>
+        <p class="section-desc">Production-ready networking with Kademlia DHT, WebSocket subscriptions, and stealth addresses.</p>
+    </div>
+    <div class="network-grid reveal">
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 2rem;">
+            <h3 style="color: var(--heading); font-weight: 700; margin-bottom: 0.75rem; font-size: 1rem;">Ports</h3>
+            <ul class="param-list">
+                <li><span class="param-label">Mainnet P2P</span><span class="param-value">33764</span></li>
+                <li><span class="param-label">Mainnet RPC</span><span class="param-value">33765</span></li>
+                <li><span class="param-label">Testnet P2P</span><span class="param-value">33763</span></li>
+                <li><span class="param-label">Testnet RPC</span><span class="param-value">33766</span></li>
+                <li><span class="param-label">WebSocket</span><span class="param-value">33776</span></li>
+                <li><span class="param-label">Chain ID (Main)</span><span class="param-value">8377</span></li>
+                <li><span class="param-label">Chain ID (Test)</span><span class="param-value">8378</span></li>
+            </ul>
+        </div>
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 2rem;">
+            <h3 style="color: var(--heading); font-weight: 700; margin-bottom: 0.75rem; font-size: 1rem;">Protocol</h3>
+            <ul class="param-list">
+                <li><span class="param-label">Version</span><span class="param-value">70000</span></li>
+                <li><span class="param-label">Max connections</span><span class="param-value">125</span></li>
+                <li><span class="param-label">DHT</span><span class="param-value">160-bit Kademlia, 20-node k-buckets</span></li>
+                <li><span class="param-label">Stealth</span><span class="param-value">v1 + v2 (PQC hybrid)</span></li>
+            </ul>
+            <h4 style="color: var(--text-bright); font-weight: 600; margin: 0.75rem 0 0.5rem; font-size: 0.85rem;">WebSocket Topics</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">newBlock</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">newTransaction</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">messageReceived</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">aliasUpdated</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">bridgeEvent</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">slashingEvent</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">addresstx</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider-glow" style="--divider-color: rgba(34,197,94,0.06)"></div>
 
 <!-- ===== SECURITY ===== -->
-<section id="security">
+<section id="security" class="section-surface section-tinted tint-green">
     <div class="reveal">
         <p class="section-eyebrow">Security</p>
         <h2 class="section-title">Audited. Verified. Hardened.</h2>
@@ -1463,7 +1960,7 @@
     </div>
 </section>
 
-<div class="divider"></div>
+<div class="divider-glow" style="--divider-color: rgba(34,197,94,0.06)"></div>
 
 <!-- ===== TIERS ===== -->
 <div class="cinematic-section" id="tiers" style="--glow-color: rgba(34,197,94,0.06);">
@@ -1527,7 +2024,30 @@
     </div>
 </div>
 
-<div class="divider"></div>
+<div class="divider-fade"></div>
+
+<!-- ===== LIGHT CLIENT ===== -->
+<section id="light-client" class="section-surface section-tinted tint-blue">
+    <div class="reveal">
+        <p class="section-eyebrow">Lightweight Participation</p>
+        <h2 class="section-title">Light Client</h2>
+        <p class="section-desc">Headers-only sync. Verify the chain, sample data availability, earn rewards.</p>
+    </div>
+    <div class="reveal" style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 2rem; max-width: 600px; margin: 0 auto;">
+        <ul class="param-list">
+            <li><span class="param-label">Binary</span><span class="param-value mono">dions2-light</span></li>
+            <li><span class="param-label">Sync mode</span><span class="param-value">Headers-only</span></li>
+            <li><span class="param-label">Disk usage</span><span class="param-value mono">~100 MB</span></li>
+            <li><span class="param-label">Sync time</span><span class="param-value mono">~5 minutes</span></li>
+            <li><span class="param-label">Annual bandwidth</span><span class="param-value mono">42 MB/year</span></li>
+            <li><span class="param-label">Block reward</span><span class="param-value mono">0.5 IOC/block</span></li>
+            <li><span class="param-label">DA sampling</span><span class="param-value">20 random shards</span></li>
+            <li><span class="param-label">Capabilities</span><span class="param-value">PoS verify, DA sample, DHT</span></li>
+        </ul>
+    </div>
+</section>
+
+<div class="divider-fade"></div>
 
 <!-- ===== BUILD ===== -->
 <section id="build">
@@ -1576,7 +2096,7 @@
     </div>
 </section>
 
-<div class="divider"></div>
+<div class="divider-fade"></div>
 
 <!-- ===== FOOTER ===== -->
 <footer>
