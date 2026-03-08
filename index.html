@@ -186,8 +186,17 @@
             color: var(--green);
             font-weight: 600;
             letter-spacing: 0.04em;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+        }
+
+        .hero-release {
+            font-size: clamp(0.85rem, 1.8vw, 1rem);
+            color: var(--orange);
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
         }
 
         .hero-meta {
@@ -1291,6 +1300,7 @@
     <h1>
         <span class="gradient-text">DIONS 2.0</span>
     </h1>
+    <p class="hero-release">Public Release Sept &ndash; December 2026</p>
     <p class="hero-subtitle">
         A revolutionary L1 with dual execution zones, post-quantum cryptography, and native identity.
     </p>
@@ -1321,7 +1331,7 @@
 <section id="upgrade" class="section-surface section-tinted tint-gold">
     <div class="reveal">
         <p class="section-eyebrow">Why Upgrade</p>
-        <h2 class="section-title">DIONS (2017) vs DIONS 2.0</h2>
+        <h2 class="section-title">DIONS vs DIONS 2.0</h2>
         <p class="section-desc">The original DIONS protocol launched on I/O Coin in 2017. DIONS 2.0 is a ground-up C++20 rewrite &mdash; every subsystem rebuilt for speed, scale, and the next decade.</p>
     </div>
 
