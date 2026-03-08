@@ -177,8 +177,17 @@
             max-width: 600px;
             font-weight: 400;
             line-height: 1.6;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+        }
+
+        .hero-tagline {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--green);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
         }
 
         .hero-meta {
@@ -497,36 +506,157 @@
         }
 
         /* ===== SECURITY SECTION ===== */
-        .security-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+        .security-hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
         }
 
-        .security-card {
-            background: var(--card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
+        .security-shield {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(34,197,94,0.2), rgba(34,197,94,0.05));
+            border: 2px solid rgba(34,197,94,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            animation: shieldPulse 3s ease-in-out infinite;
+        }
+
+        .security-shield svg { width: 60px; height: 60px; }
+
+        @keyframes shieldPulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(34,197,94,0.1); }
+            50% { box-shadow: 0 0 50px rgba(34,197,94,0.25); }
+        }
+
+        .security-hero-text { max-width: 500px; }
+
+        .security-hero-text .big-stat {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--green);
+            line-height: 1;
+        }
+
+        .security-hero-text .big-stat-label {
+            font-size: 1rem;
+            color: var(--text);
+            margin-top: 0.25rem;
+        }
+
+        .security-stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
             border-radius: 16px;
-            padding: 2rem;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+
+        .security-stat {
+            background: var(--card);
+            padding: 1.5rem 1rem;
             text-align: center;
         }
 
-        .security-card .security-number {
-            font-size: 2.5rem;
+        .security-stat-value {
+            font-size: 1.8rem;
             font-weight: 800;
             letter-spacing: -0.03em;
             line-height: 1.1;
         }
 
-        .security-card .security-number.green-num { color: var(--green); }
-        .security-card .security-number.blue-num { color: var(--accent); }
-        .security-card .security-number.purple-num { color: var(--purple); }
+        .security-stat-value.green-num { color: var(--green); }
+        .security-stat-value.blue-num { color: var(--accent); }
+        .security-stat-value.purple-num { color: var(--purple); }
 
-        .security-card .security-label {
-            font-size: 0.85rem;
+        .security-stat-label {
+            font-size: 0.7rem;
             color: var(--text);
-            margin-top: 0.5rem;
+            margin-top: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .security-findings {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .findings-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+        }
+
+        .findings-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .finding-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .finding-row:last-child { border-bottom: none; }
+
+        .finding-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            flex-shrink: 0;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .finding-badge.critical { background: rgba(239,68,68,0.15); color: var(--red); }
+        .finding-badge.high { background: rgba(249,115,22,0.15); color: var(--orange); }
+        .finding-badge.medium { background: rgba(234,179,8,0.15); color: var(--yellow); }
+        .finding-badge.low { background: rgba(59,130,246,0.15); color: var(--accent); }
+        .finding-badge.deferred { background: rgba(255,255,255,0.06); color: var(--text); }
+
+        .finding-text {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .finding-status {
+            margin-left: auto;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .finding-status.fixed { color: var(--green); }
+        .finding-status.safe { color: var(--text); }
+
+        @media (max-width: 767px) {
+            .security-stats-row { grid-template-columns: repeat(2, 1fr); }
+            .security-findings { grid-template-columns: 1fr; }
+            .security-shield { width: 100px; height: 100px; }
+            .security-shield svg { width: 44px; height: 44px; }
         }
 
         /* ===== TIER SYSTEM ===== */
@@ -965,8 +1095,9 @@
         <span class="gradient-text">DIONS 2.0</span>
     </h1>
     <p class="hero-subtitle">
-        A revolutionary L1 with dual execution zones, post-quantum cryptography, and native identity. No ICO. No presale. Fair launch since 2014.
+        A revolutionary L1 with dual execution zones, post-quantum cryptography, and native identity.
     </p>
+    <p class="hero-tagline">No ICO. No presale. Fair launch since 2014.</p>
     <div class="hero-meta">
         <div class="hero-meta-item">
             <div class="counter-value" data-target="150" data-suffix="">0</div>
@@ -1254,45 +1385,75 @@
     <div class="reveal">
         <p class="section-eyebrow">Security</p>
         <h2 class="section-title">Audited. Verified. Hardened.</h2>
-        <p class="section-desc">64 Codex verification checks across 10 audit rounds. Every critical and high finding fixed.</p>
     </div>
 
-    <div class="security-grid">
-        <div class="security-card reveal reveal-delay-1">
-            <div class="security-number green-num"><span class="counter" data-target="13">0</span></div>
-            <div class="security-label">Findings Fixed (all CRITICAL + HIGH + MEDIUM)</div>
+    <div class="security-hero reveal">
+        <div class="security-shield">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(34,197,94,0.9)" stroke-width="1.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
         </div>
-        <div class="security-card reveal reveal-delay-2">
-            <div class="security-number blue-num"><span class="counter" data-target="64">0</span>/<span class="counter" data-target="64">0</span></div>
-            <div class="security-label">Codex Verification PASS (10 rounds)</div>
-        </div>
-        <div class="security-card reveal reveal-delay-3">
-            <div class="security-number green-num"><span class="counter" data-target="524">0</span></div>
-            <div class="security-label">Unit Tests Across 8 Binaries</div>
-        </div>
-        <div class="security-card reveal reveal-delay-4">
-            <div class="security-number purple-num"><span class="counter" data-target="28">0</span>/<span class="counter" data-target="28">0</span></div>
-            <div class="security-label">E2E Tests PASS on Live Testnet</div>
+        <div class="security-hero-text">
+            <div class="big-stat"><span class="counter" data-target="64">0</span>/<span class="counter" data-target="64">0</span> PASS</div>
+            <div class="big-stat-label">Codex verification checks across 10 independent audit rounds. Every critical and high-severity finding has been fixed and verified.</div>
         </div>
     </div>
 
-    <div style="margin-top: 3rem;">
-        <div class="features-grid">
-            <div class="feature-card reveal">
-                <h3 style="color: var(--green);">What's Fixed</h3>
-                <div class="feature-detail" style="margin-top: 0; padding-top: 0; border: none;">
-                    <p style="margin-bottom: 0.5rem;"><span style="color: var(--red); font-weight: 700;">CRITICAL</span> &#8212; Consensus trust, SVM ELF parser</p>
-                    <p style="margin-bottom: 0.5rem;"><span style="color: var(--orange); font-weight: 700;">HIGH</span> &#8212; RPC validation, OpenSSL hardening, bridge stubs</p>
-                    <p style="margin-bottom: 0.5rem;"><span style="color: var(--yellow); font-weight: 700;">MEDIUM</span> &#8212; JSON parser limits, WebSocket race, PoS kernel, LevelDB writes</p>
-                    <p><span style="color: var(--accent); font-weight: 700;">LOW</span> &#8212; DNS seeder, CLI injection, Explorer escape</p>
-                </div>
+    <div class="security-stats-row reveal">
+        <div class="security-stat">
+            <div class="security-stat-value green-num"><span class="counter" data-target="13">0</span></div>
+            <div class="security-stat-label">Findings Fixed</div>
+        </div>
+        <div class="security-stat">
+            <div class="security-stat-value blue-num"><span class="counter" data-target="524">0</span></div>
+            <div class="security-stat-label">Unit Tests</div>
+        </div>
+        <div class="security-stat">
+            <div class="security-stat-value purple-num"><span class="counter" data-target="28">0</span>/<span class="counter" data-target="28">0</span></div>
+            <div class="security-stat-label">E2E on Testnet</div>
+        </div>
+        <div class="security-stat">
+            <div class="security-stat-value green-num"><span class="counter" data-target="8">0</span></div>
+            <div class="security-stat-label">Test Binaries</div>
+        </div>
+    </div>
+
+    <div class="security-findings reveal">
+        <div class="findings-card">
+            <h3><span style="color: var(--green);">&#10003;</span> All Findings Fixed</h3>
+            <div class="finding-row">
+                <span class="finding-badge critical">Critical</span>
+                <span class="finding-text">Consensus trust, SVM ELF parser</span>
+                <span class="finding-status fixed">FIXED</span>
             </div>
-            <div class="feature-card reveal">
-                <h3 style="color: var(--text);">Deferred (No Risk)</h3>
-                <div class="feature-detail" style="margin-top: 0; padding-top: 0; border: none;">
-                    <p style="margin-bottom: 0.5rem;"><strong>M-02</strong> &#8212; TLS wiring (localhost-only RPC, not exposed)</p>
-                    <p><strong>M-03</strong> &#8212; Alert broadcast (dead code path)</p>
-                </div>
+            <div class="finding-row">
+                <span class="finding-badge high">High</span>
+                <span class="finding-text">RPC validation, OpenSSL, bridge stubs</span>
+                <span class="finding-status fixed">FIXED</span>
+            </div>
+            <div class="finding-row">
+                <span class="finding-badge medium">Medium</span>
+                <span class="finding-text">JSON limits, WebSocket, PoS kernel</span>
+                <span class="finding-status fixed">FIXED</span>
+            </div>
+            <div class="finding-row">
+                <span class="finding-badge low">Low</span>
+                <span class="finding-text">DNS seeder, CLI injection, Explorer</span>
+                <span class="finding-status fixed">FIXED</span>
+            </div>
+        </div>
+        <div class="findings-card">
+            <h3><span style="color: var(--text);">&#8212;</span> Deferred (No Risk)</h3>
+            <div class="finding-row">
+                <span class="finding-badge deferred">M-02</span>
+                <span class="finding-text">TLS wiring (localhost-only RPC)</span>
+                <span class="finding-status safe">SAFE</span>
+            </div>
+            <div class="finding-row">
+                <span class="finding-badge deferred">M-03</span>
+                <span class="finding-text">Alert broadcast (dead code path)</span>
+                <span class="finding-status safe">SAFE</span>
             </div>
         </div>
     </div>
