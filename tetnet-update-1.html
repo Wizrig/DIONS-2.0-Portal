@@ -202,11 +202,19 @@
         <li>Data/file upload-download-transfer paths</li>
         <li>AES-256 + RSA-4096 encryption</li>
         <li>Shade privacy payment API</li>
-        <li>PoS chain operation with seed-node era networking</li>
+        <li>PoS chain operation with seed-node era networking and variable block timing (often around ~16 seconds in favorable conditions, but also stretching to minutes and up to ~10 minutes under difficulty/network conditions)</li>
       </ul>
       <p>
         So this was never a from-zero project. DIONS 2.0 is a fundamental architectural upgrade designed to make that model deterministic,
         scalable, and production-grade.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Consensus timing correction (important)</h2>
+      <p>
+        Legacy IOCoin-era timing was variable. DIONS 2.0 moves to a fixed 30-second block target model with stricter cadence behavior under the RC architecture.
+        This timing correction is now reflected in the feature matrix and release narrative.
       </p>
     </section>
 
@@ -223,7 +231,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Consensus model</td><td>PoS chain operation with legacy behavior</td><td>Deterministic 30s cadence behavior + stricter validation/liveness flow</td><td>PoS + DAS direction with modular commitments (stateRoot/dataRoot/zoneRoot)</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Consensus model</td><td>Variable block cadence (can be fast in favorable conditions, but also minutes and up to ~10 minutes)</td><td>Fixed 30-second target cadence with stricter deterministic/liveness behavior</td><td>PoS + DAS direction with modular commitments (stateRoot/dataRoot/zoneRoot)</td><td><span class="pill pass">Functional PASS</span></td></tr>
           <tr><td>Fork/reorg behavior</td><td>Legacy reorg handling</td><td>Tighter fork-choice and reorg protections in current RC path</td><td>Determinism-focused fork hardening approach</td><td><span class="pill pass">Functional PASS</span></td></tr>
           <tr><td>P2P discovery</td><td>Seed-node era networking assumptions</td><td>Hardened relay/sync flow under multi-node validation</td><td>Kademlia DHT discovery direction</td><td><span class="pill pass">Functional PASS</span></td></tr>
           <tr><td>Transport reliability</td><td>Legacy transport behavior without 2.0 relay hardening</td><td>Retry/poll handling for non-blocking large payload sends</td><td>Dedicated transport regression class coverage</td><td><span class="pill pass">Functional PASS</span></td></tr>
