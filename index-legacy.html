@@ -1,0 +1,2216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIONS 2.0 — The Future of Decentralized Infrastructure</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+        :root {
+            --bg: #000000;
+            --surface: #0a0a0f;
+            --card: rgba(17,17,24,0.6);
+            --border: rgba(255,255,255,0.06);
+            --text: #a1a1aa;
+            --text-bright: #e4e4e7;
+            --heading: #fafafa;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59,130,246,0.15);
+            --green: #22c55e;
+            --red: #ef4444;
+            --yellow: #eab308;
+            --orange: #f97316;
+            --purple: #a855f7;
+            --teal: #14b8a6;
+            --eth: #627eea;
+            --sol: #14f195;
+            --ioc-legacy: #d29922;
+            --dions: #3b82f6;
+            --nebula-purple: #7c3aed;
+            --nebula-blue: #3b82f6;
+            --nebula-teal: #06b6d4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ===== FLOATING NAV ===== */
+        .floating-nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(10,10,15,0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50px;
+            padding: 6px;
+            display: flex;
+            gap: 2px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .floating-nav.visible { opacity: 1; }
+        .floating-nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            letter-spacing: -0.01em;
+        }
+        .floating-nav a:hover, .floating-nav a.active {
+            color: #fff;
+            background: rgba(59,130,246,0.2);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 900px;
+            background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, rgba(168,85,247,0.06) 40%, transparent 70%);
+            pointer-events: none;
+            animation: heroGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.15); }
+        }
+
+        .hero-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 2rem;
+            animation: fadeInScale 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+            filter: drop-shadow(0 0 30px rgba(59,130,246,0.3));
+        }
+
+        .hero-eyebrow {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 50%, #3b82f6 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.35rem);
+            color: var(--text);
+            max-width: 600px;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+        }
+
+        .hero-tagline {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--green);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+        }
+
+        .hero-release {
+            font-size: clamp(0.85rem, 1.8vw, 1rem);
+            color: var(--orange);
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+
+        .hero-meta-item {
+            text-align: center;
+        }
+
+        .hero-meta-item .counter-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--heading);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero-meta-item .counter-label {
+            font-size: 0.75rem;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* ===== SECTION COMMON ===== */
+        section {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-full {
+            max-width: 100%;
+            padding: 8rem 0;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-eyebrow {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--heading);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin: 0 auto 1rem;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text);
+            max-width: 600px;
+            line-height: 1.7;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        /* ===== DIVIDER ===== */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== COMPARISON SCORECARDS ===== */
+        .comparison-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr 1fr;
+            gap: 1px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .comparison-row.header-row {
+            background: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-row.header-row .comp-cell {
+            background: transparent;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .comp-cell {
+            padding: 1.25rem 1.5rem;
+            background: rgba(17,17,24,0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .comp-cell.label-cell {
+            font-weight: 600;
+            color: var(--text-bright);
+            font-size: 0.9rem;
+            background: rgba(17,17,24,0.6);
+        }
+
+        .comp-cell .chain-name {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .comp-cell .chain-name.eth { color: var(--eth); }
+        .comp-cell .chain-name.sol { color: var(--sol); }
+        .comp-cell .chain-name.dions { color: var(--accent); }
+
+        .comp-cell .comp-value {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .comp-cell.winner {
+            background: rgba(59,130,246,0.08);
+            border: 1px solid rgba(59,130,246,0.15);
+        }
+
+        .comp-cell.winner .comp-value {
+            color: var(--heading);
+            font-weight: 600;
+        }
+
+        .win-badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-top: 0.25rem;
+        }
+
+        /* ===== FEATURE CARDS ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(59,130,246,0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(59,130,246,0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px -15px rgba(59,130,246,0.1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .feature-icon.blue { background: rgba(59,130,246,0.12); color: var(--accent); }
+        .feature-icon.purple { background: rgba(168,85,247,0.12); color: var(--purple); }
+        .feature-icon.green { background: rgba(34,197,94,0.12); color: var(--green); }
+        .feature-icon.yellow { background: rgba(234,179,8,0.12); color: var(--yellow); }
+        .feature-icon.orange { background: rgba(249,115,22,0.12); color: var(--orange); }
+        .feature-icon.teal { background: rgba(20,184,166,0.12); color: var(--teal); }
+        .feature-icon.red { background: rgba(239,68,68,0.12); color: var(--red); }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--heading);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .feature-card .feature-detail {
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text);
+        }
+
+        .feature-card .feature-detail strong {
+            color: var(--text-bright);
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--heading);
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        .stat-item .stat-number .stat-suffix {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.8rem;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== CINEMATIC FEATURE SECTION ===== */
+        .cinematic-section {
+            padding: 10rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cinematic-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, var(--glow-color, rgba(59,130,246,0.06)) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cinematic-section .section-title {
+            max-width: 800px;
+            margin: 0 auto 1rem;
+        }
+
+        .cinematic-section .section-desc {
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        /* ===== SECURITY SECTION ===== */
+        .security-hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .security-shield {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(34,197,94,0.2), rgba(34,197,94,0.05));
+            border: 2px solid rgba(34,197,94,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            animation: shieldPulse 3s ease-in-out infinite;
+        }
+
+        .security-shield svg { width: 60px; height: 60px; }
+
+        @keyframes shieldPulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(34,197,94,0.1); }
+            50% { box-shadow: 0 0 50px rgba(34,197,94,0.25); }
+        }
+
+        .security-hero-text { max-width: 500px; }
+
+        .security-hero-text .big-stat {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--green);
+            line-height: 1;
+        }
+
+        .security-hero-text .big-stat-label {
+            font-size: 1rem;
+            color: var(--text);
+            margin-top: 0.25rem;
+        }
+
+        .security-stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+
+        .security-stat {
+            background: var(--card);
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+
+        .security-stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .security-stat-value.green-num { color: var(--green); }
+        .security-stat-value.blue-num { color: var(--accent); }
+        .security-stat-value.purple-num { color: var(--purple); }
+
+        .security-stat-label {
+            font-size: 0.7rem;
+            color: var(--text);
+            margin-top: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .security-findings {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .findings-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+        }
+
+        .findings-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .finding-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .finding-row:last-child { border-bottom: none; }
+
+        .finding-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            flex-shrink: 0;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .finding-badge.critical { background: rgba(239,68,68,0.15); color: var(--red); }
+        .finding-badge.high { background: rgba(249,115,22,0.15); color: var(--orange); }
+        .finding-badge.medium { background: rgba(234,179,8,0.15); color: var(--yellow); }
+        .finding-badge.low { background: rgba(59,130,246,0.15); color: var(--accent); }
+        .finding-badge.deferred { background: rgba(255,255,255,0.06); color: var(--text); }
+
+        .finding-text {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .finding-status {
+            margin-left: auto;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .finding-status.fixed { color: var(--green); }
+        .finding-status.safe { color: var(--text); }
+
+        @media (max-width: 767px) {
+            .security-stats-row { grid-template-columns: repeat(2, 1fr); }
+            .security-findings { grid-template-columns: 1fr; }
+            .security-shield { width: 100px; height: 100px; }
+            .security-shield svg { width: 44px; height: 44px; }
+        }
+
+        /* ===== SECTION BACKGROUNDS ===== */
+        .section-surface { background: #050508; }
+
+        .section-tinted { position: relative; }
+        .section-tinted::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .section-tinted > * { position: relative; z-index: 1; }
+
+        .tint-purple::after { background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.04) 0%, transparent 60%); }
+        .tint-blue::after { background: radial-gradient(ellipse at 50% 30%, rgba(59,130,246,0.04) 0%, transparent 60%); }
+        .tint-green::after { background: radial-gradient(ellipse at 50% 20%, rgba(34,197,94,0.03) 0%, transparent 55%); }
+        .tint-teal::after { background: radial-gradient(ellipse at 50% 30%, rgba(6,182,212,0.04) 0%, transparent 60%); }
+        .tint-gold::after { background: radial-gradient(ellipse at 50% 0%, rgba(210,153,34,0.04) 0%, transparent 60%); }
+
+        /* ===== DIVIDER VARIANTS ===== */
+        .divider-fade {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.08) 50%, transparent 95%);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .divider-glow {
+            height: 1px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .divider-glow::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 10%;
+            right: 10%;
+            height: 40px;
+            background: radial-gradient(ellipse at 50% 50%, var(--divider-color, rgba(59,130,246,0.06)) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .divider-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 2rem 0;
+        }
+        .divider-dots span {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* ===== DUAL EXECUTION ===== */
+        .dual-grid { display: grid; gap: 1.5rem; }
+        .zone-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+        .zone-badge {
+            display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 0.7rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;
+        }
+        .zone-evm .zone-badge { background: rgba(59,130,246,0.15); color: var(--nebula-blue); }
+        .zone-svm .zone-badge { background: rgba(124,58,237,0.15); color: var(--nebula-purple); }
+        .zone-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--heading); margin-bottom: 0.75rem; }
+        .zone-list { list-style: none; }
+        .zone-list li { padding: 4px 0; font-size: 0.85rem; color: var(--text-bright); }
+        .zone-list li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+        .zone-evm .zone-list li::before { background: var(--nebula-blue); }
+        .zone-svm .zone-list li::before { background: var(--nebula-purple); }
+        .zone-note { text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text); font-style: italic; }
+
+        /* ===== TABLES (shared) ===== */
+        .table-wrap { position: relative; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border: 1px solid var(--border); }
+        .table-wrap table { width: 100%; border-collapse: collapse; min-width: 600px; font-size: 0.82rem; }
+        .table-wrap th {
+            text-align: left; padding: 12px 14px; background: rgba(255,255,255,0.03);
+            color: var(--heading); font-weight: 700; font-size: 0.72rem; text-transform: uppercase;
+            letter-spacing: 0.05em; white-space: nowrap;
+        }
+        .table-wrap td { padding: 10px 14px; border-top: 1px solid var(--border); white-space: nowrap; }
+        .table-wrap tr:hover td { background: rgba(255,255,255,0.02); }
+        .table-compact table { min-width: auto; }
+        .scroll-hint { text-align: center; font-size: 0.7rem; color: var(--text); margin-top: 8px; opacity: 0.6; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .win { color: var(--green); }
+        .tier-highlight { background: rgba(124,58,237,0.06); }
+
+        /* ===== PARAM LISTS (shared) ===== */
+        .param-list { list-style: none; }
+        .param-list li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; display: flex; justify-content: space-between; gap: 12px; }
+        .param-list li:last-child { border-bottom: none; }
+        .param-label { color: var(--text); }
+        .param-value { font-family: 'JetBrains Mono', monospace; color: var(--heading); font-weight: 500; text-align: right; }
+
+        /* ===== PQC PROFILES ===== */
+        .profiles-grid { display: grid; gap: 12px; margin-top: 1.5rem; }
+        .profile-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; }
+        .profile-name { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--nebula-teal); font-size: 0.85rem; margin-bottom: 4px; }
+        .profile-detail { font-size: 0.82rem; color: var(--text-bright); }
+
+        /* ===== DID CARDS ===== */
+        .did-types { display: grid; gap: 1rem; margin-bottom: 1.5rem; }
+        .did-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+        .did-label { font-weight: 700; color: var(--heading); font-size: 0.95rem; margin-bottom: 4px; }
+        .did-uri { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--nebula-teal); margin-bottom: 4px; }
+        .did-desc { font-size: 0.82rem; }
+
+        /* ===== CODE BLOCKS ===== */
+        .code-json {
+            background: rgba(10,10,25,0.9); border: 1px solid var(--border); border-radius: 12px;
+            padding: 1.25rem; overflow-x: auto; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem; line-height: 1.7; color: var(--text-bright);
+        }
+        .code-json .key { color: var(--nebula-teal); }
+        .code-json .str { color: var(--green); }
+        .code-json .punct { color: var(--text); }
+
+        /* ===== BRIDGE FLOW ===== */
+        .bridge-flow {
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+            margin-bottom: 2rem; padding: 2rem;
+        }
+        .bridge-node {
+            padding: 1rem 1.5rem; border-radius: 12px; text-align: center; width: 100%; max-width: 300px;
+        }
+        .bridge-node.dions { background: rgba(124,58,237,0.12); border: 1px solid rgba(124,58,237,0.25); }
+        .bridge-node.relayer { background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.25); }
+        .bridge-node.eth { background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); }
+        .bridge-arrow { font-size: 1.5rem; color: var(--nebula-teal); transform: rotate(90deg); }
+        .bridge-node-title { font-weight: 800; color: var(--heading); font-size: 0.95rem; margin-bottom: 4px; }
+        .bridge-node-desc { font-size: 0.82rem; color: var(--text-bright); }
+
+        /* ===== CONSENSUS ===== */
+        .consensus-grid { display: grid; gap: 1.5rem; }
+        .consensus-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 2rem; }
+        .consensus-card h3 { color: var(--heading); font-weight: 700; margin-bottom: 0.75rem; font-size: 1rem; }
+
+        /* ===== EARN CARDS ===== */
+        .earn-grid { display: grid; gap: 1rem; }
+        .earn-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; text-align: center; }
+        .earn-amount { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+        .earn-role { font-weight: 800; color: var(--heading); font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .earn-desc { font-size: 0.85rem; }
+        .earn-validator .earn-amount { color: var(--nebula-purple); }
+        .earn-light .earn-amount { color: var(--nebula-blue); }
+        .earn-pop .earn-amount { color: var(--nebula-teal); }
+
+        /* ===== DATA AVAILABILITY ===== */
+        .da-visual { display: flex; flex-wrap: wrap; gap: 3px; justify-content: center; margin-bottom: 1.5rem; padding: 1.25rem; }
+        .shard { width: 16px; height: 16px; border-radius: 3px; }
+        .shard-data { background: rgba(124,58,237,0.6); border: 1px solid rgba(124,58,237,0.8); }
+        .shard-parity { background: rgba(6,182,212,0.5); border: 1px solid rgba(6,182,212,0.7); }
+        .da-legend { display: flex; justify-content: center; gap: 24px; font-size: 0.8rem; margin-bottom: 1.5rem; }
+        .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+
+        /* ===== NETWORK ===== */
+        .network-grid { display: grid; gap: 1.5rem; }
+
+        /* ===== SECTION EYEBROW COLORS ===== */
+        #zones .section-eyebrow { color: var(--nebula-purple); }
+        #pqc .section-eyebrow { color: var(--nebula-teal); }
+        #did .section-eyebrow { color: var(--nebula-teal); }
+        #messaging .section-eyebrow { color: var(--nebula-teal); }
+        #bridge .section-eyebrow { color: var(--nebula-blue); }
+        #consensus .section-eyebrow { color: var(--green); }
+        #data-availability .section-eyebrow { color: var(--nebula-teal); }
+        #light-client .section-eyebrow { color: var(--nebula-blue); }
+        #economics .section-eyebrow { color: var(--nebula-teal); }
+        #network-section .section-eyebrow { color: var(--nebula-teal); }
+        #upgrade .section-eyebrow { color: var(--ioc-legacy); }
+        #build .section-eyebrow { color: var(--nebula-purple); }
+
+        /* ===== RESPONSIVE for new sections ===== */
+        @media (min-width: 768px) {
+            .dual-grid { grid-template-columns: 1fr 1fr; }
+            .profiles-grid { grid-template-columns: repeat(2, 1fr); }
+            .did-types { grid-template-columns: repeat(3, 1fr); }
+            .consensus-grid { grid-template-columns: 1fr 1fr; }
+            .earn-grid { grid-template-columns: repeat(3, 1fr); }
+            .network-grid { grid-template-columns: 1fr 1fr; }
+            .bridge-flow { flex-direction: row; }
+            .bridge-arrow { transform: rotate(0deg); }
+            .scroll-hint { display: none; }
+        }
+        @media (min-width: 1024px) {
+            .profiles-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* ===== TIER SYSTEM ===== */
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .tier-card {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier-card.featured {
+            border-color: rgba(59,130,246,0.3);
+            box-shadow: 0 0 40px rgba(59,130,246,0.08);
+        }
+
+        .tier-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: 12px;
+            right: -28px;
+            transform: rotate(45deg);
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 3px 30px;
+        }
+
+        .tier-name {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .tier-stake {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--heading);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+
+        .tier-stake span {
+            font-size: 0.9rem;
+            color: var(--text);
+            font-weight: 400;
+        }
+
+        .tier-features {
+            list-style: none;
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .tier-features li {
+            font-size: 0.8rem;
+            color: var(--text);
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tier-features li .check {
+            color: var(--green);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* ===== ROADMAP ===== */
+        .timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--purple));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding-left: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg);
+            box-shadow: 0 0 10px rgba(59,130,246,0.4);
+        }
+
+        .timeline-item .timeline-date {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--heading);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            font-size: 0.85rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* ===== BUILD ===== */
+        .code-block {
+            background: rgba(17,17,24,0.8);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+            font-size: 0.85rem;
+            color: var(--text-bright);
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block .code-comment {
+            color: var(--text);
+            opacity: 0.5;
+        }
+
+        .code-block .code-keyword {
+            color: var(--accent);
+        }
+
+        .code-block .code-string {
+            color: var(--green);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: var(--text);
+            opacity: 0.6;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ===== UPGRADE TABLE ===== */
+        .upgrade-grid {
+            display: grid;
+            gap: 1px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .upgrade-row {
+            display: grid;
+            grid-template-columns: 180px 1fr 1fr 140px;
+            gap: 1px;
+        }
+        .upgrade-row.upgrade-header {
+            background: transparent;
+        }
+        .upgrade-row.upgrade-header .upgrade-cell {
+            background: rgba(59,130,246,0.06);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-bright);
+            padding: 1rem 1.25rem;
+        }
+        .upgrade-cell {
+            padding: 1rem 1.25rem;
+            background: rgba(17,17,24,0.4);
+            font-size: 0.9rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+        }
+        .upgrade-cell.label-cell {
+            font-weight: 600;
+            color: var(--text-bright);
+            background: rgba(17,17,24,0.6);
+            font-size: 0.85rem;
+        }
+        .upgrade-cell.legacy-cell {
+            color: var(--text);
+            opacity: 0.7;
+        }
+        .upgrade-cell.new-cell {
+            color: var(--heading);
+            font-weight: 600;
+        }
+        .upgrade-cell.gain-cell {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--green);
+        }
+        @media (max-width: 768px) {
+            .upgrade-row {
+                grid-template-columns: 1fr;
+            }
+            .upgrade-row.upgrade-header { display: none; }
+            .upgrade-cell { padding: 0.75rem 1rem; }
+            .upgrade-cell.label-cell {
+                background: rgba(59,130,246,0.05);
+                font-size: 0.8rem;
+                padding: 0.6rem 1rem;
+            }
+            .upgrade-cell::before {
+                font-size: 0.6rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                opacity: 0.5;
+                margin-right: 0.75rem;
+                min-width: 60px;
+            }
+            .upgrade-cell.legacy-cell::before { content: 'Legacy'; }
+            .upgrade-cell.new-cell::before { content: 'DIONS 2.0'; }
+            .upgrade-cell.gain-cell::before { content: 'Gain'; }
+        }
+
+        /* ===== ARCHITECTURE PIPE DIAGRAM ===== */
+        .arch-diagram { position: relative; padding: 60px 0 40px; }
+        .arch-pipeline { position: relative; max-width: 1100px; margin: 0 auto; }
+        .arch-l1-core { position: relative; background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(59,130,246,0.08)); border: 1px solid rgba(124,58,237,0.35); border-radius: 20px; padding: 28px 32px; margin-bottom: 0; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .arch-l1-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+        .arch-l1-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 8px; background: rgba(124,58,237,0.25); border: 1px solid rgba(124,58,237,0.5); color: var(--heading); font-weight: 800; font-size: 1.1rem; letter-spacing: 0.02em; }
+        .arch-l1-badge .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(34,197,94,0.6); animation: archPulse 2s ease-in-out infinite; }
+        @keyframes archPulse { 0%,100%{opacity:0.6;box-shadow:0 0 4px rgba(34,197,94,0.4)} 50%{opacity:1;box-shadow:0 0 12px rgba(34,197,94,0.8)} }
+        .arch-block-timer { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 8px; background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.3); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--nebula-teal); font-weight: 600; }
+        .arch-block-timer .timer-bar { width: 60px; height: 4px; border-radius: 2px; background: rgba(6,182,212,0.2); overflow: hidden; position: relative; }
+        .arch-block-timer .timer-fill { position: absolute; left: 0; top: 0; height: 100%; background: linear-gradient(90deg, var(--nebula-teal), var(--nebula-blue)); border-radius: 2px; animation: blockTimer 30s linear infinite; }
+        @keyframes blockTimer { 0%{width:0%} 100%{width:100%} }
+        .arch-features-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+        .arch-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: all 0.25s ease; border: 1px solid transparent; position: relative; }
+        .arch-pill:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+        .arch-pill.pill-consensus { background: rgba(124,58,237,0.15); color: #c4b5fd; border-color: rgba(124,58,237,0.25); }
+        .arch-pill.pill-consensus:hover { background: rgba(124,58,237,0.3); border-color: rgba(124,58,237,0.5); }
+        .arch-pill.pill-crypto { background: rgba(6,182,212,0.15); color: #67e8f9; border-color: rgba(6,182,212,0.25); }
+        .arch-pill.pill-crypto:hover { background: rgba(6,182,212,0.3); border-color: rgba(6,182,212,0.5); }
+        .arch-pill.pill-identity { background: rgba(59,130,246,0.15); color: #93c5fd; border-color: rgba(59,130,246,0.25); }
+        .arch-pill.pill-identity:hover { background: rgba(59,130,246,0.3); border-color: rgba(59,130,246,0.5); }
+        .arch-pill.pill-network { background: rgba(34,197,94,0.12); color: #86efac; border-color: rgba(34,197,94,0.2); }
+        .arch-pill.pill-network:hover { background: rgba(34,197,94,0.25); border-color: rgba(34,197,94,0.4); }
+        .arch-pill .pill-icon { font-size: 0.8rem; }
+        .arch-stats-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: rgba(124,58,237,0.1); border-radius: 10px; overflow: hidden; }
+        .arch-stat { background: rgba(10,10,25,0.6); padding: 12px 8px; text-align: center; transition: background 0.2s; }
+        .arch-stat:hover { background: rgba(124,58,237,0.08); }
+        .arch-stat-value { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: var(--heading); }
+        .arch-stat-label { font-size: 0.68rem; color: var(--text); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+        .arch-connectors { display: flex; justify-content: center; gap: 200px; position: relative; height: 60px; }
+        .arch-pipe { width: 2px; height: 100%; position: relative; }
+        .arch-pipe::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background: linear-gradient(180deg, rgba(124,58,237,0.5), rgba(124,58,237,0.2)); }
+        .arch-pipe .pipe-flow { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; border-radius: 50%; background: var(--nebula-purple); box-shadow: 0 0 8px rgba(124,58,237,0.8); animation: pipeFlow 2s ease-in-out infinite; }
+        .arch-pipe.pipe-evm .pipe-flow { background: var(--nebula-blue); box-shadow: 0 0 8px rgba(59,130,246,0.8); animation-delay: 0.5s; }
+        @keyframes pipeFlow { 0%{top:0;opacity:0} 20%{opacity:1} 80%{opacity:1} 100%{top:100%;opacity:0} }
+        .arch-l2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .arch-zone { border-radius: 16px; padding: 20px 24px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: all 0.3s ease; cursor: default; }
+        .arch-zone:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+        .arch-zone-evm { background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.04)); border: 1px solid rgba(59,130,246,0.3); }
+        .arch-zone-evm:hover { border-color: rgba(59,130,246,0.6); }
+        .arch-zone-svm { background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(124,58,237,0.04)); border: 1px solid rgba(124,58,237,0.3); }
+        .arch-zone-svm:hover { border-color: rgba(124,58,237,0.6); }
+        .arch-zone-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .arch-zone-name { font-weight: 800; font-size: 1rem; color: var(--heading); }
+        .arch-zone-tps { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; font-weight: 700; padding: 3px 10px; border-radius: 6px; }
+        .arch-zone-evm .arch-zone-tps { color: var(--nebula-blue); background: rgba(59,130,246,0.15); }
+        .arch-zone-svm .arch-zone-tps { color: var(--nebula-purple); background: rgba(124,58,237,0.15); }
+        .arch-zone-features { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 6px; }
+        .arch-zone-features li { font-size: 0.7rem; color: var(--text-bright); padding: 2px 8px; border-radius: 4px; background: rgba(255,255,255,0.04); }
+        .arch-detail-popover { display: none; position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); min-width: 220px; padding: 14px 16px; background: rgba(15,15,35,0.95); border: 1px solid rgba(124,58,237,0.4); border-radius: 10px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); font-size: 0.78rem; color: var(--text-bright); z-index: 10; box-shadow: 0 8px 32px rgba(0,0,0,0.5); line-height: 1.5; white-space: normal; }
+        .arch-detail-popover::before { content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 10px; height: 10px; background: rgba(15,15,35,0.95); border-left: 1px solid rgba(124,58,237,0.4); border-top: 1px solid rgba(124,58,237,0.4); }
+        .arch-pill.active .arch-detail-popover { display: block; }
+        .arch-pill.popover-up .arch-detail-popover { top: auto; bottom: calc(100% + 8px); }
+        .arch-pill.popover-up .arch-detail-popover::before { top: auto; bottom: -6px; border-left: none; border-top: none; border-right: 1px solid rgba(124,58,237,0.4); border-bottom: 1px solid rgba(124,58,237,0.4); }
+        .arch-detail-title { font-weight: 700; color: var(--heading); margin-bottom: 4px; font-size: 0.82rem; }
+        .arch-throughput-bar { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 16px; padding: 12px 20px; border-radius: 10px; background: rgba(124,58,237,0.06); border: 1px solid rgba(124,58,237,0.15); }
+        .arch-throughput-label { font-size: 0.75rem; color: var(--text); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+        .arch-throughput-value { font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; font-weight: 700; background: linear-gradient(135deg, var(--nebula-purple), var(--nebula-teal)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .arch-throughput-viz { flex: 1; max-width: 300px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.05); overflow: hidden; position: relative; }
+        .arch-throughput-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--nebula-blue), var(--nebula-purple), var(--nebula-teal)); animation: throughputPulse 3s ease-in-out infinite; }
+        @keyframes throughputPulse { 0%,100%{width:85%;opacity:0.7} 50%{width:100%;opacity:1} }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 768px) {
+            .floating-nav {
+                display: none;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .cinematic-section {
+                padding: 6rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-row.header-row {
+                display: none;
+            }
+
+            .comp-cell.label-cell {
+                background: rgba(59,130,246,0.05);
+                font-size: 0.85rem;
+                padding: 0.75rem 1.25rem;
+            }
+
+            .comp-cell::before {
+                font-size: 0.65rem;
+                font-weight: 600;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                opacity: 0.5;
+                margin-bottom: 0.25rem;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .hero-meta {
+                gap: 1.5rem;
+            }
+
+            .hero-meta-item .counter-value {
+                font-size: 2rem;
+            }
+
+            .tier-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .arch-l2-grid { grid-template-columns: 1fr; }
+            .arch-connectors { gap: 80px; height: 40px; }
+            .arch-stats-strip { grid-template-columns: repeat(3, 1fr); }
+            .arch-l1-header { justify-content: center; text-align: center; }
+            .arch-throughput-bar { flex-direction: column; gap: 8px; }
+            .arch-throughput-viz { max-width: 100%; width: 100%; }
+        }
+
+        @media (max-width: 480px) {
+            .tier-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .arch-stats-strip { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { transition: none; opacity: 1; transform: none; }
+            * { animation-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== FLOATING NAV ===== -->
+<nav class="floating-nav" id="floatingNav">
+    <a href="#hero">Home</a>
+    <a href="#upgrade">Upgrade</a>
+    <a href="#comparison">Compare</a>
+    <a href="#architecture">System</a>
+    <a href="#security">Security</a>
+    <a href="#tiers">Tiers</a>
+    <a href="#build">Build</a>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+    <img src="https://raw.githubusercontent.com/IOCoin/DIONS/main-legacy/doc/IOC-QT250PX.svg" alt="IOCoin" class="hero-logo" onerror="this.style.display='none'">
+    <p class="hero-eyebrow">I/O Coin Protocol Upgrade</p>
+    <h1>
+        <span class="gradient-text">DIONS 2.0</span>
+    </h1>
+    <p class="hero-release">Public Release Sept &ndash; December 2026</p>
+    <p class="hero-subtitle">
+        A revolutionary L1 with dual execution zones, post-quantum cryptography, and native identity.
+    </p>
+    <p class="hero-tagline">No ICO. No presale. Fair launch since 2014.</p>
+    <div class="hero-meta">
+        <div class="hero-meta-item">
+            <div class="counter-value" data-target="150" data-suffix="">0</div>
+            <div class="counter-label">RPC Methods</div>
+        </div>
+        <div class="hero-meta-item">
+            <div class="counter-value" data-target="524" data-suffix="">0</div>
+            <div class="counter-label">Tests Passing</div>
+        </div>
+        <div class="hero-meta-item">
+            <div class="counter-value" data-target="22" data-suffix="">0</div>
+            <div class="counter-label">Subsystems</div>
+        </div>
+        <div class="hero-meta-item">
+            <div class="counter-value" data-target="52" data-suffix="K">0</div>
+            <div class="counter-label">Lines of Code</div>
+        </div>
+    </div>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== LEGACY UPGRADE ===== -->
+<section id="upgrade" class="section-surface section-tinted tint-gold">
+    <div class="reveal">
+        <p class="section-eyebrow">Why Upgrade</p>
+        <h2 class="section-title">DIONS vs DIONS 2.0</h2>
+        <p class="section-desc">DIONS launched on I/O Coin in 2017. DIONS 2.0 is a complete C++20 rewrite &mdash; every subsystem rebuilt for speed and scale.</p>
+    </div>
+
+    <div class="upgrade-grid">
+        <div class="upgrade-row upgrade-header reveal">
+            <div class="upgrade-cell">Metric</div>
+            <div class="upgrade-cell">DIONS (Legacy)</div>
+            <div class="upgrade-cell">DIONS 2.0</div>
+            <div class="upgrade-cell">Improvement</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-1">
+            <div class="upgrade-cell label-cell">Block Time</div>
+            <div class="upgrade-cell legacy-cell">16&#8211;60s variable</div>
+            <div class="upgrade-cell new-cell">30s fixed</div>
+            <div class="upgrade-cell gain-cell">Predictable</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-1">
+            <div class="upgrade-cell label-cell">L1 TPS</div>
+            <div class="upgrade-cell legacy-cell">~10</div>
+            <div class="upgrade-cell new-cell">88</div>
+            <div class="upgrade-cell gain-cell">8.8x faster</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-2">
+            <div class="upgrade-cell label-cell">Combined TPS</div>
+            <div class="upgrade-cell legacy-cell">~10</div>
+            <div class="upgrade-cell new-cell">11,000+</div>
+            <div class="upgrade-cell gain-cell">1,100x faster</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-2">
+            <div class="upgrade-cell label-cell">Finality</div>
+            <div class="upgrade-cell legacy-cell">Unpredictable</div>
+            <div class="upgrade-cell new-cell">30 seconds</div>
+            <div class="upgrade-cell gain-cell">Guaranteed</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-2">
+            <div class="upgrade-cell label-cell">Consensus</div>
+            <div class="upgrade-cell legacy-cell">PoS v2 (stake grinding)</div>
+            <div class="upgrade-cell new-cell">PoS + DAS + checkpoints</div>
+            <div class="upgrade-cell gain-cell">Secure</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-3">
+            <div class="upgrade-cell label-cell">Reorg Protection</div>
+            <div class="upgrade-cell legacy-cell">None</div>
+            <div class="upgrade-cell new-cell">500-block max depth</div>
+            <div class="upgrade-cell gain-cell">New</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-3">
+            <div class="upgrade-cell label-cell">Smart Contracts</div>
+            <div class="upgrade-cell legacy-cell">None</div>
+            <div class="upgrade-cell new-cell">EVM + SVM zones</div>
+            <div class="upgrade-cell gain-cell">New</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-3">
+            <div class="upgrade-cell label-cell">Identity</div>
+            <div class="upgrade-cell legacy-cell">None</div>
+            <div class="upgrade-cell new-cell">W3C DID (Agent + Device)</div>
+            <div class="upgrade-cell gain-cell">New</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-3">
+            <div class="upgrade-cell label-cell">Peer Discovery</div>
+            <div class="upgrade-cell legacy-cell">15 seed nodes</div>
+            <div class="upgrade-cell new-cell">Kademlia DHT</div>
+            <div class="upgrade-cell gain-cell">Decentralized</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-4">
+            <div class="upgrade-cell label-cell">Data Storage</div>
+            <div class="upgrade-cell legacy-cell">Full replication (100%)</div>
+            <div class="upgrade-cell new-cell">Reed-Solomon sharding (1&#8211;10%)</div>
+            <div class="upgrade-cell gain-cell">90% less</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-4">
+            <div class="upgrade-cell label-cell">Min Storage</div>
+            <div class="upgrade-cell legacy-cell">~2 TB</div>
+            <div class="upgrade-cell new-cell">100 MB (light client)</div>
+            <div class="upgrade-cell gain-cell">20,000x less</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-4">
+            <div class="upgrade-cell label-cell">Alias Lookup</div>
+            <div class="upgrade-cell legacy-cell">O(n) blockchain scan</div>
+            <div class="upgrade-cell new-cell">O(1) LevelDB instant</div>
+            <div class="upgrade-cell gain-cell">Instant</div>
+        </div>
+        <div class="upgrade-row reveal reveal-delay-4">
+            <div class="upgrade-cell label-cell">Earn from Zero</div>
+            <div class="upgrade-cell legacy-cell">Impossible</div>
+            <div class="upgrade-cell new-cell">PoP relay rewards</div>
+            <div class="upgrade-cell gain-cell">New</div>
+        </div>
+    </div>
+</section>
+
+<div class="divider-dots"><span></span><span></span><span></span></div>
+
+<!-- ===== STATS BAR ===== -->
+<div class="stats-bar reveal">
+    <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="88">0</span> <span class="stat-suffix">TPS</span></div>
+        <div class="stat-label">L1 Throughput</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="11">0</span><span class="stat-suffix">,000+</span></div>
+        <div class="stat-label">With Zones (EVM + SVM)</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="30">0</span><span class="stat-suffix">s</span></div>
+        <div class="stat-label">Block Time</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="67">0</span><span class="stat-suffix">%</span></div>
+        <div class="stat-label">Finality Threshold</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="13">0</span></div>
+        <div class="stat-label">Binary Targets</div>
+    </div>
+</div>
+
+<div class="divider-dots"><span></span><span></span><span></span></div>
+
+<!-- ===== COMPARISON ===== -->
+<section id="comparison" class="section-surface section-tinted tint-blue">
+    <div class="reveal">
+        <p class="section-eyebrow">Chain Comparison</p>
+        <h2 class="section-title">How DIONS 2.0 stacks up.</h2>
+        <p class="section-desc">Side-by-side against the two largest smart contract platforms. DIONS 2.0 wins where it matters.</p>
+    </div>
+
+    <div class="comparison-grid">
+        <!-- Header -->
+        <div class="comparison-row header-row reveal">
+            <div class="comp-cell label-cell"></div>
+            <div class="comp-cell"><span class="chain-name eth">Ethereum</span></div>
+            <div class="comp-cell"><span class="chain-name sol">Solana</span></div>
+            <div class="comp-cell"><span class="chain-name dions">DIONS 2.0</span></div>
+        </div>
+
+        <div class="comparison-row reveal reveal-delay-1">
+            <div class="comp-cell label-cell">L1 TPS</div>
+            <div class="comp-cell"><span class="comp-value">15 &#8211; 30</span></div>
+            <div class="comp-cell"><span class="comp-value">~400</span></div>
+            <div class="comp-cell"><span class="comp-value">88</span></div>
+        </div>
+
+        <div class="comparison-row reveal reveal-delay-1">
+            <div class="comp-cell label-cell">With Zones</div>
+            <div class="comp-cell"><span class="comp-value">Thousands (rollups)</span></div>
+            <div class="comp-cell"><span class="comp-value">~4,000</span></div>
+            <div class="comp-cell winner"><span class="comp-value">11,000+ (EVM + SVM)</span><span class="win-badge">Highest</span></div>
+        </div>
+
+        <div class="comparison-row reveal reveal-delay-2">
+            <div class="comp-cell label-cell">Min Stake</div>
+            <div class="comp-cell"><span class="comp-value">32 ETH (~$96K)</span></div>
+            <div class="comp-cell"><span class="comp-value">~1 SOL + extreme HW</span></div>
+            <div class="comp-cell winner"><span class="comp-value">25 IOC</span><span class="win-badge">Most Accessible</span></div>
+        </div>
+
+        <div class="comparison-row reveal reveal-delay-2">
+            <div class="comp-cell label-cell">Post-Quantum</div>
+            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">None</span></div>
+            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">None</span></div>
+            <div class="comp-cell winner"><span class="comp-value">Dilithium + Falcon + Kyber</span><span class="win-badge">Quantum Safe</span></div>
+        </div>
+
+        <div class="comparison-row reveal reveal-delay-3">
+            <div class="comp-cell label-cell">Native Identity</div>
+            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No (ENS = off-chain)</span></div>
+            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No</span></div>
+            <div class="comp-cell winner"><span class="comp-value">W3C DID Core 1.0</span><span class="win-badge">Built-in</span></div>
+        </div>
+
+        <div class="comparison-row reveal reveal-delay-3">
+            <div class="comp-cell label-cell">Native Messaging</div>
+            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No</span></div>
+            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No</span></div>
+            <div class="comp-cell winner"><span class="comp-value">AES-256 + RSA-4096</span><span class="win-badge">Encrypted</span></div>
+        </div>
+
+        <div class="comparison-row reveal reveal-delay-4">
+            <div class="comp-cell label-cell">File Storage</div>
+            <div class="comp-cell"><span class="comp-value">No (IPFS)</span></div>
+            <div class="comp-cell"><span class="comp-value">No</span></div>
+            <div class="comp-cell winner"><span class="comp-value">On-chain with tiers</span><span class="win-badge">Native</span></div>
+        </div>
+
+        <div class="comparison-row reveal reveal-delay-4">
+            <div class="comp-cell label-cell">Earn from Zero</div>
+            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No</span></div>
+            <div class="comp-cell"><span class="comp-value" style="color: var(--red)">No</span></div>
+            <div class="comp-cell winner"><span class="comp-value">Yes (PoP relay rewards)</span><span class="win-badge">Zero Balance Entry</span></div>
+        </div>
+
+        <div class="comparison-row reveal reveal-delay-4">
+            <div class="comp-cell label-cell">RAM Required</div>
+            <div class="comp-cell"><span class="comp-value">16 GB</span></div>
+            <div class="comp-cell"><span class="comp-value">256 GB</span></div>
+            <div class="comp-cell winner"><span class="comp-value">4 &#8211; 8 GB</span><span class="win-badge">Lightweight</span></div>
+        </div>
+
+        <div class="comparison-row reveal reveal-delay-4">
+            <div class="comp-cell label-cell">Storage</div>
+            <div class="comp-cell"><span class="comp-value">~2 TB</span></div>
+            <div class="comp-cell"><span class="comp-value">~2 TB</span></div>
+            <div class="comp-cell winner"><span class="comp-value">100 GB validator / 100 MB light</span><span class="win-badge">Efficient</span></div>
+        </div>
+    </div>
+</section>
+
+<div class="divider-glow" style="--divider-color: rgba(124,58,237,0.08)"></div>
+
+<!-- ===== DUAL EXECUTION ===== -->
+<section id="zones" class="section-surface section-tinted tint-purple">
+    <div class="reveal">
+        <p class="section-eyebrow">Dual Execution</p>
+        <h2 class="section-title">Two VMs, One Chain</h2>
+        <p class="section-desc">Run Solidity and Rust smart contracts side by side. Both zones post state roots to L1.</p>
+    </div>
+    <div class="dual-grid reveal">
+        <div class="zone-card zone-evm">
+            <div class="zone-badge">EVM Zone</div>
+            <h3>Ethereum Virtual Machine</h3>
+            <ul class="zone-list">
+                <li>evmone execution engine</li>
+                <li>Solidity / Vyper contracts</li>
+                <li>1,000+ TPS throughput</li>
+                <li>EIP-1153 transient storage</li>
+                <li>EIP-2200 metered SSTORE</li>
+                <li>EIP-2929 warm/cold gas accounting</li>
+                <li>Full eth_* JSON-RPC layer</li>
+            </ul>
+        </div>
+        <div class="zone-card zone-svm">
+            <div class="zone-badge">SVM Zone</div>
+            <h3>Solana Virtual Machine</h3>
+            <ul class="zone-list">
+                <li>BPF interpreter (native)</li>
+                <li>Rust / C programs</li>
+                <li>Account model (Lamports)</li>
+                <li>Program Derived Addresses (PDAs)</li>
+                <li>Cross-Program Invocation (CPI)</li>
+                <li>22 syscalls, System/Token/Rent built-ins</li>
+                <li>Dispute: 200-block challenge, 100 IOC bond, 10% slash</li>
+            </ul>
+        </div>
+    </div>
+    <p class="zone-note reveal">Both zones post state roots to L1 via CBlockHeader::zoneRoot. New zones added without a hard fork.</p>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== SYSTEM ARCHITECTURE (Pipe Diagram) ===== -->
+<section id="architecture" class="arch-diagram" style="max-width: 100%; padding: 6rem 2rem;">
+<div style="max-width: 1200px; margin: 0 auto;">
+    <div class="reveal">
+        <p class="section-eyebrow">System Architecture</p>
+        <h2 class="section-title">L1 Settlement + L2 Execution Zones</h2>
+        <p class="section-desc">One chain, modular design. L1 handles consensus and settlement. L2 zones handle execution at scale.</p>
+    </div>
+
+    <div class="arch-pipeline reveal">
+    <div class="arch-l1-core">
+    <div class="arch-l1-header">
+    <div class="arch-l1-badge"><span class="badge-dot"></span> L1 &mdash; DIONS Base Layer</div>
+    <div class="arch-block-timer"><span>30s blocks</span><span class="timer-bar"><span class="timer-fill"></span></span></div>
+    </div>
+    <div class="arch-features-row">
+    <div class="arch-pill pill-consensus" data-arch-detail="consensus"><span class="pill-icon">&#9670;</span> Enhanced PoS<div class="arch-detail-popover"><div class="arch-detail-title">Proof of Stake Consensus</div>Stake-weighted block production with 30s fixed intervals. Checkpoints every 100 blocks. 67% finality threshold. Deep reorg protection at 500 blocks. Validator minimum: 10,000 IOC.</div></div>
+    <div class="arch-pill pill-consensus" data-arch-detail="slashing"><span class="pill-icon">&#9888;</span> Slashing<div class="arch-detail-popover"><div class="arch-detail-title">Slashing &amp; Jailing</div>Double-sign detection via ECDSA signature verification. 10% stake slash for invalid execution. 24-hour jail period. States: Active, Inactive, Slashed, Jailed, Banned.</div></div>
+    <div class="arch-pill pill-consensus" data-arch-detail="delegation"><span class="pill-icon">&#8644;</span> Delegation<div class="arch-detail-popover"><div class="arch-detail-title">Native Delegation</div>Delegate stake to validators without transferring custody. 7-day unbonding period. No third-party pools needed (unlike Ethereum's Lido).</div></div>
+    <div class="arch-pill pill-crypto" data-arch-detail="pqc"><span class="pill-icon">&#128274;</span> PQC<div class="arch-detail-popover"><div class="arch-detail-title">Post-Quantum Cryptography</div>NIST-standardized: Dilithium (L2/3/5), Falcon-512/1024, SPHINCS+, Kyber KEM. Hybrid PQC + Ed25519 dual signatures. Quantum-safe before quantum computers arrive.</div></div>
+    <div class="arch-pill pill-identity" data-arch-detail="did"><span class="pill-icon">&#128100;</span> W3C DID<div class="arch-detail-popover"><div class="arch-detail-title">Decentralized Identity</div>W3C DID Core 1.0 on-chain. Three identity types: Agent (AI/bot), Device (IoT/sensor), Alias (human). Key types: ECDSA + RSA-4096 + PQC.</div></div>
+    <div class="arch-pill pill-identity popover-up" data-arch-detail="messaging"><span class="pill-icon">&#9993;</span> Messaging<div class="arch-detail-popover"><div class="arch-detail-title">Encrypted On-Chain Messaging</div>AES-256-CBC (random key per message) + RSA-4096 (key encryption) + SHA-256 (integrity). Direct, group channels, shadow messages. 5-tier staking quotas.</div></div>
+    <div class="arch-pill pill-network popover-up" data-arch-detail="da"><span class="pill-icon">&#9638;</span> Data Availability<div class="arch-detail-popover"><div class="arch-detail-title">Reed-Solomon Erasure Coding</div>64 data + 32 parity shards. Recover from any 64 of 96. Light clients sample 20 random shards for 99.99% detection confidence. Per-node storage: 1-10% (~50GB).</div></div>
+    <div class="arch-pill pill-network popover-up" data-arch-detail="bridge"><span class="pill-icon">&#9732;</span> ETH Bridge<div class="arch-detail-popover"><div class="arch-detail-title">Native Ethereum Bridge</div>Consensus-layer HTLC with SHA-256 preimage. Lock IOC &harr; Mint/Burn ERC20. Relayer daemon monitors and relays proofs. 6 confirmations, 0.5% fee.</div></div>
+    </div>
+    <div class="arch-stats-strip">
+    <div class="arch-stat"><div class="arch-stat-value">88</div><div class="arch-stat-label">L1 TPS</div></div>
+    <div class="arch-stat"><div class="arch-stat-value">30s</div><div class="arch-stat-label">Block Time</div></div>
+    <div class="arch-stat"><div class="arch-stat-value">150</div><div class="arch-stat-label">RPC Methods</div></div>
+    <div class="arch-stat"><div class="arch-stat-value">524</div><div class="arch-stat-label">Tests</div></div>
+    <div class="arch-stat"><div class="arch-stat-value">25 IOC</div><div class="arch-stat-label">Min Stake (Validate)</div></div>
+    </div>
+    </div>
+    <div class="arch-connectors"><div class="arch-pipe pipe-evm"><div class="pipe-flow"></div></div><div class="arch-pipe pipe-svm"><div class="pipe-flow"></div></div></div>
+    <div class="arch-l2-grid">
+    <div class="arch-zone arch-zone-evm"><div class="arch-zone-header"><div class="arch-zone-name">L2 &mdash; EVM Zone</div><div class="arch-zone-tps">1,000+ TPS</div></div><ul class="arch-zone-features"><li>Solidity / Vyper</li><li>evmone engine</li><li>EIP-1153</li><li>EIP-2200</li><li>EIP-2929</li><li>eth_* JSON-RPC</li><li>24KB bytecode limit</li><li>Chain ID: 8377</li></ul></div>
+    <div class="arch-zone arch-zone-svm"><div class="arch-zone-header"><div class="arch-zone-name">L2 &mdash; SVM Zone</div><div class="arch-zone-tps">10,000+ TPS</div></div><ul class="arch-zone-features"><li>Rust / C (BPF)</li><li>Account model</li><li>PDAs</li><li>CPI (depth 4)</li><li>22 syscalls</li><li>System/Token/Stake</li><li>Dispute: 200-block</li><li>Compute budget</li></ul></div>
+    </div>
+    <div class="arch-throughput-bar"><span class="arch-throughput-label">Combined Throughput</span><div class="arch-throughput-viz"><div class="arch-throughput-fill"></div></div><span class="arch-throughput-value">11,000+ TPS</span></div>
+    </div>
+</div>
+</section>
+
+<div class="divider-glow" style="--divider-color: rgba(34,197,94,0.08)"></div>
+
+<!-- ===== CONSENSUS ===== -->
+<section id="consensus" class="section-surface section-tinted tint-green">
+    <div class="reveal">
+        <p class="section-eyebrow">Consensus</p>
+        <h2 class="section-title">Proof of Stake &amp; Validators</h2>
+        <p class="section-desc">Enhanced PoS with checkpoints, slashing, and delegated staking.</p>
+    </div>
+    <div class="consensus-grid reveal">
+        <div class="consensus-card">
+            <h3>PoS Parameters</h3>
+            <ul class="param-list">
+                <li><span class="param-label">Block time</span><span class="param-value">30s fixed</span></li>
+                <li><span class="param-label">COIN</span><span class="param-value">100,000,000 (8 dec)</span></li>
+                <li><span class="param-label">Stake min age</span><span class="param-value">30 seconds</span></li>
+                <li><span class="param-label">Stake max age</span><span class="param-value">90 days</span></li>
+                <li><span class="param-label">Coinbase maturity</span><span class="param-value">20 blocks</span></li>
+                <li><span class="param-label">Deep reorg protection</span><span class="param-value">500-block max</span></li>
+                <li><span class="param-label">Fork height</span><span class="param-value">5,730,000</span></li>
+            </ul>
+        </div>
+        <div class="consensus-card">
+            <h3>Validator System</h3>
+            <ul class="param-list">
+                <li><span class="param-label">Min stake</span><span class="param-value">25 IOC</span></li>
+                <li><span class="param-label">Checkpoints</span><span class="param-value">Every 100 blocks</span></li>
+                <li><span class="param-label">Finality</span><span class="param-value">67% total stake</span></li>
+                <li><span class="param-label">Unbonding</span><span class="param-value">7 days</span></li>
+                <li><span class="param-label">Jail duration</span><span class="param-value">24 hours</span></li>
+                <li><span class="param-label">Slash penalty</span><span class="param-value">10% for invalid exec</span></li>
+                <li><span class="param-label">States</span><span class="param-value">Active / Inactive / Slashed / Jailed / Banned</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="consensus-card reveal" style="margin-top: 1.5rem;">
+        <h3>Proof of Participation (PoP)</h3>
+        <ul class="param-list">
+            <li><span class="param-label">Reward per block</span><span class="param-value">0.001 IOC/node</span></li>
+            <li><span class="param-label">Max participants/block</span><span class="param-value">50</span></li>
+            <li><span class="param-label">Cooldown</span><span class="param-value">10 blocks (~5 min)</span></li>
+            <li><span class="param-label">Max emission/block</span><span class="param-value">0.05 IOC</span></li>
+            <li><span class="param-label">Sybil resistance</span><span class="param-value">DHT PoW (8-bit)</span></li>
+        </ul>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--nebula-teal); font-style: italic;">Any node &mdash; human, AI, robot, IoT &mdash; can earn from zero balance.</p>
+    </div>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== DATA AVAILABILITY ===== -->
+<section id="data-availability">
+    <div class="reveal">
+        <p class="section-eyebrow">Data Availability</p>
+        <h2 class="section-title">Reed-Solomon Erasure Coding</h2>
+        <p class="section-desc">64 data shards + 32 parity shards. Recover from any 64 of 96.</p>
+    </div>
+    <div class="reveal" style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem;">
+        <div class="da-visual" aria-label="64 data shards (purple) and 32 parity shards (teal)">
+            <!-- 64 data shards -->
+            <div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div><div class="shard shard-data"></div>
+            <!-- 32 parity shards -->
+            <div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div><div class="shard shard-parity"></div>
+        </div>
+        <div class="da-legend">
+            <span><span class="legend-dot" style="background:rgba(124,58,237,0.7)"></span>64 Data Shards</span>
+            <span><span class="legend-dot" style="background:rgba(6,182,212,0.6)"></span>32 Parity Shards</span>
+        </div>
+        <ul class="param-list" style="max-width: 500px; margin: 0 auto;">
+            <li><span class="param-label">Per-node storage</span><span class="param-value">1-10% (~50GB)</span></li>
+            <li><span class="param-label">Retention</span><span class="param-value">10,000 blocks (~1 week)</span></li>
+            <li><span class="param-label">Light client sampling</span><span class="param-value">20 random shards</span></li>
+            <li><span class="param-label">Detection confidence</span><span class="param-value">99.99%</span></li>
+            <li><span class="param-label">Recovery threshold</span><span class="param-value">ANY 64 of 96</span></li>
+        </ul>
+    </div>
+</section>
+
+<div class="divider-glow" style="--divider-color: rgba(6,182,212,0.06)"></div>
+
+<!-- ===== POST-QUANTUM SECURITY ===== -->
+<section id="pqc" class="section-surface section-tinted tint-teal">
+    <div class="reveal">
+        <p class="section-eyebrow">Post-Quantum Security</p>
+        <h2 class="section-title">Quantum-Resistant Cryptography</h2>
+        <p class="section-desc">NIST-standardized lattice and hash-based algorithms. Ready before quantum computers arrive.</p>
+    </div>
+    <div class="table-wrap reveal">
+        <table>
+            <thead><tr><th>Algorithm</th><th>NIST Level</th><th>Key Size</th><th>Signature</th><th>Use Case</th></tr></thead>
+            <tbody>
+                <tr><td>Dilithium-2</td><td class="mono">2</td><td class="mono">1,312 B</td><td class="mono">1,387 B</td><td>General purpose</td></tr>
+                <tr><td>Dilithium-3</td><td class="mono">3</td><td class="mono">1,952 B</td><td class="mono">2,044 B</td><td>Robot / Server</td></tr>
+                <tr><td>Dilithium-5</td><td class="mono">5</td><td class="mono">2,701 B</td><td class="mono">3,293 B</td><td>Maximum security</td></tr>
+                <tr><td>Falcon-512</td><td class="mono">1</td><td class="mono">897 B</td><td class="mono">~500 B</td><td>IoT (compact)</td></tr>
+                <tr><td>Falcon-1024</td><td class="mono">5</td><td class="mono">1,793 B</td><td class="mono">~800 B</td><td>High-security IoT</td></tr>
+                <tr><td>Kyber-512/768/1024</td><td class="mono">1/3/5</td><td class="mono">800-1,568 B</td><td class="mono">N/A (KEM)</td><td>Key encapsulation</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="scroll-hint">Scroll to see all columns</div>
+    <h3 style="color: var(--heading); font-weight: 700; margin: 2rem 0 1rem; font-size: 1.1rem;" class="reveal">Device Profiles</h3>
+    <div class="profiles-grid reveal">
+        <div class="profile-card"><div class="profile-name">IOT_MINIMAL</div><div class="profile-detail">Kyber-512 + Falcon-512</div></div>
+        <div class="profile-card"><div class="profile-name">IOT_STANDARD</div><div class="profile-detail">Kyber-768 + Falcon-512</div></div>
+        <div class="profile-card"><div class="profile-name">ROBOT_STANDARD</div><div class="profile-detail">Kyber-768 + Dilithium-3</div></div>
+        <div class="profile-card"><div class="profile-name">ROBOT_PREMIUM</div><div class="profile-detail">Kyber-1024 + Dilithium-5</div></div>
+        <div class="profile-card"><div class="profile-name">SERVER</div><div class="profile-detail">Kyber-1024 + Dilithium-5</div></div>
+    </div>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== DECENTRALIZED IDENTITY ===== -->
+<section id="did">
+    <div class="reveal">
+        <p class="section-eyebrow">Decentralized Identity</p>
+        <h2 class="section-title">W3C DID Core 1.0</h2>
+        <p class="section-desc">On-chain identity for humans, AI agents, robots, and IoT devices. Key types: ECDSA secp256k1 + RSA-4096 + PQC.</p>
+    </div>
+    <div class="did-types reveal">
+        <div class="did-card"><div class="did-label">Agent</div><div class="did-uri">did:dions:agent:bot1</div><div class="did-desc">Autonomous entity. Owns and delegates to devices.</div></div>
+        <div class="did-card"><div class="did-label">Device</div><div class="did-uri">did:dions:device:sensor7</div><div class="did-desc">Hardware identity. Delegated authority from agent.</div></div>
+        <div class="did-card"><div class="did-label">Alias</div><div class="did-uri">did:dions:alice</div><div class="did-desc">Human-readable identity. Linked to wallet address.</div></div>
+    </div>
+    <div class="code-json reveal">
+<span class="punct">{</span>
+  <span class="key">"@context"</span><span class="punct">:</span> <span class="str">"https://www.w3.org/ns/did/v1"</span><span class="punct">,</span>
+  <span class="key">"id"</span><span class="punct">:</span> <span class="str">"did:dions:agent:bot1"</span><span class="punct">,</span>
+  <span class="key">"verificationMethod"</span><span class="punct">: [{</span>
+    <span class="key">"type"</span><span class="punct">:</span> <span class="str">"EcdsaSecp256k1VerificationKey2019"</span>
+  <span class="punct">}],</span>
+  <span class="key">"service"</span><span class="punct">: [{</span>
+    <span class="key">"type"</span><span class="punct">:</span> <span class="str">"DionsMessaging"</span><span class="punct">,</span>
+    <span class="key">"serviceEndpoint"</span><span class="punct">:</span> <span class="str">"dions://msg/bot1"</span>
+  <span class="punct">}]</span>
+<span class="punct">}</span>
+    </div>
+</section>
+
+<div class="divider-glow" style="--divider-color: rgba(6,182,212,0.06)"></div>
+
+<!-- ===== ENCRYPTED MESSAGING ===== -->
+<section id="messaging" class="section-surface section-tinted tint-teal">
+    <div class="reveal">
+        <p class="section-eyebrow">Encrypted Messaging</p>
+        <h2 class="section-title">Native On-Chain Messaging</h2>
+        <p class="section-desc">AES-256-CBC (random key per message) + RSA-4096 (encrypts key) + SHA-256 (integrity). Direct messages, group channels, shadow messages.</p>
+    </div>
+    <h3 style="color: var(--heading); font-weight: 700; margin-bottom: 1rem; font-size: 1.1rem;" class="reveal">Staking Tiers</h3>
+    <div class="table-wrap reveal">
+        <table>
+            <thead><tr><th>Tier</th><th>Staked IOC</th><th>Msgs/Month</th><th>Max File</th><th>Aliases</th><th>Retention</th></tr></thead>
+            <tbody>
+                <tr><td>Basic</td><td class="mono">1,000</td><td class="mono">50</td><td class="mono">1 MB</td><td class="mono">1</td><td>30 days</td></tr>
+                <tr><td>Standard</td><td class="mono">5,000</td><td class="mono">200</td><td class="mono">10 MB</td><td class="mono">3</td><td>30-60 days</td></tr>
+                <tr class="tier-highlight"><td>Premium</td><td class="mono">10,000</td><td class="mono">500</td><td class="mono">50 MB</td><td class="mono">10</td><td>60-90 days</td></tr>
+                <tr><td>Enterprise</td><td class="mono">50,000</td><td class="mono">2,000</td><td class="mono">100 MB</td><td class="mono">50</td><td>90-180 days</td></tr>
+                <tr><td>Unlimited</td><td class="mono">100,000</td><td class="mono">10,000</td><td class="mono">500 MB</td><td class="mono">100</td><td>365 days</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="scroll-hint">Scroll to see all columns</div>
+    <p style="font-size: 0.82rem; color: var(--text); margin-top: 0.75rem; text-align: center;" class="reveal">Basic IOC transfers require no minimum stake &mdash; only DIONS features are tiered.</p>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== CROSS-CHAIN ===== -->
+<section id="bridge">
+    <div class="reveal">
+        <p class="section-eyebrow">Cross-Chain</p>
+        <h2 class="section-title">Ethereum Bridge &amp; HTLC</h2>
+        <p class="section-desc">Native bridge with hash time-locked contracts at the consensus layer.</p>
+    </div>
+    <div class="bridge-flow reveal">
+        <div class="bridge-node dions"><div class="bridge-node-title">DIONS Chain</div><div class="bridge-node-desc">Lock IOC (escrow)</div></div>
+        <div class="bridge-arrow" aria-hidden="true">&#8596;</div>
+        <div class="bridge-node relayer"><div class="bridge-node-title">Relayer</div><div class="bridge-node-desc">Monitor &amp; relay proofs</div></div>
+        <div class="bridge-arrow" aria-hidden="true">&#8596;</div>
+        <div class="bridge-node eth"><div class="bridge-node-title">Ethereum</div><div class="bridge-node-desc">Mint/Burn ERC20 (IOC20)</div></div>
+    </div>
+    <div class="reveal" style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 2rem; max-width: 600px; margin: 0 auto;">
+        <h3 style="color: var(--heading); font-weight: 700; margin-bottom: 0.75rem; font-size: 1rem;">HTLC Specifications</h3>
+        <ul class="param-list">
+            <li><span class="param-label">Hash Algorithm</span><span class="param-value">SHA-256 preimage</span></li>
+            <li><span class="param-label">Minimum</span><span class="param-value">0.001 IOC</span></li>
+            <li><span class="param-label">Maximum</span><span class="param-value">10 IOC</span></li>
+            <li><span class="param-label">Fee</span><span class="param-value">0.5% (50 bps)</span></li>
+            <li><span class="param-label">Confirmations</span><span class="param-value">6</span></li>
+            <li><span class="param-label">States</span><span class="param-value">PENDING &rarr; CLAIMED / REFUNDED / EXPIRED</span></li>
+        </ul>
+    </div>
+</section>
+
+<div class="divider-glow" style="--divider-color: rgba(6,182,212,0.06)"></div>
+
+<!-- ===== REWARDS & ECONOMICS ===== -->
+<section id="economics" class="section-surface section-tinted tint-teal">
+    <div class="reveal">
+        <p class="section-eyebrow">Tokenomics</p>
+        <h2 class="section-title">Rewards &amp; Economics</h2>
+        <p class="section-desc">Three earning paths. No ICO. No presale. Fair launch continuation since 2014.</p>
+    </div>
+    <div class="earn-grid reveal">
+        <div class="earn-card earn-validator"><div class="earn-amount">1.5 IOC/block</div><div class="earn-role">Validator</div><div class="earn-desc">Full validation, block production. Stake 25 IOC minimum.</div></div>
+        <div class="earn-card earn-light"><div class="earn-amount">0.5 IOC/block</div><div class="earn-role">Light Client</div><div class="earn-desc">Header sync + DA sampling. ~100 MB disk, ~42 MB/year bandwidth.</div></div>
+        <div class="earn-card earn-pop"><div class="earn-amount">0.001 IOC/block</div><div class="earn-role">PoP Node</div><div class="earn-desc">Relay blocks &amp; transactions. Zero balance required to start.</div></div>
+    </div>
+    <div class="reveal" style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; margin-top: 1.5rem; padding: 1.5rem 2rem;">
+        <ul class="param-list" style="max-width: 500px; margin: 0 auto;">
+            <li><span class="param-label">Annual inflation</span><span class="param-value">~2.5%</span></li>
+            <li><span class="param-label">Halving</span><span class="param-value">None</span></li>
+            <li><span class="param-label">Max supply</span><span class="param-value">None</span></li>
+            <li><span class="param-label">Coinbase maturity</span><span class="param-value">20 blocks</span></li>
+        </ul>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--nebula-teal); font-style: italic; text-align: center;">Fair launch since 2014. No ICO. No presale. Same IOC.</p>
+    </div>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== NETWORK & PROTOCOL ===== -->
+<section id="network-section">
+    <div class="reveal">
+        <p class="section-eyebrow">Infrastructure</p>
+        <h2 class="section-title">Network &amp; Protocol</h2>
+        <p class="section-desc">Production-ready networking with Kademlia DHT, WebSocket subscriptions, and stealth addresses.</p>
+    </div>
+    <div class="network-grid reveal">
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 2rem;">
+            <h3 style="color: var(--heading); font-weight: 700; margin-bottom: 0.75rem; font-size: 1rem;">Ports</h3>
+            <ul class="param-list">
+                <li><span class="param-label">Mainnet P2P</span><span class="param-value">33764</span></li>
+                <li><span class="param-label">Mainnet RPC</span><span class="param-value">33765</span></li>
+                <li><span class="param-label">Testnet P2P</span><span class="param-value">33763</span></li>
+                <li><span class="param-label">Testnet RPC</span><span class="param-value">33766</span></li>
+                <li><span class="param-label">WebSocket</span><span class="param-value">33776</span></li>
+                <li><span class="param-label">Chain ID (Main)</span><span class="param-value">8377</span></li>
+                <li><span class="param-label">Chain ID (Test)</span><span class="param-value">8378</span></li>
+            </ul>
+        </div>
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 2rem;">
+            <h3 style="color: var(--heading); font-weight: 700; margin-bottom: 0.75rem; font-size: 1rem;">Protocol</h3>
+            <ul class="param-list">
+                <li><span class="param-label">Version</span><span class="param-value">70000</span></li>
+                <li><span class="param-label">Max connections</span><span class="param-value">125</span></li>
+                <li><span class="param-label">DHT</span><span class="param-value">160-bit Kademlia, 20-node k-buckets</span></li>
+                <li><span class="param-label">Stealth</span><span class="param-value">v1 + v2 (PQC hybrid)</span></li>
+            </ul>
+            <h4 style="color: var(--text-bright); font-weight: 600; margin: 0.75rem 0 0.5rem; font-size: 0.85rem;">WebSocket Topics</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">newBlock</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">newTransaction</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">messageReceived</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">aliasUpdated</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">bridgeEvent</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">slashingEvent</span>
+                <span class="mono" style="font-size: 0.72rem; padding: 3px 8px; background: rgba(124,58,237,0.12); border-radius: 4px; color: var(--text-bright);">addresstx</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider-glow" style="--divider-color: rgba(34,197,94,0.06)"></div>
+
+<!-- ===== SECURITY ===== -->
+<section id="security" class="section-surface section-tinted tint-green">
+    <div class="reveal">
+        <p class="section-eyebrow">Security</p>
+        <h2 class="section-title">Audited. Verified. Hardened.</h2>
+    </div>
+
+    <div class="security-hero reveal">
+        <div class="security-shield">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(34,197,94,0.9)" stroke-width="1.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div class="security-hero-text">
+            <div class="big-stat"><span class="counter" data-target="64">0</span>/<span class="counter" data-target="64">0</span> PASS</div>
+            <div class="big-stat-label">Codex verification checks across 10 independent audit rounds. Every critical and high-severity finding has been fixed and verified.</div>
+        </div>
+    </div>
+
+    <div class="security-stats-row reveal">
+        <div class="security-stat">
+            <div class="security-stat-value green-num"><span class="counter" data-target="13">0</span></div>
+            <div class="security-stat-label">Findings Fixed</div>
+        </div>
+        <div class="security-stat">
+            <div class="security-stat-value blue-num"><span class="counter" data-target="524">0</span></div>
+            <div class="security-stat-label">Unit Tests</div>
+        </div>
+        <div class="security-stat">
+            <div class="security-stat-value purple-num"><span class="counter" data-target="28">0</span>/<span class="counter" data-target="28">0</span></div>
+            <div class="security-stat-label">E2E on Testnet</div>
+        </div>
+        <div class="security-stat">
+            <div class="security-stat-value green-num"><span class="counter" data-target="8">0</span></div>
+            <div class="security-stat-label">Test Binaries</div>
+        </div>
+    </div>
+
+    <div class="security-findings reveal">
+        <div class="findings-card">
+            <h3><span style="color: var(--green);">&#10003;</span> All Findings Fixed</h3>
+            <div class="finding-row">
+                <span class="finding-badge critical">Critical</span>
+                <span class="finding-text">Consensus trust, SVM ELF parser</span>
+                <span class="finding-status fixed">FIXED</span>
+            </div>
+            <div class="finding-row">
+                <span class="finding-badge high">High</span>
+                <span class="finding-text">RPC validation, OpenSSL, bridge stubs</span>
+                <span class="finding-status fixed">FIXED</span>
+            </div>
+            <div class="finding-row">
+                <span class="finding-badge medium">Medium</span>
+                <span class="finding-text">JSON limits, WebSocket, PoS kernel</span>
+                <span class="finding-status fixed">FIXED</span>
+            </div>
+            <div class="finding-row">
+                <span class="finding-badge low">Low</span>
+                <span class="finding-text">DNS seeder, CLI injection, Explorer</span>
+                <span class="finding-status fixed">FIXED</span>
+            </div>
+        </div>
+        <div class="findings-card">
+            <h3><span style="color: var(--text);">&#8212;</span> Deferred (No Risk)</h3>
+            <div class="finding-row">
+                <span class="finding-badge deferred">M-02</span>
+                <span class="finding-text">TLS wiring (localhost-only RPC)</span>
+                <span class="finding-status safe">SAFE</span>
+            </div>
+            <div class="finding-row">
+                <span class="finding-badge deferred">M-03</span>
+                <span class="finding-text">Alert broadcast (dead code path)</span>
+                <span class="finding-status safe">SAFE</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider-glow" style="--divider-color: rgba(34,197,94,0.06)"></div>
+
+<!-- ===== TIERS ===== -->
+<div class="cinematic-section" id="tiers" style="--glow-color: rgba(34,197,94,0.06);">
+    <div class="reveal">
+        <p class="section-eyebrow">Tier System</p>
+        <h2 class="section-title">Stake more. Do more.</h2>
+        <p class="section-desc">Five tiers from casual users to powerhouse validators. Every tier unlocks more storage, messaging, and features.</p>
+    </div>
+
+    <div class="section-inner">
+        <div class="tier-grid">
+            <div class="tier-card reveal reveal-delay-1">
+                <div class="tier-name" style="color: var(--text);">Basic</div>
+                <div class="tier-stake">1K <span>IOC</span></div>
+                <ul class="tier-features">
+                    <li><span class="check">&#10003;</span> 1 MB file storage</li>
+                    <li><span class="check">&#10003;</span> 100 msgs/month</li>
+                    <li><span class="check">&#10003;</span> Basic aliases</li>
+                </ul>
+            </div>
+            <div class="tier-card reveal reveal-delay-2">
+                <div class="tier-name" style="color: var(--green);">Standard</div>
+                <div class="tier-stake">5K <span>IOC</span></div>
+                <ul class="tier-features">
+                    <li><span class="check">&#10003;</span> 10 MB storage</li>
+                    <li><span class="check">&#10003;</span> 1,000 msgs/month</li>
+                    <li><span class="check">&#10003;</span> Public channels</li>
+                </ul>
+            </div>
+            <div class="tier-card featured reveal reveal-delay-3">
+                <div class="tier-name" style="color: var(--accent);">Professional</div>
+                <div class="tier-stake">10K <span>IOC</span></div>
+                <ul class="tier-features">
+                    <li><span class="check">&#10003;</span> 50 MB storage</li>
+                    <li><span class="check">&#10003;</span> 10K msgs/month</li>
+                    <li><span class="check">&#10003;</span> Private channels</li>
+                    <li><span class="check">&#10003;</span> Validator staking</li>
+                </ul>
+            </div>
+            <div class="tier-card reveal reveal-delay-3">
+                <div class="tier-name" style="color: var(--purple);">Enterprise</div>
+                <div class="tier-stake">50K <span>IOC</span></div>
+                <ul class="tier-features">
+                    <li><span class="check">&#10003;</span> 200 MB storage</li>
+                    <li><span class="check">&#10003;</span> 50K msgs/month</li>
+                    <li><span class="check">&#10003;</span> Shadow messages</li>
+                    <li><span class="check">&#10003;</span> Priority relay</li>
+                </ul>
+            </div>
+            <div class="tier-card reveal reveal-delay-4">
+                <div class="tier-name" style="color: var(--yellow);">Unlimited</div>
+                <div class="tier-stake">100K <span>IOC</span></div>
+                <ul class="tier-features">
+                    <li><span class="check">&#10003;</span> 500 MB storage</li>
+                    <li><span class="check">&#10003;</span> Unlimited msgs</li>
+                    <li><span class="check">&#10003;</span> All features</li>
+                    <li><span class="check">&#10003;</span> Full delegation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider-fade"></div>
+
+<!-- ===== LIGHT CLIENT ===== -->
+<section id="light-client" class="section-surface section-tinted tint-blue">
+    <div class="reveal">
+        <p class="section-eyebrow">Lightweight Participation</p>
+        <h2 class="section-title">Light Client</h2>
+        <p class="section-desc">Headers-only sync. Verify the chain, sample data availability, earn rewards.</p>
+    </div>
+    <div class="reveal" style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 2rem; max-width: 600px; margin: 0 auto;">
+        <ul class="param-list">
+            <li><span class="param-label">Binary</span><span class="param-value mono">dions2-light</span></li>
+            <li><span class="param-label">Sync mode</span><span class="param-value">Headers-only</span></li>
+            <li><span class="param-label">Disk usage</span><span class="param-value mono">~100 MB</span></li>
+            <li><span class="param-label">Sync time</span><span class="param-value mono">~5 minutes</span></li>
+            <li><span class="param-label">Annual bandwidth</span><span class="param-value mono">42 MB/year</span></li>
+            <li><span class="param-label">Block reward</span><span class="param-value mono">0.5 IOC/block</span></li>
+            <li><span class="param-label">DA sampling</span><span class="param-value">20 random shards</span></li>
+            <li><span class="param-label">Capabilities</span><span class="param-value">PoS verify, DA sample, DHT</span></li>
+        </ul>
+    </div>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== BUILD ===== -->
+<section id="build">
+    <div class="reveal">
+        <p class="section-eyebrow">Get Started</p>
+        <h2 class="section-title">Build from source.</h2>
+        <p class="section-desc">C++20, cmake, and a handful of dependencies. 13 binaries ready in minutes.</p>
+    </div>
+
+    <div class="code-block reveal">
+        <span class="code-comment"># Clone and build</span><br>
+        <span class="code-keyword">cd</span> build<br>
+        cmake --build . -j$(<span class="code-string">nproc</span>)<br><br>
+        <span class="code-comment"># 13 binaries built:</span><br>
+        <span class="code-comment"># dions2d (validator), dions2-light (light client), dions-cli (wallet),</span><br>
+        <span class="code-comment"># dions-explorer, dions2-migrate, dions2-dns-seeder, dions-relayer,</span><br>
+        <span class="code-comment"># + 7 test binaries</span>
+    </div>
+
+    <div style="margin-top: 3rem;">
+        <div class="features-grid">
+            <div class="feature-card reveal reveal-delay-1">
+                <h3>Fork Details</h3>
+                <div class="feature-detail" style="margin-top: 0; padding-top: 0; border: none;">
+                    <p style="margin-bottom: 0.4rem;"><strong>Fork Height:</strong> 5,730,000</p>
+                    <p style="margin-bottom: 0.4rem;"><strong>Target Date:</strong> ~October 2026</p>
+                    <p style="margin-bottom: 0.4rem;"><strong>Commit:</strong> b90ee5a</p>
+                    <p><strong>Language:</strong> C++20</p>
+                </div>
+            </div>
+            <div class="feature-card reveal reveal-delay-2">
+                <h3>Requirements</h3>
+                <div class="feature-detail" style="margin-top: 0; padding-top: 0; border: none;">
+                    <p style="margin-bottom: 0.4rem;"><strong>Validator:</strong> 4&#8211;8 GB RAM, 100 GB disk</p>
+                    <p style="margin-bottom: 0.4rem;"><strong>Light Client:</strong> 512 MB RAM, 100 MB disk</p>
+                    <p><strong>PoP Node:</strong> 256 MB RAM, zero balance</p>
+                </div>
+            </div>
+            <div class="feature-card reveal reveal-delay-3">
+                <h3>Backwards Compatible</h3>
+                <div class="feature-detail" style="margin-top: 0; padding-top: 0; border: none;">
+                    <p>Full backward compatibility with IOCoin (launched 2014). All existing wallets, transactions, and balances carry over seamlessly at fork height.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider-fade"></div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <p>&copy; 2014&ndash;2026 I/O Coin &middot; <a href="https://github.com/Wizrig/DIONS-2.0-Portal">Source</a></p>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+(function() {
+    'use strict';
+
+    // --- Scroll Reveal ---
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // --- Floating Nav ---
+    const nav = document.getElementById('floatingNav');
+    const heroSection = document.getElementById('hero');
+    const sections = document.querySelectorAll('section, .cinematic-section');
+
+    const navObserver = new IntersectionObserver(([entry]) => {
+        nav.classList.toggle('visible', !entry.isIntersecting);
+    }, { threshold: 0.3 });
+    navObserver.observe(heroSection);
+
+    // Active nav link
+    const navLinks = nav.querySelectorAll('a');
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                });
+            }
+        });
+    }, { threshold: 0.3 });
+    sections.forEach(s => { if (s.id) sectionObserver.observe(s); });
+
+    // --- Animated Counters ---
+    function animateCounter(el) {
+        const target = parseInt(el.getAttribute('data-target'));
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1800;
+        const startTime = performance.now();
+
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(eased * target);
+            el.textContent = current.toLocaleString() + suffix;
+            if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter-value, .counter').forEach(el => {
+        if (el.hasAttribute('data-target')) counterObserver.observe(el);
+    });
+
+    // --- Architecture Pill Popovers ---
+    var pills = document.querySelectorAll('.arch-pill[data-arch-detail]');
+    pills.forEach(function(pill) {
+        pill.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var wasActive = this.classList.contains('active');
+            pills.forEach(function(p) { p.classList.remove('active'); });
+            if (!wasActive) this.classList.add('active');
+        });
+    });
+    document.addEventListener('click', function() {
+        pills.forEach(function(p) { p.classList.remove('active'); });
+    });
+
+    // --- Wix iframe height ---
+    if (window !== window.parent) {
+        function sendHeight() {
+            var h = document.documentElement.scrollHeight;
+            window.parent.postMessage({ type: 'resize', height: h }, '*');
+        }
+        sendHeight();
+        window.addEventListener('resize', sendHeight);
+        new MutationObserver(sendHeight).observe(document.body, { childList: true, subtree: true });
+    }
+})();
+</script>
+
+</body>
+</html>
