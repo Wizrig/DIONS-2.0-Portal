@@ -5,81 +5,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DIONS 2.0 — Portal</title>
   <style>
-    :root {
-      --bg: #050811;
-      --line: rgba(255,255,255,.12);
-      --text: #e8eeff;
-      --muted: #b3c0ea;
-      --orange1: #ffb15a;
-      --orange2: #ff7a1a;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; background: var(--bg); }
-
-    .update-strip {
-      position: sticky;
-      top: 0;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 14px 12px;
-      border-bottom: 1px solid var(--line);
-      background: linear-gradient(90deg, rgba(11,16,32,.96), rgba(18,24,45,.96));
-      backdrop-filter: blur(8px);
-      text-align: center;
-    }
-    .update-label {
-      color: #ffd9bf;
-      font-size: .82rem;
-      font-weight: 700;
-      letter-spacing: .04em;
-      white-space: nowrap;
-      line-height: 1.2;
-    }
-    .update-link {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 800;
-      font-size: .86rem;
-      letter-spacing: .02em;
-      padding: 9px 14px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--orange1), var(--orange2));
-      animation: pulse 1.05s infinite;
-      box-shadow: 0 8px 24px rgba(255,122,26,.35);
-    }
-    .update-link:hover { filter: brightness(1.06); }
-
-    @keyframes pulse {
-      0% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(255,122,26,.72); }
-      60% { transform: translateY(-1px); box-shadow: 0 0 0 14px rgba(255,122,26,0); }
-      100% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(255,122,26,0); }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
     }
 
     iframe {
       width: 100%;
-      height: calc(100vh - 92px);
+      height: 100%;
       border: 0;
       display: block;
       background: #000;
     }
-
-    @media (max-width: 720px) {
-      .update-strip { padding: 10px; }
-      .update-label { font-size: .78rem; }
-      .update-link { width: 100%; text-align: center; }
-      iframe { height: calc(100vh - 95px); }
-    }
   </style>
 </head>
 <body>
-  <div class="update-strip">
-    <div class="update-label">Public Release Sept – December 2026</div>
-    <a class="update-link" href="testnet-update-1.html">Testnet Update 1</a>
-  </div>
-  <iframe src="index-legacy.html" title="DIONS 2.0 Portal"></iframe>
+  <iframe id="portalFrame" src="index-legacy.html" title="DIONS 2.0 Portal"></iframe>
+
+  <script>
+    (function () {
+      'use strict';
+
+      function addUpdateIcon(doc) {
+        if (!doc || doc.getElementById('testnet-update-1-inline')) return;
+
+        const releaseEl = doc.querySelector('.hero-release');
+        if (!releaseEl) return;
+
+        const style = doc.createElement('style');
+        style.textContent = `
+          .testnet-update-wrap {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+          }
+          .testnet-update-link {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ffb15a, #ff7a1a);
+            animation: testnetPulse 1.05s infinite;
+            box-shadow: 0 8px 24px rgba(255,122,26,.35);
+          }
+          .testnet-update-link:hover { filter: brightness(1.06); }
+          @keyframes testnetPulse {
+            0% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(255,122,26,.72); }
+            60% { transform: translateY(-1px); box-shadow: 0 0 0 14px rgba(255,122,26,0); }
+            100% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(255,122,26,0); }
+          }
+        `;
+        doc.head.appendChild(style);
+
+        const wrap = doc.createElement('div');
+        wrap.className = 'testnet-update-wrap';
+        wrap.id = 'testnet-update-1-inline';
+
+        const link = doc.createElement('a');
+        link.className = 'testnet-update-link';
+        link.href = 'testnet-update-1.html';
+        link.textContent = 'Testnet Update 1';
+
+        wrap.appendChild(link);
+        releaseEl.insertAdjacentElement('afterend', wrap);
+      }
+
+      const frame = document.getElementById('portalFrame');
+
+      frame.addEventListener('load', function () {
+        try {
+          const doc = frame.contentDocument || frame.contentWindow.document;
+          addUpdateIcon(doc);
+        } catch (_) {
+          // no-op
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
