@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DIONS 2.0 — Portal</title>
+  <title>DIONS 2.0</title>
   <style>
     html, body {
       margin: 0;
@@ -13,7 +13,6 @@
       overflow: hidden;
       background: #000;
     }
-
     iframe {
       width: 100%;
       height: 100%;
@@ -30,63 +29,69 @@
     (function () {
       'use strict';
 
-      function addUpdateIcon(doc) {
-        if (!doc || doc.getElementById('testnet-update-1-inline')) return;
+      function injectUpdate(doc) {
+        if (!doc || doc.getElementById('testnet-update-inline')) return;
 
-        const releaseEl = doc.querySelector('.hero-release');
-        if (!releaseEl) return;
+        const release = doc.querySelector('.hero-release');
+        if (!release) return;
 
         const style = doc.createElement('style');
         style.textContent = `
-          .testnet-update-wrap {
-            margin-top: 10px;
+          .testnet-update-inline-wrap {
             display: flex;
             justify-content: center;
+            margin-top: 8px;
           }
-          .testnet-update-link {
-            display: inline-block;
+          .testnet-update-inline {
             text-decoration: none;
-            color: #fff;
-            font-weight: 800;
-            font-size: 0.9rem;
-            letter-spacing: 0.02em;
-            padding: 10px 14px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #ffb15a, #ff7a1a);
-            animation: testnetPulse 1.05s infinite;
-            box-shadow: 0 8px 24px rgba(255,122,26,.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #ffd8b9;
+            font-weight: 700;
+            font-size: .84rem;
+            letter-spacing: .02em;
+            animation: testnetBlink 1.05s infinite;
           }
-          .testnet-update-link:hover { filter: brightness(1.06); }
-          @keyframes testnetPulse {
-            0% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(255,122,26,.72); }
-            60% { transform: translateY(-1px); box-shadow: 0 0 0 14px rgba(255,122,26,0); }
-            100% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(255,122,26,0); }
+          .testnet-update-inline::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #ff7a1a;
+            box-shadow: 0 0 0 0 rgba(255,122,26,.7);
+            animation: testnetDot 1.05s infinite;
+          }
+          @keyframes testnetBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .35; }
+          }
+          @keyframes testnetDot {
+            0% { box-shadow: 0 0 0 0 rgba(255,122,26,.7); }
+            70% { box-shadow: 0 0 0 8px rgba(255,122,26,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,122,26,0); }
           }
         `;
         doc.head.appendChild(style);
 
         const wrap = doc.createElement('div');
-        wrap.className = 'testnet-update-wrap';
-        wrap.id = 'testnet-update-1-inline';
+        wrap.className = 'testnet-update-inline-wrap';
+        wrap.id = 'testnet-update-inline';
 
         const link = doc.createElement('a');
-        link.className = 'testnet-update-link';
+        link.className = 'testnet-update-inline';
         link.href = 'testnet-update-1.html';
         link.textContent = 'Testnet Update 1';
 
         wrap.appendChild(link);
-        releaseEl.insertAdjacentElement('afterend', wrap);
+        release.insertAdjacentElement('afterend', wrap);
       }
 
       const frame = document.getElementById('portalFrame');
-
       frame.addEventListener('load', function () {
         try {
-          const doc = frame.contentDocument || frame.contentWindow.document;
-          addUpdateIcon(doc);
-        } catch (_) {
-          // no-op
-        }
+          injectUpdate(frame.contentDocument || frame.contentWindow.document);
+        } catch (_) {}
       });
     })();
   </script>
