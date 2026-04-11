@@ -464,73 +464,93 @@
     <section class="section">
       <h2>New in DIONS 2.0: Light Client Wallet Reward Path</h2>
       <p>
-        Legacy DIONS did not include a dedicated light-client reward lane in this form. In DIONS 2.0, the design includes onboarding lightweight clients that verify headers/proofs and can earn IOC for honest participation.
+        Legacy DIONS did not include a dedicated light-client reward lane in this form. In DIONS 2.0, lightweight clients can verify network proofs and receive micro-rewards while staying on a wallet-style UI experience.
       </p>
 
       <div class="light-diagram-shell">
-        <svg class="light-svg" viewBox="0 0 1200 360" role="img" aria-label="Animated light wallet diagram from zero balance to light client sync and per-block IOC earning.">
+        <svg class="light-svg" viewBox="0 0 1200 420" role="img" aria-label="Wallet UI style diagram showing coin inflow and outflow for a light client earning IOC from zero balance.">
           <defs>
-            <linearGradient id="lcFlow" x1="0" y1="0" x2="1" y2="0">
+            <linearGradient id="walletIn" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stop-color="#73b7ff"/>
               <stop offset="100%" stop-color="#39de92"/>
             </linearGradient>
-            <filter id="lcGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <linearGradient id="walletOut" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#ffcc86"/>
+              <stop offset="100%" stop-color="#ff9a57"/>
+            </linearGradient>
+            <filter id="walletGlow" x="-30%" y="-30%" width="160%" height="160%">
               <feGaussianBlur stdDeviation="3" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
 
-          <rect x="28" y="72" width="210" height="120" rx="14" fill="#070707" stroke="#62b0ff"/>
-          <text x="133" y="103" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">New Light Wallet</text>
-          <text x="133" y="127" fill="#c6ddff" font-size="12" text-anchor="middle">Balance: 0 IOC</text>
-          <text x="133" y="148" fill="#c6ddff" font-size="11" text-anchor="middle">Connects as light client</text>
+          <rect x="24" y="30" width="250" height="320" rx="26" fill="#050505" stroke="#2b3f58" stroke-width="2"/>
+          <rect x="40" y="54" width="218" height="272" rx="16" fill="#0a0f15" stroke="#1f2b3a"/>
+          <text x="149" y="84" fill="#d8e8ff" font-size="13" text-anchor="middle" font-weight="700">IOC Light Wallet</text>
+          <rect x="58" y="98" width="182" height="74" rx="10" fill="#111d2b" stroke="#2b74c3"/>
+          <text x="149" y="123" fill="#8fc2ff" font-size="11" text-anchor="middle">Available Balance</text>
+          <text x="149" y="150" fill="#ffffff" font-size="24" text-anchor="middle" font-weight="700">0.000 IOC</text>
 
-          <rect x="292" y="38" width="245" height="90" rx="12" fill="#070707" stroke="#58c8ff"/>
-          <text x="414" y="68" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Header Sync</text>
-          <text x="414" y="91" fill="#bdeaff" font-size="11" text-anchor="middle">Downloads chain headers</text>
-          <text x="414" y="108" fill="#bdeaff" font-size="11" text-anchor="middle">No full-node data burden</text>
+          <rect x="58" y="186" width="86" height="52" rx="9" fill="#102215" stroke="#2e9f62"/>
+          <text x="101" y="207" fill="#93efbe" font-size="10" text-anchor="middle">IN</text>
+          <text x="101" y="224" fill="#ffffff" font-size="13" text-anchor="middle" font-weight="700">+0.001</text>
 
-          <rect x="292" y="150" width="245" height="90" rx="12" fill="#070707" stroke="#4fe0b0"/>
-          <text x="414" y="180" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Proof Verification</text>
-          <text x="414" y="203" fill="#bcffe5" font-size="11" text-anchor="middle">SPV/commitment checks</text>
-          <text x="414" y="220" fill="#bcffe5" font-size="11" text-anchor="middle">Honest participation signal</text>
+          <rect x="154" y="186" width="86" height="52" rx="9" fill="#26190f" stroke="#a96b37"/>
+          <text x="197" y="207" fill="#ffcda4" font-size="10" text-anchor="middle">OUT</text>
+          <text x="197" y="224" fill="#ffffff" font-size="13" text-anchor="middle" font-weight="700">-fee/use</text>
 
-          <rect x="595" y="86" width="250" height="120" rx="12" fill="#070707" stroke="#39de92"/>
-          <text x="720" y="116" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Light Client Reward Engine</text>
-          <text x="720" y="140" fill="#caffea" font-size="11" text-anchor="middle">Accrues reward while active</text>
-          <text x="720" y="160" fill="#caffea" font-size="11" text-anchor="middle">Example: +0.001 IOC / block</text>
-          <text x="720" y="181" fill="#caffea" font-size="11" text-anchor="middle">(parameter can be adjusted)</text>
+          <rect x="58" y="248" width="182" height="58" rx="9" fill="#0f161f" stroke="#2c3f56"/>
+          <text x="149" y="271" fill="#b4d6ff" font-size="10" text-anchor="middle">Light Client Status</text>
+          <text x="149" y="291" fill="#90ffc5" font-size="12" text-anchor="middle" font-weight="700">Headers synced · Proofs verified</text>
 
-          <rect x="900" y="72" width="265" height="145" rx="14" fill="#070707" stroke="#ffb26b"/>
-          <text x="1032" y="104" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Wallet Growth & Utility</text>
-          <text x="1032" y="128" fill="#ffd9b8" font-size="11" text-anchor="middle">Balance starts compounding from 0</text>
-          <text x="1032" y="146" fill="#ffd9b8" font-size="11" text-anchor="middle">Can fund fees, messaging, aliases</text>
-          <text x="1032" y="164" fill="#ffd9b8" font-size="11" text-anchor="middle">Entry path for non-technical users</text>
-          <text x="1032" y="186" fill="#ffd9b8" font-size="11" text-anchor="middle">Higher participation = stronger network</text>
+          <rect x="340" y="52" width="260" height="98" rx="12" fill="#070707" stroke="#58c8ff"/>
+          <text x="470" y="82" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Header + Proof Service</text>
+          <text x="470" y="104" fill="#bdeaff" font-size="11" text-anchor="middle">Delivers compact verification data</text>
+          <text x="470" y="122" fill="#bdeaff" font-size="11" text-anchor="middle">No full-node storage burden</text>
 
-          <path d="M238 132 C264 132 270 84 292 84" fill="none" stroke="url(#lcFlow)" stroke-width="2.6" stroke-dasharray="8 7"/>
-          <path d="M238 145 C264 145 270 195 292 195" fill="none" stroke="url(#lcFlow)" stroke-width="2.6" stroke-dasharray="8 7"/>
-          <path d="M537 84 C566 84 568 120 595 120" fill="none" stroke="url(#lcFlow)" stroke-width="2.6" stroke-dasharray="8 7"/>
-          <path d="M537 195 C566 195 568 170 595 170" fill="none" stroke="url(#lcFlow)" stroke-width="2.6" stroke-dasharray="8 7"/>
-          <path d="M845 145 C875 145 875 145 900 145" fill="none" stroke="#ffb26b" stroke-width="2.6" stroke-dasharray="8 7"/>
+          <rect x="340" y="196" width="260" height="98" rx="12" fill="#070707" stroke="#39de92"/>
+          <text x="470" y="226" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Light Reward Engine</text>
+          <text x="470" y="248" fill="#caffea" font-size="11" text-anchor="middle">Credits active light clients per block</text>
+          <text x="470" y="266" fill="#caffea" font-size="11" text-anchor="middle">Example rate: +0.001 IOC/block</text>
 
-          <circle r="5" fill="#73b7ff" filter="url(#lcGlow)"><animateMotion dur="3.4s" repeatCount="indefinite" path="M238 132 C264 132 270 84 292 84"/></circle>
-          <circle r="5" fill="#73b7ff" filter="url(#lcGlow)"><animateMotion dur="4.1s" repeatCount="indefinite" path="M238 145 C264 145 270 195 292 195"/></circle>
-          <circle r="5" fill="#39de92" filter="url(#lcGlow)"><animateMotion dur="3.0s" repeatCount="indefinite" path="M537 84 C566 84 568 120 595 120"/></circle>
-          <circle r="5" fill="#39de92" filter="url(#lcGlow)"><animateMotion dur="3.2s" repeatCount="indefinite" path="M537 195 C566 195 568 170 595 170"/></circle>
-          <circle r="5" fill="#ffb26b" filter="url(#lcGlow)"><animateMotion dur="2.8s" repeatCount="indefinite" path="M845 145 C875 145 875 145 900 145"/></circle>
+          <rect x="680" y="82" width="230" height="214" rx="14" fill="#070707" stroke="#73b7ff"/>
+          <text x="795" y="112" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Network Participation</text>
+          <text x="795" y="138" fill="#c9ddff" font-size="11" text-anchor="middle">More light clients = stronger reach</text>
+          <text x="795" y="158" fill="#c9ddff" font-size="11" text-anchor="middle">More verified traffic = healthier network</text>
+          <text x="795" y="194" fill="#9ee7ff" font-size="12" text-anchor="middle" font-weight="700">IOC Inflow</text>
+          <text x="795" y="214" fill="#ffffff" font-size="20" text-anchor="middle" font-weight="700">0 → 0.001 → 0.002</text>
+          <text x="795" y="236" fill="#ffffff" font-size="20" text-anchor="middle" font-weight="700">→ 0.003 ...</text>
+          <text x="795" y="268" fill="#ffd8b6" font-size="11" text-anchor="middle">Spendable for fees, messaging, aliases</text>
+
+          <rect x="960" y="104" width="220" height="170" rx="14" fill="#070707" stroke="#ffad6d"/>
+          <text x="1070" y="132" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Coins In / Out</text>
+          <text x="1070" y="156" fill="#ffd8b6" font-size="11" text-anchor="middle">In: light rewards</text>
+          <text x="1070" y="174" fill="#ffd8b6" font-size="11" text-anchor="middle">Out: transactions / utility</text>
+          <text x="1070" y="198" fill="#ffd8b6" font-size="11" text-anchor="middle">Wallet UI shows both lanes</text>
+          <text x="1070" y="230" fill="#ffbf8d" font-size="13" text-anchor="middle" font-weight="700">Balanced token economy</text>
+
+          <path d="M274 116 C300 116 312 98 340 98" fill="none" stroke="url(#walletIn)" stroke-width="2.6" stroke-dasharray="8 8"/>
+          <path d="M274 212 C300 212 310 245 340 245" fill="none" stroke="url(#walletIn)" stroke-width="2.6" stroke-dasharray="8 8"/>
+          <path d="M600 245 C638 245 650 210 680 210" fill="none" stroke="url(#walletIn)" stroke-width="2.6" stroke-dasharray="8 8"/>
+          <path d="M910 210 C936 210 942 208 960 208" fill="none" stroke="url(#walletOut)" stroke-width="2.6" stroke-dasharray="8 8"/>
+          <path d="M960 232 C938 232 936 232 910 232" fill="none" stroke="url(#walletIn)" stroke-width="2.2" stroke-dasharray="8 8"/>
+
+          <circle r="6" fill="#39de92" filter="url(#walletGlow)"><animateMotion dur="3.1s" repeatCount="indefinite" path="M274 212 C300 212 310 245 340 245"/></circle>
+          <circle r="6" fill="#73b7ff" filter="url(#walletGlow)"><animateMotion dur="3.8s" repeatCount="indefinite" path="M600 245 C638 245 650 210 680 210"/></circle>
+          <circle r="6" fill="#ffb97a" filter="url(#walletGlow)"><animateMotion dur="3.3s" repeatCount="indefinite" path="M910 210 C936 210 942 208 960 208"/></circle>
+          <circle r="6" fill="#39de92" filter="url(#walletGlow)"><animateMotion dur="3.6s" repeatCount="indefinite" path="M960 232 C938 232 936 232 910 232"/></circle>
         </svg>
       </div>
 
       <ul>
-        <li><strong>Start state:</strong> wallet begins at 0 IOC and joins as a light client.</li>
-        <li><strong>Work performed:</strong> sync headers and verify proofs/commitments without full node overhead.</li>
-        <li><strong>Reward lane:</strong> accrues IOC while participating honestly (illustrated as <strong>0.001 IOC per block</strong> example rate).</li>
-        <li><strong>User impact:</strong> lowers onboarding friction and gives new users a direct path into IOC utility.</li>
+        <li><strong>Wallet UI model:</strong> explicit IN lane (reward accrual) and OUT lane (fees/usage) shown in one interface.</li>
+        <li><strong>Start from zero:</strong> wallet can begin at 0 IOC and grow through verified light-client participation.</li>
+        <li><strong>Reward example:</strong> shown as <strong>+0.001 IOC per block</strong> for communication purposes.</li>
+        <li><strong>Utility loop:</strong> earned IOC becomes usable for network actions and real wallet activity.</li>
       </ul>
 
       <div class="light-note">
-        Reward value in this diagram is an example for communication. Final production reward parameters should follow your network governance/economic policy.
+        Reward amount here is an example placeholder. Final per-block reward should follow your approved economics/governance settings.
       </div>
     </section>
 
