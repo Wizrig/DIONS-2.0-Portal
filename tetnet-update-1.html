@@ -6,9 +6,9 @@
   <title>DIONS 2.0 Full Technical Assessment (Legacy → Current RC)</title>
   <style>
     :root {
-      --bg: #000000;
+      --bg: #000;
       --panel: #070707;
-      --panel-2: #0d0d0d;
+      --panel2: #0d0d0d;
       --line: rgba(255,255,255,.14);
       --text: #eaf0ff;
       --muted: #b8c5e1;
@@ -32,7 +32,7 @@
       overflow-x: hidden;
     }
 
-    .wrap { max-width: 1220px; margin: 0 auto; }
+    .wrap { max-width: 1280px; margin: 0 auto; }
 
     .topbar {
       border: 1px solid var(--line);
@@ -47,12 +47,7 @@
       flex-wrap: wrap;
     }
 
-    .topbar .release {
-      color: #ffd9bf;
-      font-weight: 700;
-      font-size: .84rem;
-      letter-spacing: .03em;
-    }
+    .topbar .release { color: #ffd9bf; font-weight: 700; font-size: .84rem; letter-spacing: .03em; }
 
     .topbar a {
       text-decoration: none;
@@ -82,21 +77,12 @@
       margin-bottom: 8px;
     }
 
-    h1 {
-      font-size: clamp(1.6rem, 3.3vw, 2.35rem);
-      line-height: 1.15;
-      letter-spacing: -.015em;
-      margin-bottom: 10px;
-    }
+    h1 { font-size: clamp(1.55rem, 3vw, 2.2rem); line-height: 1.15; letter-spacing: -.01em; margin-bottom: 10px; }
 
-    .lead {
-      color: var(--muted);
-      font-size: 1rem;
-      max-width: 1120px;
-    }
+    .lead { color: var(--muted); font-size: 1rem; max-width: 1200px; }
+    .lead + .lead { margin-top: 8px; }
 
     .chips { margin-top: 12px; }
-
     .chip {
       display: inline-block;
       margin-right: 6px;
@@ -118,19 +104,8 @@
       margin-bottom: 10px;
     }
 
-    .section h2 {
-      font-size: 1.04rem;
-      margin-bottom: 8px;
-      color: #f3f7ff;
-      letter-spacing: -.01em;
-    }
-
-    .section h3 {
-      font-size: .93rem;
-      margin-top: 9px;
-      margin-bottom: 6px;
-      color: #dce7ff;
-    }
+    .section h2 { font-size: 1.04rem; margin-bottom: 8px; color: #f3f7ff; letter-spacing: -.01em; }
+    .section h3 { font-size: .93rem; margin-top: 9px; margin-bottom: 6px; color: #dce7ff; }
 
     .section p { color: #dbe4ff; }
     .section p + p { margin-top: 8px; }
@@ -146,11 +121,10 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
-      font-size: .87rem;
+      font-size: .86rem;
     }
 
-    .table th,
-    .table td {
+    .table th, .table td {
       border: 1px solid rgba(255,255,255,.12);
       padding: 8px;
       vertical-align: top;
@@ -158,9 +132,9 @@
 
     .table th {
       text-align: left;
-      background: var(--panel-2);
+      background: var(--panel2);
       color: #f5f8ff;
-      font-size: .82rem;
+      font-size: .8rem;
     }
 
     .pill {
@@ -184,19 +158,13 @@
       color: #e8efff;
       font-size: .9rem;
     }
-
     .line strong { color: #fff; margin-right: 6px; }
 
-    .footer {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: .88rem;
-    }
-
+    .footer { margin-top: 8px; color: var(--muted); font-size: .88rem; }
     .footer a { color: var(--blue); text-decoration: none; }
     .footer a:hover { text-decoration: underline; }
 
-    @media (max-width: 960px) {
+    @media (max-width: 1000px) {
       .table { display: block; overflow-x: auto; white-space: nowrap; }
     }
   </style>
@@ -212,13 +180,16 @@
       <div class="eyebrow">DIONS 2.0 · Full Technical Update</div>
       <h1>DIONS 2.0 Full Technical Assessment (Legacy → Current RC)</h1>
       <p class="lead">
-        This update is intended to be complete and technical. It defines legacy DIONS under IOCoin accurately, explains what was fundamentally changed in DIONS 2.0,
-        summarizes the full test campaign from day one through the current RC cycle, and gives conservative release-readiness percentages based on executed evidence.
+        This document is focused on technical clarity. It explains exactly how each major feature behaved in legacy DIONS under IOCoin,
+        how that same feature behaves now in DIONS 2.0, and which features are entirely new in 2.0.
+      </p>
+      <p class="lead">
+        It also includes the test history, failure classes we hit, fixes applied, what passed, and what still must be validated before production sign-off.
       </p>
       <div class="chips">
-        <span class="chip">RC Lock Candidate: 03bd440</span>
+        <span class="chip">RC candidate: 03bd440</span>
         <span class="chip">Automated suites: 661 passing</span>
-        <span class="chip">Functional subsystem sweep: 23/23</span>
+        <span class="chip">Subsystem sweep: 23/23 functional pass</span>
       </div>
     </section>
 
@@ -234,76 +205,47 @@
         <li>PoS chain operation with seed-node era networking</li>
       </ul>
       <p>
-        So this was never a “from zero” project. DIONS 2.0 is a <strong>fundamental architectural upgrade</strong> to make that model deterministic, scalable, and production-grade.
+        So this was never a from-zero project. DIONS 2.0 is a fundamental architectural upgrade designed to make that model deterministic,
+        scalable, and production-grade.
       </p>
     </section>
 
     <section class="section">
-      <h2>What DIONS 2.0 changed in code (major feature additions/upgrades)</h2>
-      <h3>Consensus architecture upgrades</h3>
-      <ul>
-        <li>Fixed 30s block cadence model</li>
-        <li>PoS + DAS direction with modular commitments (stateRoot/dataRoot/zoneRoot)</li>
-        <li>Reorg protection and stricter fork-choice behavior</li>
-      </ul>
-
-      <h3>Networking upgrades</h3>
-      <ul>
-        <li>Kademlia DHT peer discovery direction</li>
-        <li>P2P relay hardening including large payload transport fix (EAGAIN/EWOULDBLOCK retry path)</li>
-      </ul>
-
-      <h3>Data architecture upgrades</h3>
-      <ul>
-        <li>DA/sharding + Reed-Solomon path integration</li>
-        <li>Sustainable storage direction vs legacy full replication assumptions</li>
-      </ul>
-
-      <h3>Identity + DIONS core upgrades</h3>
-      <ul>
-        <li>O(1) alias resolution with LevelDB indexing</li>
-        <li>Metered/tier-based DIONS controls hardened</li>
-        <li>DID layer (W3C-style Agent/Device identity)</li>
-      </ul>
-
-      <h3>Messaging/data feature upgrades</h3>
-      <ul>
-        <li>Encrypted/plain/shadow messaging paths</li>
-        <li>Channels (public/private style group flows)</li>
-        <li>File/data quota-governed paths</li>
-      </ul>
-
-      <h3>Privacy + cryptography upgrades</h3>
-      <ul>
-        <li>Stealth flows including newer hybrid variants</li>
-        <li>PQC/hybrid cryptographic paths integrated</li>
-      </ul>
-
-      <h3>Execution upgrades</h3>
-      <ul>
-        <li>EVM execution path with EIP support track</li>
-        <li>SVM + dispute module path</li>
-      </ul>
-
-      <h3>Interop upgrades</h3>
-      <ul>
-        <li>HTLC lifecycle support</li>
-        <li>Bridge mechanics (ECDSA signing path + relayer direction)</li>
-      </ul>
-
-      <h3>Agent framework (new)</h3>
-      <ul>
-        <li>On-chain agent registration/profile</li>
-        <li>A2A protocol messaging (REQUEST/RESPONSE/EVENT/HEARTBEAT)</li>
-        <li>Agent wallet funding + spend caps + marketplace discovery</li>
-      </ul>
-
-      <h3>Platform/tooling upgrades</h3>
-      <ul>
-        <li>Expanded RPC surface (Bitcoin-style + Ethereum-compatible + agent APIs)</li>
-        <li>WebSocket subscriptions</li>
-        <li>Migration toolchain for legacy export/import continuity</li>
-      </ul>
+      <h2>Feature transition map: before, now, and what is new</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Feature area</th>
+            <th>How it worked before (Legacy DIONS / IOCoin)</th>
+            <th>How it works now (DIONS 2.0)</th>
+            <th>New in DIONS 2.0 (not in legacy)</th>
+            <th>Current RC state</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Consensus model</td><td>PoS chain operation with legacy behavior</td><td>Deterministic 30s cadence behavior + stricter validation/liveness flow</td><td>PoS + DAS direction with modular commitments (stateRoot/dataRoot/zoneRoot)</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Fork/reorg behavior</td><td>Legacy reorg handling</td><td>Tighter fork-choice and reorg protections in current RC path</td><td>Determinism-focused fork hardening approach</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>P2P discovery</td><td>Seed-node era networking assumptions</td><td>Hardened relay/sync flow under multi-node validation</td><td>Kademlia DHT discovery direction</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Transport reliability</td><td>Legacy transport behavior without 2.0 relay hardening</td><td>Retry/poll handling for non-blocking large payload sends</td><td>Dedicated transport regression class coverage</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Alias resolution</td><td>Alias identity/data already present</td><td>O(1) LevelDB indexed resolution with stricter consistency</td><td>Hardened index path at RC level</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>DIONS metering/tier controls</td><td>Legacy metered behavior</td><td>Metered/tier path hardened across tx creation and validation</td><td>Stricter deterministic enforcement model</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>DID identity layer</td><td>No full W3C-style DID layer</td><td>DID identity path integrated into current feature stack</td><td>W3C-style Agent/Device identity direction</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Messaging core</td><td>Public and encrypted messaging APIs</td><td>Encrypted/plain/shadow messaging with deterministic path hardening</td><td>Expanded policy/flow consistency under RC gates</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Channels</td><td>Legacy group messaging usage</td><td>Public/private channel flow hardening</td><td>More explicit channel lifecycle controls</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Files/data</td><td>Upload/download/transfer existed</td><td>Quota-governed deterministic data path behavior</td><td>DA/sharding + Reed-Solomon direction in 2.0 architecture</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Privacy transactions</td><td>Shade privacy API present</td><td>Stealth flows extended and validated in 2.0 windows</td><td>Newer hybrid stealth variants</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Cryptography posture</td><td>Classical encryption/signing assumptions</td><td>Hybrid crypto paths integrated in runtime and tests</td><td>PQC/hybrid track (Dilithium/Falcon/Kyber functional paths)</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>EVM execution</td><td>Not native in legacy DIONS</td><td>EVM deploy/call path integrated and tested</td><td>EIP support track in execution roadmap</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>SVM + dispute</td><td>Not native in legacy DIONS</td><td>SVM execution and dispute module path integrated</td><td>Challenge/response dispute handling layer</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>HTLC interop</td><td>Not a native legacy path</td><td>Create/claim/refund lifecycle implemented</td><td>Cross-chain primitive now first-class in 2.0</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Bridge mechanics</td><td>No mature bridge mechanics stack</td><td>ECDSA signing path + relayer direction integrated</td><td>Protocol-level bridge mechanics workflow</td><td><span class="pill partial">PASS*</span></td></tr>
+          <tr><td>Agent framework</td><td>Did not exist in legacy DIONS</td><td>On-chain agent registration/profile and runtime APIs active</td><td>A2A protocol + spend caps + agent marketplace</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>RPC surface</td><td>Legacy RPC set</td><td>Expanded RPC set validated in RC cycle</td><td>Bitcoin-style + Ethereum-compatible + agent RPCs</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>WebSocket layer</td><td>No equivalent broad subscription layer in legacy scope</td><td>Realtime subscription paths integrated</td><td>Multi-topic live event stream interface</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Migration continuity</td><td>Legacy balances/state continuity required</td><td>Migration/export/import continuity path retained</td><td>2.0 migration tooling path</td><td><span class="pill pass">Functional PASS</span></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:10px; color:#dbe4ff;">PASS = functionally validated in current RC windows. PASS* = functionally validated, operational production sign-off still pending.</p>
     </section>
 
     <section class="section">
@@ -324,8 +266,7 @@
         <li>RC lock candidate used in latest lock-in cycle: <strong>03bd440</strong></li>
         <li>Lock-in soak/feature windows: pass reported in current cycle artifacts</li>
       </ul>
-
-      <p><span class="warn">Note:</span> Public docs may still show earlier counts from previous milestones; current RC branch/test cycle has expanded coverage.</p>
+      <p><span class="warn">Note:</span> public docs may still show earlier milestone counts; RC branch/test cycle coverage is now broader.</p>
     </section>
 
     <section class="section">
@@ -333,67 +274,42 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Class</th>
-            <th>Issue</th>
-            <th>Result</th>
+            <th>Failure class</th>
+            <th>Issue observed</th>
+            <th>Correction and result</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Determinism/auth mismatch class</td>
-            <td>Sender/nonce/auth mismatch across wallet/mempool/validation paths</td>
-            <td><span class="pill pass">Fixed + revalidated</span></td>
-          </tr>
-          <tr>
-            <td>Mempool/liveness contamination class</td>
-            <td>Invalid metered-state edge cases causing reject loops/stall risk</td>
-            <td><span class="pill pass">Admission/validation hardened</span></td>
-          </tr>
-          <tr>
-            <td>Transport relay divergence class (critical)</td>
-            <td>Non-blocking send treated EAGAIN/EWOULDBLOCK as fatal for large payloads</td>
-            <td><span class="pill pass">Retry/poll fix + regression tests</span></td>
-          </tr>
-          <tr>
-            <td>Quantum/hybrid validation class</td>
-            <td>Hybrid auth consistency defects in earlier RC iterations</td>
-            <td><span class="pill pass">Fixed + PQC paths passing</span></td>
-          </tr>
+          <tr><td>Determinism/auth mismatch class</td><td>Sender/nonce/auth mismatch across wallet/mempool/validation paths</td><td><span class="pill pass">Fixed + revalidated in replay/runtime</span></td></tr>
+          <tr><td>Mempool/liveness contamination class</td><td>Invalid metered-state edges causing reject loops/stall risk</td><td><span class="pill pass">Admission/validation hardened in tested RC path</span></td></tr>
+          <tr><td>Transport relay divergence class (critical)</td><td>Non-blocking send treated EAGAIN/EWOULDBLOCK as fatal for large payloads</td><td><span class="pill pass">Retry/poll fix + dedicated regression tests</span></td></tr>
+          <tr><td>Quantum/hybrid validation class</td><td>Hybrid auth consistency defects in earlier RC iterations</td><td><span class="pill pass">Fixed + retested; PQC/hybrid paths passing</span></td></tr>
         </tbody>
       </table>
     </section>
 
     <section class="section">
       <h2>Feature-by-feature status (current RC interpretation)</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Feature area</th>
-            <th>Status</th>
-            <th>Interpretation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Consensus / Validation / Validators / Slashing / PoP</td><td><span class="pill pass">Functional PASS</span></td><td>Validated in RC runtime windows</td></tr>
-          <tr><td>P2P / relay / sync</td><td><span class="pill pass">Functional PASS</span></td><td>Includes large-payload relay fix class</td></tr>
-          <tr><td>Wallet / Alias / DID</td><td><span class="pill pass">Functional PASS</span></td><td>Core identity and wallet paths validated</td></tr>
-          <tr><td>Messaging / Channels / Files</td><td><span class="pill pass">Functional PASS</span></td><td>Encrypted/plain/shadow/channel/data paths validated</td></tr>
-          <tr><td>Stealth / Privacy</td><td><span class="pill pass">Functional PASS</span></td><td>Privacy path behavior validated</td></tr>
-          <tr><td>PQC / Hybrid crypto</td><td><span class="pill pass">Functional PASS</span></td><td>Hybrid cryptographic paths validated</td></tr>
-          <tr><td>EVM / SVM + Dispute</td><td><span class="pill pass">Functional PASS</span></td><td>Execution paths validated in acceptance windows</td></tr>
-          <tr><td>HTLC / Bridge mechanics</td><td><span class="pill pass">Functional PASS</span></td><td>Mechanics validated in current RC windows</td></tr>
-          <tr><td>Agent framework</td><td><span class="pill pass">Functional PASS</span></td><td>Registration + A2A + caps + marketplace validated</td></tr>
-          <tr><td>RPC / WebSocket / CLI / Explorer / Migration</td><td><span class="pill pass">Functional PASS</span></td><td>Functional behavior validated in RC windows</td></tr>
-        </tbody>
-      </table>
-      <p style="margin-top:10px; color:#dbe4ff;"><strong>Important:</strong> “Functional PASS” means behavior validated in current RC test windows. It does not yet equal full production-scale certification.</p>
+      <ul>
+        <li>Consensus/Validation/Validators/Slashing/PoP: <span class="ok">Functional PASS</span></li>
+        <li>P2P/relay/sync: <span class="ok">Functional PASS</span> (including large-payload fix class)</li>
+        <li>Wallet/Alias/DID: <span class="ok">Functional PASS</span></li>
+        <li>Messaging/Channels/Files: <span class="ok">Functional PASS</span></li>
+        <li>Stealth/Privacy: <span class="ok">Functional PASS</span></li>
+        <li>PQC/Hybrid crypto: <span class="ok">Functional PASS</span></li>
+        <li>EVM/SVM+Dispute: <span class="ok">Functional PASS</span></li>
+        <li>HTLC/Bridge mechanics: <span class="ok">Functional PASS</span></li>
+        <li>Agent framework: <span class="ok">Functional PASS</span></li>
+        <li>RPC/WebSocket/CLI/Explorer/Migration: <span class="ok">Functional PASS</span></li>
+      </ul>
+      <p style="margin-top:8px; color:#dbe4ff;"><strong>Important:</strong> Functional PASS means validated in current RC windows. It does not yet equal full production-scale certification.</p>
     </section>
 
     <section class="section">
       <h2>What still needs to be done (release-critical)</h2>
       <ul>
         <li><span class="warn">Endurance hardening:</span> 24h and 72h zero-intervention runs</li>
-        <li><span class="warn">Throughput hardening:</span> sustained mixed workload at high concurrency + publish p50/p95/p99, timeout/reject/error metrics</li>
+        <li><span class="warn">Throughput hardening:</span> sustained mixed workload at high concurrency + publish p50/p95/p99 and timeout/reject/error metrics</li>
         <li><span class="warn">Fault hardening:</span> peer churn, restart storms, latency/loss bursts, partition/rejoin scenarios</li>
         <li><span class="warn">Recovery hardening:</span> crash/restart/resync determinism + mempool rebuild correctness under stress</li>
         <li><span class="warn">Operational sign-off:</span> bridge/tooling readiness and rollback drills</li>
@@ -413,8 +329,7 @@
       <h2>Current overall state</h2>
       <p>
         DIONS 2.0 is a stabilized, functionally complete RC that has gone far beyond legacy architecture and capabilities,
-        including quantum/hybrid and agent layers. Remaining work is primarily scale, endurance, and operations hardening
-        before final release sign-off.
+        including quantum/hybrid and agent layers. Remaining work is primarily scale, endurance, and operations hardening before final release sign-off.
       </p>
     </section>
 
