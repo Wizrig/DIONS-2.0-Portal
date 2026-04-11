@@ -232,6 +232,34 @@
       font-size: .84rem;
     }
 
+    .light-diagram-shell {
+      margin-top: 10px;
+      border: 1px solid rgba(57,222,146,.35);
+      border-radius: 12px;
+      background: #040404;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .light-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px;
+      background: radial-gradient(circle at 80% 0%, rgba(57,222,146,.08), transparent 45%), #020202;
+    }
+
+    .light-note {
+      margin-top: 10px;
+      border: 1px solid rgba(57,222,146,.35);
+      border-radius: 9px;
+      background: rgba(57,222,146,.09);
+      padding: 9px 10px;
+      color: #cbffe6;
+      font-size: .84rem;
+    }
+
     .footer { margin-top: 8px; color: var(--muted); font-size: .88rem; }
     .footer a { color: var(--blue); text-decoration: none; }
     .footer a:hover { text-decoration: underline; }
@@ -392,35 +420,21 @@
           <text x="1055" y="170" fill="#ffd4ba" font-size="12" text-anchor="middle">Market quality + volume history</text>
           <text x="1055" y="205" fill="#ffb98a" font-size="13" text-anchor="middle" font-weight="700">Coinbase submission lane</text>
 
-          <path id="p1" d="M240 95 C275 95 280 62 315 62" fill="none" stroke="url(#flowA)" stroke-width="2.4" stroke-dasharray="9 8"/>
-          <path id="p2" d="M240 130 C275 130 285 185 315 185" fill="none" stroke="url(#flowA)" stroke-width="2.4" stroke-dasharray="9 8"/>
-          <path id="p3" d="M555 185 C590 185 600 190 635 190" fill="none" stroke="url(#flowB)" stroke-width="2.4" stroke-dasharray="9 8"/>
-          <path id="p4" d="M555 170 C600 170 600 70 635 70" fill="none" stroke="url(#flowB)" stroke-width="2.4" stroke-dasharray="9 8"/>
-          <path id="p5" d="M885 95 C905 95 910 125 930 125" fill="none" stroke="#ff9a57" stroke-width="2.4" stroke-dasharray="9 8"/>
-          <path id="p6" d="M885 190 C905 190 910 185 930 185" fill="none" stroke="#ff9a57" stroke-width="2.4" stroke-dasharray="9 8"/>
-          <path id="back" d="M635 224 C520 290 350 300 240 200" fill="none" stroke="#9f8bff" stroke-width="1.8" stroke-dasharray="6 8" opacity="0.75"/>
+          <path d="M240 95 C275 95 280 62 315 62" fill="none" stroke="url(#flowA)" stroke-width="2.4" stroke-dasharray="9 8"/>
+          <path d="M240 130 C275 130 285 185 315 185" fill="none" stroke="url(#flowA)" stroke-width="2.4" stroke-dasharray="9 8"/>
+          <path d="M555 185 C590 185 600 190 635 190" fill="none" stroke="url(#flowB)" stroke-width="2.4" stroke-dasharray="9 8"/>
+          <path d="M555 170 C600 170 600 70 635 70" fill="none" stroke="url(#flowB)" stroke-width="2.4" stroke-dasharray="9 8"/>
+          <path d="M885 95 C905 95 910 125 930 125" fill="none" stroke="#ff9a57" stroke-width="2.4" stroke-dasharray="9 8"/>
+          <path d="M885 190 C905 190 910 185 930 185" fill="none" stroke="#ff9a57" stroke-width="2.4" stroke-dasharray="9 8"/>
+          <path d="M635 224 C520 290 350 300 240 200" fill="none" stroke="#9f8bff" stroke-width="1.8" stroke-dasharray="6 8" opacity="0.75"/>
 
-          <circle r="5" fill="#49dbff" filter="url(#glow)">
-            <animateMotion dur="3.8s" repeatCount="indefinite" path="M240 95 C275 95 280 62 315 62"/>
-          </circle>
-          <circle r="5" fill="#49dbff" filter="url(#glow)">
-            <animateMotion dur="4.6s" repeatCount="indefinite" path="M240 130 C275 130 285 185 315 185"/>
-          </circle>
-          <circle r="5" fill="#39de92" filter="url(#glow)">
-            <animateMotion dur="3.2s" repeatCount="indefinite" path="M555 170 C600 170 600 70 635 70"/>
-          </circle>
-          <circle r="5" fill="#39de92" filter="url(#glow)">
-            <animateMotion dur="3.4s" repeatCount="indefinite" path="M555 185 C590 185 600 190 635 190"/>
-          </circle>
-          <circle r="5" fill="#ff9a57" filter="url(#glow)">
-            <animateMotion dur="3.0s" repeatCount="indefinite" path="M885 95 C905 95 910 125 930 125"/>
-          </circle>
-          <circle r="5" fill="#ff9a57" filter="url(#glow)">
-            <animateMotion dur="3.5s" repeatCount="indefinite" path="M885 190 C905 190 910 185 930 185"/>
-          </circle>
-          <circle r="4" fill="#b8a1ff" filter="url(#glow)">
-            <animateMotion dur="6.2s" repeatCount="indefinite" path="M635 224 C520 290 350 300 240 200"/>
-          </circle>
+          <circle r="5" fill="#49dbff" filter="url(#glow)"><animateMotion dur="3.8s" repeatCount="indefinite" path="M240 95 C275 95 280 62 315 62"/></circle>
+          <circle r="5" fill="#49dbff" filter="url(#glow)"><animateMotion dur="4.6s" repeatCount="indefinite" path="M240 130 C275 130 285 185 315 185"/></circle>
+          <circle r="5" fill="#39de92" filter="url(#glow)"><animateMotion dur="3.2s" repeatCount="indefinite" path="M555 170 C600 170 600 70 635 70"/></circle>
+          <circle r="5" fill="#39de92" filter="url(#glow)"><animateMotion dur="3.4s" repeatCount="indefinite" path="M555 185 C590 185 600 190 635 190"/></circle>
+          <circle r="5" fill="#ff9a57" filter="url(#glow)"><animateMotion dur="3.0s" repeatCount="indefinite" path="M885 95 C905 95 910 125 930 125"/></circle>
+          <circle r="5" fill="#ff9a57" filter="url(#glow)"><animateMotion dur="3.5s" repeatCount="indefinite" path="M885 190 C905 190 910 185 930 185"/></circle>
+          <circle r="4" fill="#b8a1ff" filter="url(#glow)"><animateMotion dur="6.2s" repeatCount="indefinite" path="M635 224 C520 290 350 300 240 200"/></circle>
         </svg>
 
         <div class="bridge-legend">
@@ -431,22 +445,10 @@
       </div>
 
       <div class="bridge-grid">
-        <div class="bridge-card">
-          <h3>Reserve integrity and accounting</h3>
-          <p>Every wrapped IOC unit must remain backed by locked native IOC. Mint and burn events must always reconcile against auditable reserve state.</p>
-        </div>
-        <div class="bridge-card">
-          <h3>Bridge security controls</h3>
-          <p>Threshold signatures, validator diversity, anomaly detection, and emergency controls are mandatory to reduce bridge exploit risk.</p>
-        </div>
-        <div class="bridge-card">
-          <h3>Decentralized utility expansion</h3>
-          <p>wIOC can be used in decentralized markets, smart contracts, agent economies, and service settlement beyond one chain boundary.</p>
-        </div>
-        <div class="bridge-card">
-          <h3>Centralized exchange pathway</h3>
-          <p>Coinbase and other CEX onboarding requires compliance, custody, monitoring, and market quality evidence. Listing remains exchange-controlled.</p>
-        </div>
+        <div class="bridge-card"><h3>Reserve integrity and accounting</h3><p>Every wrapped IOC unit must remain backed by locked native IOC. Mint and burn events must always reconcile against auditable reserve state.</p></div>
+        <div class="bridge-card"><h3>Bridge security controls</h3><p>Threshold signatures, validator diversity, anomaly detection, and emergency controls are mandatory to reduce bridge exploit risk.</p></div>
+        <div class="bridge-card"><h3>Decentralized utility expansion</h3><p>wIOC can be used in decentralized markets, smart contracts, agent economies, and service settlement beyond one chain boundary.</p></div>
+        <div class="bridge-card"><h3>Centralized exchange pathway</h3><p>Coinbase and other CEX onboarding requires compliance, custody, monitoring, and market quality evidence. Listing remains exchange-controlled.</p></div>
       </div>
 
       <h3>How this differs from legacy DIONS</h3>
@@ -456,8 +458,79 @@
         <li><strong>Added:</strong> explicit technical path from native IOC settlement to decentralized external utility and CEX submission workflows.</li>
       </ul>
 
-      <div class="bridge-note">
-        Important: this is an architecture and execution path, not a guaranteed listing promise. Production rollout still requires full security, operational, and compliance sign-off.
+      <div class="bridge-note">Important: this is an architecture and execution path, not a guaranteed listing promise. Production rollout still requires full security, operational, and compliance sign-off.</div>
+    </section>
+
+    <section class="section">
+      <h2>New in DIONS 2.0: Light Client Wallet Reward Path</h2>
+      <p>
+        Legacy DIONS did not include a dedicated light-client reward lane in this form. In DIONS 2.0, the design includes onboarding lightweight clients that verify headers/proofs and can earn IOC for honest participation.
+      </p>
+
+      <div class="light-diagram-shell">
+        <svg class="light-svg" viewBox="0 0 1200 360" role="img" aria-label="Animated light wallet diagram from zero balance to light client sync and per-block IOC earning.">
+          <defs>
+            <linearGradient id="lcFlow" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#73b7ff"/>
+              <stop offset="100%" stop-color="#39de92"/>
+            </linearGradient>
+            <filter id="lcGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <rect x="28" y="72" width="210" height="120" rx="14" fill="#070707" stroke="#62b0ff"/>
+          <text x="133" y="103" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">New Light Wallet</text>
+          <text x="133" y="127" fill="#c6ddff" font-size="12" text-anchor="middle">Balance: 0 IOC</text>
+          <text x="133" y="148" fill="#c6ddff" font-size="11" text-anchor="middle">Connects as light client</text>
+
+          <rect x="292" y="38" width="245" height="90" rx="12" fill="#070707" stroke="#58c8ff"/>
+          <text x="414" y="68" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Header Sync</text>
+          <text x="414" y="91" fill="#bdeaff" font-size="11" text-anchor="middle">Downloads chain headers</text>
+          <text x="414" y="108" fill="#bdeaff" font-size="11" text-anchor="middle">No full-node data burden</text>
+
+          <rect x="292" y="150" width="245" height="90" rx="12" fill="#070707" stroke="#4fe0b0"/>
+          <text x="414" y="180" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Proof Verification</text>
+          <text x="414" y="203" fill="#bcffe5" font-size="11" text-anchor="middle">SPV/commitment checks</text>
+          <text x="414" y="220" fill="#bcffe5" font-size="11" text-anchor="middle">Honest participation signal</text>
+
+          <rect x="595" y="86" width="250" height="120" rx="12" fill="#070707" stroke="#39de92"/>
+          <text x="720" y="116" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Light Client Reward Engine</text>
+          <text x="720" y="140" fill="#caffea" font-size="11" text-anchor="middle">Accrues reward while active</text>
+          <text x="720" y="160" fill="#caffea" font-size="11" text-anchor="middle">Example: +0.001 IOC / block</text>
+          <text x="720" y="181" fill="#caffea" font-size="11" text-anchor="middle">(parameter can be adjusted)</text>
+
+          <rect x="900" y="72" width="265" height="145" rx="14" fill="#070707" stroke="#ffb26b"/>
+          <text x="1032" y="104" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Wallet Growth & Utility</text>
+          <text x="1032" y="128" fill="#ffd9b8" font-size="11" text-anchor="middle">Balance starts compounding from 0</text>
+          <text x="1032" y="146" fill="#ffd9b8" font-size="11" text-anchor="middle">Can fund fees, messaging, aliases</text>
+          <text x="1032" y="164" fill="#ffd9b8" font-size="11" text-anchor="middle">Entry path for non-technical users</text>
+          <text x="1032" y="186" fill="#ffd9b8" font-size="11" text-anchor="middle">Higher participation = stronger network</text>
+
+          <path d="M238 132 C264 132 270 84 292 84" fill="none" stroke="url(#lcFlow)" stroke-width="2.6" stroke-dasharray="8 7"/>
+          <path d="M238 145 C264 145 270 195 292 195" fill="none" stroke="url(#lcFlow)" stroke-width="2.6" stroke-dasharray="8 7"/>
+          <path d="M537 84 C566 84 568 120 595 120" fill="none" stroke="url(#lcFlow)" stroke-width="2.6" stroke-dasharray="8 7"/>
+          <path d="M537 195 C566 195 568 170 595 170" fill="none" stroke="url(#lcFlow)" stroke-width="2.6" stroke-dasharray="8 7"/>
+          <path d="M845 145 C875 145 875 145 900 145" fill="none" stroke="#ffb26b" stroke-width="2.6" stroke-dasharray="8 7"/>
+
+          <circle r="5" fill="#73b7ff" filter="url(#lcGlow)"><animateMotion dur="3.4s" repeatCount="indefinite" path="M238 132 C264 132 270 84 292 84"/></circle>
+          <circle r="5" fill="#73b7ff" filter="url(#lcGlow)"><animateMotion dur="4.1s" repeatCount="indefinite" path="M238 145 C264 145 270 195 292 195"/></circle>
+          <circle r="5" fill="#39de92" filter="url(#lcGlow)"><animateMotion dur="3.0s" repeatCount="indefinite" path="M537 84 C566 84 568 120 595 120"/></circle>
+          <circle r="5" fill="#39de92" filter="url(#lcGlow)"><animateMotion dur="3.2s" repeatCount="indefinite" path="M537 195 C566 195 568 170 595 170"/></circle>
+          <circle r="5" fill="#ffb26b" filter="url(#lcGlow)"><animateMotion dur="2.8s" repeatCount="indefinite" path="M845 145 C875 145 875 145 900 145"/></circle>
+        </svg>
+      </div>
+
+      <ul>
+        <li><strong>Start state:</strong> wallet begins at 0 IOC and joins as a light client.</li>
+        <li><strong>Work performed:</strong> sync headers and verify proofs/commitments without full node overhead.</li>
+        <li><strong>Reward lane:</strong> accrues IOC while participating honestly (illustrated as <strong>0.001 IOC per block</strong> example rate).</li>
+        <li><strong>User impact:</strong> lowers onboarding friction and gives new users a direct path into IOC utility.</li>
+      </ul>
+
+      <div class="light-note">
+        Reward value in this diagram is an example for communication. Final production reward parameters should follow your network governance/economic policy.
       </div>
     </section>
 
