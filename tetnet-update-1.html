@@ -308,7 +308,49 @@
     </section>
 
     <section class="section">
-      <h2>3) Test Program from Day One to Now</h2>
+      <h2>3) Complete Side-by-Side Matrix (All Subsystems)</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Subsystem</th>
+            <th>Legacy DIONS / IOCoin Behavior</th>
+            <th>DIONS 2.0 Behavior / Additions</th>
+            <th>Current RC State</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Consensus</td><td>Legacy PoS chain operation</td><td>Deterministic consensus hardening + stricter liveness/fork handling</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Validation</td><td>Standard tx/block validation in legacy model</td><td>Deterministic sender/nonce/auth alignment across execution path</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Validators</td><td>Legacy staking validators</td><td>Validator path hardening with RC replay/consistency validation</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Slashing</td><td>Limited/legacy-era controls</td><td>Evidence and penalty path validation in DIONS 2.0 test windows</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>PoP</td><td>Not a primary legacy focus</td><td>Proof-of-Participation functional reward path validated</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>P2P</td><td>Seed-node era networking behavior</td><td>Relay/sync hardening, including large payload transport fix class</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Wallet</td><td>Legacy send/receive/stake flows</td><td>Wallet-mempool-validation consistency hardening</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Aliases</td><td>Alias identity + data linkage</td><td>O(1) LevelDB alias indexing + hardened metering behavior</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Messaging</td><td>Public/encrypted APIs</td><td>Encrypted/plain/shadow + deterministic quota controls</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Files / Data</td><td>Upload/download/transfer APIs</td><td>Quota-governed path hardening + deterministic indexing behavior</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Channels</td><td>Legacy messaging group concept (limited)</td><td>Public/private channel flow hardening and validation</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>DID</td><td>No full DID layer</td><td>DID identity direction integrated for modern identity mapping</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Agent Framework</td><td>Not present in legacy</td><td>On-chain registration + A2A + spend caps + marketplace</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>HTLC</td><td>Not native in legacy DIONS</td><td>HTLC lifecycle (create/claim/refund) path included</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Bridge Mechanics</td><td>No mature legacy bridge mechanics</td><td>Bridge mechanics path for external decentralized services</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>WebSocket</td><td>Not a core legacy interface</td><td>Realtime stream interface path included and validated</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>RPC</td><td>Legacy RPC surface</td><td>Expanded RPC surface across modern feature domains</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Data Availability</td><td>No modern DA stack in legacy</td><td>DA/sharding direction + Reed-Solomon path integration</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>EVM</td><td>No native EVM in legacy DIONS</td><td>EVM deploy/call execution track integrated</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>SVM + Dispute</td><td>No native SVM/dispute path</td><td>SVM execution + dispute path integrated</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>PQC / Hybrid Security</td><td>Classical cryptographic baseline</td><td>Hybrid post-quantum paths (Dilithium/Falcon/Kyber functional tracks)</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>CLI + Explorer</td><td>Legacy tooling model</td><td>Updated tooling path aligned with expanded protocol surface</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Migration</td><td>Legacy wallet/chain continuity required</td><td>Continuity/migration path validated to preserve legacy value</td><td><span class="pill pass">Functional PASS</span></td></tr>
+        </tbody>
+      </table>
+      <p class="muted" style="margin-top:10px;">
+        Note: “Functional PASS” means validated in current RC windows. Production-scale certification still requires long-haul endurance and stress gates.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>4) Test Program from Day One to Now</h2>
       <p>
         Validation was staged and iterative, not a single one-time pass. The campaign combined automated suites,
         multi-node runtime checks, replay/regression against known failures, feature acceptance sweeps, and soak/invariant windows.
@@ -323,7 +365,7 @@
     </section>
 
     <section class="section">
-      <h2>4) Critical Failure Classes Corrected</h2>
+      <h2>5) Critical Failure Classes Corrected</h2>
       <ul>
         <li><span class="ok">FIXED:</span> Sender/nonce/auth divergence between wallet construction and validation identity path.</li>
         <li><span class="ok">FIXED:</span> Metered DIONS mempool contamination/reject-loop liveness failures.</li>
@@ -333,28 +375,6 @@
       <p>
         The practical impact is that previously observed deterministic split/reject classes were reproduced, isolated,
         corrected at root-cause level, and then revalidated in subsequent windows.
-      </p>
-    </section>
-
-    <section class="section">
-      <h2>5) Feature-by-Feature Status (Current RC Interpretation)</h2>
-      <table class="table">
-        <thead><tr><th>Subsystem</th><th>Status</th><th>Current Interpretation</th></tr></thead>
-        <tbody>
-          <tr><td>Consensus / Validation / Validators / Slashing / PoP</td><td><span class="pill pass">Functional PASS</span></td><td>Validated in current RC runtime windows</td></tr>
-          <tr><td>P2P Relay / Sync</td><td><span class="pill pass">Functional PASS</span></td><td>Includes large-payload relay fix class coverage</td></tr>
-          <tr><td>Wallet / Alias / DID</td><td><span class="pill pass">Functional PASS</span></td><td>Lifecycle paths validated under current tier rules</td></tr>
-          <tr><td>Messaging / Channels / Files</td><td><span class="pill pass">Functional PASS</span></td><td>Encrypted/plain/shadow/channel/data paths validated</td></tr>
-          <tr><td>Stealth / Privacy</td><td><span class="pill pass">Functional PASS</span></td><td>Private transaction paths validated in RC cycle</td></tr>
-          <tr><td>PQC / Hybrid Crypto</td><td><span class="pill pass">Functional PASS</span></td><td>Functional Dilithium/Falcon/Kyber hybrid paths validated</td></tr>
-          <tr><td>EVM / SVM + Dispute</td><td><span class="pill pass">Functional PASS</span></td><td>Execution lifecycle validated in acceptance windows</td></tr>
-          <tr><td>HTLC / Bridge Mechanics</td><td><span class="pill pass">Functional PASS</span></td><td>Mechanics validated in current RC windows</td></tr>
-          <tr><td>Agent Framework</td><td><span class="pill pass">Functional PASS</span></td><td>Registration, A2A, spend caps, marketplace validated</td></tr>
-          <tr><td>RPC / WebSocket / CLI / Explorer / Migration</td><td><span class="pill pass">Functional PASS</span></td><td>Functional behavior validated on current RC candidate</td></tr>
-        </tbody>
-      </table>
-      <p class="muted" style="margin-top:10px;">
-        “Functional PASS” means validated behavior in current RC windows. It does <strong>not</strong> yet mean production-scale certification.
       </p>
     </section>
 
