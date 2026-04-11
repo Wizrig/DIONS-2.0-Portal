@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DIONS 2.0 — Testnet Update 1</title>
+  <title>DIONS 2.0 — Testnet Update 1 (Legacy → RC)</title>
   <style>
     :root {
       --bg: #06070d;
@@ -18,7 +18,7 @@
       --amber: #ffbf56;
       --orange: #ff8c3f;
       --violet: #9f79ff;
-      --pink: #ff4fa3;
+      --red: #ff5e6c;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -60,44 +60,23 @@
       margin-bottom: 8px;
     }
 
-    .subtitle { color: var(--muted); font-size: 1.03rem; max-width: 1020px; }
+    .subtitle { color: var(--muted); font-size: 1.03rem; max-width: 1040px; }
 
-    .release-bar {
-      margin-top: 16px;
+    .release-chip {
+      margin-top: 14px;
+      display: inline-block;
       border: 1px solid rgba(255,140,63,.45);
       background: rgba(255,140,63,.10);
-      border-radius: 12px;
-      padding: 10px 12px;
-    }
-
-    .release-label {
       color: #ffd9c1;
-      font-size: .86rem;
-      margin-bottom: 7px;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: .84rem;
       font-weight: 700;
-    }
-
-    .flash-link {
-      display: inline-block;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 800;
-      letter-spacing: .02em;
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #ff9c48, #ff6f19);
-      animation: pulse 1.05s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(255,111,25,.7); }
-      60% { transform: translateY(-1px); box-shadow: 0 0 0 12px rgba(255,111,25,0); }
-      100% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(255,111,25,0); }
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 12px;
       margin: 14px 0;
     }
@@ -109,9 +88,9 @@
       padding: 14px;
     }
 
-    .card h3 { font-size: .94rem; margin-bottom: 6px; color: #f1f5ff; }
-    .kpi { font-size: 1.42rem; font-weight: 800; color: var(--green); }
-    .muted { color: var(--muted); font-size: .92rem; }
+    .card h3 { font-size: .92rem; margin-bottom: 6px; color: #f1f5ff; }
+    .kpi { font-size: 1.38rem; font-weight: 800; color: var(--green); }
+    .muted { color: var(--muted); font-size: .9rem; }
 
     .section {
       margin-top: 12px;
@@ -122,10 +101,17 @@
     }
 
     .section h2 {
-      font-size: 1.05rem;
+      font-size: 1.06rem;
       margin-bottom: 8px;
       color: #f4f7ff;
       letter-spacing: -.01em;
+    }
+
+    .section h3 {
+      font-size: .94rem;
+      color: #dce7ff;
+      margin-top: 10px;
+      margin-bottom: 6px;
     }
 
     p + p { margin-top: 8px; }
@@ -135,12 +121,13 @@
 
     .pass { color: var(--green); font-weight: 700; }
     .warn { color: var(--amber); font-weight: 700; }
+    .risk { color: var(--red); font-weight: 700; }
 
     .table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
-      font-size: .92rem;
+      font-size: .9rem;
     }
 
     .table th, .table td {
@@ -159,10 +146,12 @@
       font-weight: 700;
       letter-spacing: .03em;
       margin-right: 6px;
+      white-space: nowrap;
     }
 
     .b-pass { background: rgba(39,221,125,.16); color: #79ffb2; }
-    .b-hard { background: rgba(255,191,86,.16); color: #ffd89c; }
+    .b-partial { background: rgba(255,191,86,.16); color: #ffd89c; }
+    .b-next { background: rgba(78,161,255,.16); color: #b8d7ff; }
 
     .footer { margin-top: 14px; color: var(--muted); font-size: .9rem; }
     .footer a { color: var(--blue); text-decoration: none; }
@@ -170,7 +159,6 @@
 
     @media (max-width: 730px) {
       .hero, .section, .card { padding: 12px; }
-      .flash-link { width: 100%; text-align: center; }
       .table { display: block; overflow-x: auto; white-space: nowrap; }
     }
   </style>
@@ -178,108 +166,140 @@
 <body>
   <main class="wrap">
     <section class="hero">
-      <div class="eyebrow">DIONS 2.0 · Engineering Update</div>
-      <h1>Testnet Update 1</h1>
+      <div class="eyebrow">DIONS 2.0 · Testnet Update</div>
+      <h1>Full Technical Assessment (Legacy → Current RC)</h1>
       <p class="subtitle">
-        Full technical update from day one of RC testing to current state: legacy IOCoin DIONS baseline,
-        DIONS 2.0 architectural upgrades, subsystem-by-subsystem test evidence, failure classes fixed,
-        and remaining release hardening work.
+        This is the complete engineering update from day one of validation to now: what legacy DIONS under IOCoin already did,
+        what DIONS 2.0 changed in code, what was tested, what failed, what was fixed, what passed, and what is still required before release.
       </p>
-      <div class="release-bar">
-        <div class="release-label">Public Release Sept – December 2026</div>
-        <a class="flash-link" href="testnet-update-1.html">LIVE UPDATE: Testnet Update 1</a>
-      </div>
+      <div class="release-chip">Public Release Sept – December 2026</div>
     </section>
 
     <section class="cards">
       <article class="card"><h3>RC Candidate</h3><div class="kpi">03bd440</div><div class="muted">Current lock candidate</div></article>
       <article class="card"><h3>Automated Tests</h3><div class="kpi">661 / 661</div><div class="muted">All suites passing this cycle</div></article>
       <article class="card"><h3>Subsystem Sweep</h3><div class="kpi">23 / 23</div><div class="muted">Functional subsystem validation complete</div></article>
-      <article class="card"><h3>Stage</h3><div class="kpi">RC Hardening</div><div class="muted">Scale + endurance still in progress</div></article>
+      <article class="card"><h3>Release Stage</h3><div class="kpi">RC Hardening</div><div class="muted">Scale/endurance/ops still in progress</div></article>
     </section>
 
     <section class="section">
-      <h2>Where We Started: Legacy DIONS Under IOCoin</h2>
+      <h2>1) Legacy Baseline: What DIONS Under IOCoin Already Was</h2>
       <p>
-        Legacy IOCoin DIONS was already real infrastructure, not a blank slate: alias identity + alias data,
-        messaging APIs, file/data upload-download-transfer flows, AES-256 + RSA-4096 cryptography,
-        shade/privacy payment paths, and operational PoS chain behavior.
+        Legacy IOCoin DIONS was already live functionality, not a zero-start project. It included alias identity + alias-linked data,
+        public/encrypted messaging APIs, data/file upload-download-transfer flows, AES-256 + RSA-4096 cryptography,
+        shade privacy payment APIs, and operational PoS chain behavior.
       </p>
       <p>
-        DIONS 2.0 is a fundamental protocol upgrade to make those capabilities deterministic, scalable,
-        execution-ready (EVM + SVM), and hardened for modern adversarial/runtime conditions.
+        DIONS 2.0 is a fundamental architecture upgrade of that base: deterministic consensus behavior, stronger liveness,
+        dual execution zones, modern interoperability, and post-quantum hardening.
       </p>
     </section>
 
     <section class="section">
-      <h2>Legacy vs DIONS 2.0 (Technical Delta)</h2>
+      <h2>2) What DIONS 2.0 Changed in Code (Major Upgrades)</h2>
+      <ul>
+        <li><strong>Consensus:</strong> fixed 30s cadence model, stronger fork-choice and reorg controls, deterministic validation paths.</li>
+        <li><strong>Networking:</strong> upgraded peer behavior and relay hardening, including large payload transport reliability fixes.</li>
+        <li><strong>Data layer:</strong> DA/sharding direction with Reed-Solomon path integration.</li>
+        <li><strong>Identity:</strong> O(1) alias resolution with LevelDB indexing, DID layer for agent/device identities.</li>
+        <li><strong>Messaging & Data:</strong> encrypted/plain/shadow/channel paths with hardened quota/tier enforcement.</li>
+        <li><strong>Privacy:</strong> stealth flows including newer hybrid variants.</li>
+        <li><strong>Quantum hardening:</strong> hybrid cryptographic paths (Dilithium/Falcon/Kyber) validated in RC cycle.</li>
+        <li><strong>Execution:</strong> EVM execution path + SVM/dispute module path.</li>
+        <li><strong>Interoperability:</strong> HTLC lifecycle support + bridge mechanics path.</li>
+        <li><strong>Agent framework:</strong> on-chain registration, A2A protocol messaging, wallet caps, marketplace discovery.</li>
+        <li><strong>Platform:</strong> expanded RPC/WebSocket surfaces and migration continuity tooling.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>3) Test Method Used from Day One to Now</h2>
+      <ul>
+        <li>Automated suites and regression coverage.</li>
+        <li>Multi-node runtime validation.</li>
+        <li>Replay/regression against known historical failures.</li>
+        <li>Feature acceptance sweeps by subsystem.</li>
+        <li>Soak and invariant lock-in windows.</li>
+      </ul>
+      <p><span class="pass">Evidence snapshot:</span> 661/661 automated tests pass, 23/23 subsystem functional sweep executed, RC candidate SHA 03bd440.</p>
+    </section>
+
+    <section class="section">
+      <h2>4) Critical Failure Classes Found and Corrected</h2>
+      <ul>
+        <li><span class="pass">FIXED:</span> Determinism/auth mismatch class (sender/nonce/wallet vs validation divergence).</li>
+        <li><span class="pass">FIXED:</span> Metered DIONS mempool contamination and reject-loop liveness failures.</li>
+        <li><span class="pass">FIXED:</span> P2P large payload relay transport class (EAGAIN/EWOULDBLOCK handling).</li>
+        <li><span class="pass">FIXED:</span> Quantum/hybrid validation consistency defects in earlier RC iterations.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>5) Feature-by-Feature Current Status (RC Interpretation)</h2>
       <table class="table">
-        <thead><tr><th>Domain</th><th>Legacy IOCoin DIONS</th><th>DIONS 2.0</th></tr></thead>
+        <thead><tr><th>Feature Group</th><th>Status</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>Consensus</td><td>Legacy PoS operation</td><td>Deterministic validation hardening, stricter liveness/fork behavior, 30s cadence model</td></tr>
-          <tr><td>Identity</td><td>Alias identity/data</td><td>Alias + DID layer + agent/device identity model</td></tr>
-          <tr><td>Messaging/Data</td><td>Core messaging + data paths</td><td>Encrypted/plain/shadow/channels + quota/tier hardening + deterministic indexing</td></tr>
-          <tr><td>Execution</td><td>Legacy scripting constraints</td><td>EVM execution + SVM/dispute execution track</td></tr>
-          <tr><td>Interoperability</td><td>Limited native interop</td><td>HTLC lifecycle + bridge mechanics for external decentralized services</td></tr>
-          <tr><td>Security/Crypto</td><td>ECDSA era assumptions + AES/RSA app layer</td><td>Hybrid quantum hardening (Dilithium/Falcon/Kyber paths) + transport/relay fixes</td></tr>
+          <tr><td>Consensus / Validation / Validators / Slashing / PoP</td><td><span class="badge b-pass">Functional PASS</span></td><td>Validated in current RC test windows</td></tr>
+          <tr><td>P2P Relay / Sync</td><td><span class="badge b-pass">Functional PASS</span></td><td>Includes large-payload relay fix class</td></tr>
+          <tr><td>Wallet / Alias / DID</td><td><span class="badge b-pass">Functional PASS</span></td><td>Alias lifecycle and DID resolution validated</td></tr>
+          <tr><td>Messaging / Channels / Files</td><td><span class="badge b-pass">Functional PASS</span></td><td>Encrypted/plain/shadow and quota-governed paths validated</td></tr>
+          <tr><td>Stealth / Privacy</td><td><span class="badge b-pass">Functional PASS</span></td><td>Stealth and private flows validated</td></tr>
+          <tr><td>PQC / Hybrid Crypto</td><td><span class="badge b-pass">Functional PASS</span></td><td>Dilithium/Falcon/Kyber hybrid functional paths validated</td></tr>
+          <tr><td>EVM / SVM + Dispute</td><td><span class="badge b-pass">Functional PASS</span></td><td>Deploy/call and dispute paths validated</td></tr>
+          <tr><td>HTLC / Bridge mechanics</td><td><span class="badge b-pass">Functional PASS</span></td><td>Mechanics validated in RC windows</td></tr>
+          <tr><td>Agent Framework</td><td><span class="badge b-pass">Functional PASS</span></td><td>Registration, messaging, spend cap, marketplace flows validated</td></tr>
+          <tr><td>RPC / WebSocket / CLI / Explorer / Migration</td><td><span class="badge b-pass">Functional PASS</span></td><td>Functional runtime validation complete</td></tr>
         </tbody>
       </table>
-    </section>
-
-    <section class="section">
-      <h2>Critical Failure Classes Found and Corrected</h2>
-      <ul>
-        <li><span class="pass">FIXED:</span> Sender/nonce/auth mismatch class across wallet, mempool, and validation (determinism failures).</li>
-        <li><span class="pass">FIXED:</span> Metered DIONS mempool contamination/reject-loop class impacting liveness.</li>
-        <li><span class="pass">FIXED:</span> P2P large payload relay defect (EAGAIN/EWOULDBLOCK treated as fatal) causing divergence risk.</li>
-        <li><span class="pass">FIXED:</span> Quantum/hybrid validation consistency defects from earlier RC iterations.</li>
-      </ul>
-    </section>
-
-    <section class="section">
-      <h2>What We Tested (Day One → Now)</h2>
-      <p>
-        Methodology combined automated suites, multi-node runtime validation, replay/regression against known failures,
-        feature acceptance sweeps, and soak/invariant lock-in windows.
+      <p class="muted">
+        Functional PASS means validated in current RC windows. It does not yet equal full production-scale certification.
       </p>
-      <ul>
-        <li><span class="badge b-pass">PASS</span>Consensus, validation, validators, slashing, PoP.</li>
-        <li><span class="badge b-pass">PASS</span>Wallet, aliases, DID, migration continuity paths.</li>
-        <li><span class="badge b-pass">PASS</span>Messaging, channels, files/data quota flows.</li>
-        <li><span class="badge b-pass">PASS</span>Stealth/privacy + PQC/hybrid functional paths.</li>
-        <li><span class="badge b-pass">PASS</span>EVM, SVM/dispute, HTLC lifecycle, bridge mechanics, agent framework.</li>
-        <li><span class="badge b-pass">PASS</span>RPC/WebSocket functional runtime windows.</li>
-      </ul>
-      <p class="muted">Functional pass = validated in current RC test windows; not yet full production-scale certification.</p>
     </section>
 
     <section class="section">
-      <h2>Current Honest Readiness (Conservative)</h2>
+      <h2>6) Honest Remaining Work Before Release</h2>
+      <ul>
+        <li><span class="warn">Endurance hardening:</span> 24h and 72h zero-intervention runs.</li>
+        <li><span class="warn">Throughput hardening:</span> sustained mixed high-concurrency workload, publish p50/p95/p99 + reject/error rates.</li>
+        <li><span class="warn">Fault hardening:</span> peer churn, restart storms, latency/loss bursts, partition/rejoin scenarios.</li>
+        <li><span class="warn">Recovery hardening:</span> crash/restart/resync determinism and mempool rebuild correctness under stress.</li>
+        <li><span class="warn">Operational sign-off:</span> bridge/tooling operational readiness + rollback drills.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>7) Conservative Readiness Estimate</h2>
       <table class="table">
-        <thead><tr><th>Area</th><th>Readiness</th><th>Meaning</th></tr></thead>
+        <thead><tr><th>Area</th><th>Readiness</th></tr></thead>
         <tbody>
-          <tr><td>Protocol correctness</td><td>75–80%</td><td>Core deterministic defect classes fixed and revalidated</td></tr>
-          <tr><td>Feature functional certification</td><td>80–85%</td><td>Subsystem functionality broadly validated</td></tr>
-          <tr><td>Throughput/scale confidence</td><td>45–55%</td><td>Needs sustained mixed high-concurrency stress</td></tr>
-          <tr><td>Operational readiness</td><td>55–65%</td><td>Needs long-haul soak + fault/recovery sign-off</td></tr>
-          <tr><td><strong>Overall release readiness</strong></td><td><strong>65–72%</strong></td><td><strong>Not final-release ready yet</strong></td></tr>
+          <tr><td>Protocol correctness</td><td>75–80%</td></tr>
+          <tr><td>Feature functional certification</td><td>80–85%</td></tr>
+          <tr><td>Throughput/scale confidence</td><td>45–55%</td></tr>
+          <tr><td>Operational readiness</td><td>55–65%</td></tr>
+          <tr><td><strong>Overall release readiness</strong></td><td><strong>65–72%</strong></td></tr>
         </tbody>
       </table>
+      <p>
+        <span class="risk">Current classification:</span> stabilized, functionally complete RC in pre-production hardening.
+      </p>
     </section>
 
     <section class="section">
-      <h2>Release-Critical Work In Progress</h2>
-      <ul>
-        <li><span class="warn">NEXT:</span> 24h and 72h zero-intervention endurance validation.</li>
-        <li><span class="warn">NEXT:</span> Throughput profiling: p50/p95/p99, timeout/reject/error rates, mempool depth behavior.</li>
-        <li><span class="warn">NEXT:</span> Fault campaigns: peer churn, restart storms, latency/loss bursts, partition/rejoin.</li>
-        <li><span class="warn">NEXT:</span> Recovery determinism: crash/restart/resync + mempool rebuild correctness under stress.</li>
-      </ul>
+      <h2>8) Current State Summary</h2>
+      <p>
+        DIONS 2.0 has moved far beyond legacy architecture while preserving the identity/data messaging foundation that legacy DIONS already had.
+        Core deterministic and relay-critical defects were fixed and revalidated. The stack now includes dual execution tracks (EVM/SVM),
+        interop mechanics (HTLC/bridge), agent layer, and quantum hardening paths.
+      </p>
+      <p>
+        Remaining work is primarily scale, endurance, and operations hardening before final release sign-off.
+      </p>
     </section>
 
     <p class="footer">
       Portal main page: <a href="index.html">DIONS 2.0 Portal</a><br />
-      Source: <a href="https://github.com/Wizrig/DIONS-2.0-Portal">github.com/Wizrig/DIONS-2.0-Portal</a>
+      Legacy reference: <a href="https://github.com/Wizrig/DIONS" target="_blank" rel="noopener">github.com/Wizrig/DIONS</a><br />
+      DIONS 2.0 docs: <a href="https://github.com/Wizrig/Dions-2.0" target="_blank" rel="noopener">github.com/Wizrig/Dions-2.0</a>
     </p>
   </main>
 </body>
