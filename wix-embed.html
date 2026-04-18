@@ -37,31 +37,26 @@
         if (!doc) return 0;
 
         var footer = doc.querySelector('footer');
-        var values = [];
-
         if (footer) {
-          var footerH = Math.ceil(footer.offsetTop + footer.offsetHeight);
-          if (Number.isFinite(footerH) && footerH > 0) values.push(footerH);
+          var footerH = Math.ceil(footer.offsetTop + footer.offsetHeight + 8);
+          if (Number.isFinite(footerH) && footerH > 0) {
+            return Math.min(60000, footerH);
+          }
         }
 
-        var a = doc.documentElement.scrollHeight;
-        var b = doc.body.scrollHeight;
-        var c = doc.documentElement.offsetHeight;
-        var d = doc.body.offsetHeight;
-        var base = Math.max(doc.documentElement.clientHeight || 0, doc.body.clientHeight || 0, 1);
-
-        [a, b, c, d].forEach(function(v) {
-          if (Number.isFinite(v) && v > base + 120) values.push(Math.ceil(v));
-        });
-
-        if (!values.length) return Math.ceil(base);
-
-        values.sort(function(x, y) { return x - y; });
-        var h = values[0];
+        var h = Math.max(
+          doc.documentElement.scrollHeight,
+          doc.body.scrollHeight,
+          doc.documentElement.offsetHeight,
+          doc.body.offsetHeight,
+          doc.documentElement.clientHeight || 0,
+          doc.body.clientHeight || 0,
+          1
+        );
 
         if (!Number.isFinite(h) || h < 1) h = 1;
-        if (h > 9000) h = 9000;
-        return h;
+        if (h > 60000) h = 60000;
+        return Math.ceil(h);
       }
 
       function applyHeight(force) {
