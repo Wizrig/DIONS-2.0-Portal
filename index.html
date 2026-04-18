@@ -9,13 +9,13 @@
       margin: 0;
       padding: 0;
       width: 100%;
-      overflow: hidden;
+      overflow-x: hidden;
       background: #000;
     }
     iframe {
       width: 100%;
-      height: 100vh;
-      min-height: 100vh;
+      height: auto;
+      min-height: 0;
       border: 0;
       display: block;
       background: #000;
@@ -98,10 +98,20 @@
       }
 
       const frame = document.getElementById('portalFrame');
+      function fitFrameHeight() {
+        try {
+          const doc = frame.contentDocument || frame.contentWindow.document;
+          const h = Math.max(doc.documentElement.scrollHeight, doc.body.scrollHeight);
+          frame.style.height = h + 'px';
+        } catch (_) {}
+      }
       frame.addEventListener('load', function () {
         try {
           injectUpdate(frame.contentDocument || frame.contentWindow.document);
         } catch (_) {}
+        fitFrameHeight();
+        setTimeout(fitFrameHeight, 250);
+        setTimeout(fitFrameHeight, 1200);
       });
     })();
   </script>
