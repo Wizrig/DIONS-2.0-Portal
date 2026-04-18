@@ -98,6 +98,14 @@
       }
 
       const frame = document.getElementById('portalFrame');
+
+      function notifyParentResize(height) {
+        if (window === window.parent || !Number.isFinite(height)) return;
+        const h = Math.max(1, Math.ceil(height));
+        try { window.parent.postMessage({ type: 'resize', height: h }, '*'); } catch (_) {}
+        try { window.parent.postMessage({ type: 'iframe-resize', height: h }, '*'); } catch (_) {}
+      }
+
       function fitFrameHeight() {
         try {
           const doc = frame.contentDocument || frame.contentWindow.document;
@@ -119,7 +127,9 @@
             );
           }
 
-          frame.style.height = Math.max(1, h) + 'px';
+          const clamped = Math.max(1, h);
+          frame.style.height = clamped + 'px';
+          notifyParentResize(clamped);
         } catch (_) {}
       }
       frame.addEventListener('load', function () {
