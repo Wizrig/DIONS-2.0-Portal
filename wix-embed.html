@@ -40,8 +40,7 @@
         var footer = doc.querySelector('footer');
         var h = 0;
         if (footer && win) {
-          var r = footer.getBoundingClientRect();
-          h = Math.ceil(r.bottom + win.scrollY);
+          h = Math.ceil(footer.offsetTop + footer.offsetHeight);
         }
 
         if (!h || !Number.isFinite(h)) {
