@@ -101,8 +101,25 @@
       function fitFrameHeight() {
         try {
           const doc = frame.contentDocument || frame.contentWindow.document;
-          const h = Math.max(doc.documentElement.scrollHeight, doc.body.scrollHeight);
-          frame.style.height = h + 'px';
+          const win = frame.contentWindow;
+          let h = 0;
+
+          const footer = doc.querySelector('footer');
+          if (footer) {
+            const r = footer.getBoundingClientRect();
+            h = Math.ceil(r.bottom + (win ? win.scrollY : 0));
+          }
+
+          if (!h || !Number.isFinite(h)) {
+            h = Math.max(
+              doc.documentElement.scrollHeight,
+              doc.body.scrollHeight,
+              doc.documentElement.offsetHeight,
+              doc.body.offsetHeight
+            );
+          }
+
+          frame.style.height = Math.max(1, h) + 'px';
         } catch (_) {}
       }
       frame.addEventListener('load', function () {
