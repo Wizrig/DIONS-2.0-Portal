@@ -109,13 +109,11 @@
       function fitFrameHeight() {
         try {
           const doc = frame.contentDocument || frame.contentWindow.document;
-          const win = frame.contentWindow;
           let h = 0;
 
           const footer = doc.querySelector('footer');
           if (footer) {
-            const r = footer.getBoundingClientRect();
-            h = Math.ceil(r.bottom + (win ? win.scrollY : 0));
+            h = Math.ceil(footer.offsetTop + footer.offsetHeight);
           }
 
           if (!h || !Number.isFinite(h)) {
