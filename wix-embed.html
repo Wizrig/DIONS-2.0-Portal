@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DIONS 2.0 Embed</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+    #portalFrame {
+      width: 100%;
+      height: 1px;
+      min-height: 1px;
+      border: 0;
+      display: block;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="portalFrame" src="index-legacy.html?v=20260417b" title="DIONS 2.0 Portal"></iframe>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var frame = document.getElementById('portalFrame');
+      var lastHeight = 0;
+
+      function readContentHeight() {
+        var doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+        var win = frame.contentWindow;
+        if (!doc) return 0;
+
+        var footer = doc.querySelector('footer');
+        var h = 0;
+        if (footer && win) {
+          var r = footer.getBoundingClientRect();
+          h = Math.ceil(r.bottom + win.scrollY);
+        }
+
+        if (!h || !Number.isFinite(h)) {
+          h = Math.max(
+            doc.documentElement.scrollHeight,
+            doc.body.scrollHeight,
+            doc.documentElement.offsetHeight,
+            doc.body.offsetHeight
+          );
+        }
+
+        if (!Number.isFinite(h) || h < 1) h = 1;
+        if (h > 20000) h = 20000;
+        return h;
+      }
+
+      function applyHeight(force) {
+        try {
+          var h = readContentHeight();
+          if (!force && Math.abs(h - lastHeight) < 2) return;
+          lastHeight = h;
+
+          frame.style.height = h + 'px';
+          document.documentElement.style.height = h + 'px';
+          document.body.style.height = h + 'px';
+
+          if (window !== window.parent) {
+            try { window.parent.postMessage({ type: 'resize', height: h }, '*'); } catch (_) {}
+            try { window.parent.postMessage({ type: 'iframe-resize', height: h }, '*'); } catch (_) {}
+          }
+        } catch (_) {}
+      }
+
+      frame.addEventListener('load', function () {
+        applyHeight(true);
+        setTimeout(function () { applyHeight(true); }, 200);
+        setTimeout(function () { applyHeight(true); }, 900);
+        setTimeout(function () { applyHeight(true); }, 1800);
+      });
+
+      window.addEventListener('resize', function () { applyHeight(false); });
+    })();
+  </script>
+</body>
+</html>
