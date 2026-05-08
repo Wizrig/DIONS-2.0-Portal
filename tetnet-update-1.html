@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DIONS 2.0 Full Technical Assessment (Legacy → Current RC)</title>
+  <title>DIONS 2.0 Full Technical Assessment (Latest RC Update)</title>
   <style>
     :root {
       --bg: #000;
@@ -274,25 +274,46 @@
 <body>
   <main class="wrap">
     <div class="topbar">
-      <div class="release">April 20, 2026</div>
-      <a href="https://www.iocoin.io/testnetlive" target="_top" rel="noopener noreferrer">Testnet Update 1</a>
+      <div class="release">May 8, 2026</div>
+      <a href="https://www.iocoin.io/testnetlive" target="_top" rel="noopener noreferrer">Latest Testnet Update</a>
     </div>
 
     <section class="hero">
       <div class="eyebrow">DIONS 2.0 · Full Technical Update</div>
-      <h1>DIONS 2.0 Full Technical Assessment (Legacy → Current RC)</h1>
+      <h1>DIONS 2.0 Full Technical Assessment (Latest RC Update)</h1>
       <p class="lead">
         This document is focused on technical clarity. It explains exactly how each major feature behaved in legacy DIONS under IOCoin,
         how that same feature behaves now in DIONS 2.0, and which features are entirely new in 2.0.
       </p>
       <p class="lead">
-        It also includes the test history, failure classes we hit, fixes applied, what passed, and what still must be validated before production sign-off.
+        It now includes the latest May 8 release-candidate evidence: the completed full-feature soak, the fresh local regression matrix,
+        four-validator safety checks, token-product/import-PQC proof, and the remaining restart/catchup gate before stronger release sign-off.
       </p>
       <div class="chips">
-        <span class="chip">RC candidate: 03bd440</span>
-        <span class="chip">Automated suites: 661 passing</span>
-        <span class="chip">Subsystem sweep: 23/23 functional pass</span>
+        <span class="chip">Latest RC candidate: 7b9e945</span>
+        <span class="chip">Core suite: 741/741 passing</span>
+        <span class="chip">Local target matrix: 37/37 pass</span>
+        <span class="chip">4h full-feature soak: pass</span>
       </div>
+    </section>
+
+    <section class="section">
+      <h2>Latest May 8 RC gate update</h2>
+      <p>
+        The current DIONS 2.0 candidate, commit <strong>7b9e945</strong>, completed a full-feature activated non-destructive
+        token-product/import-PQC soak and then passed a fresh non-disruptive release-candidate gate sweep.
+      </p>
+      <ul>
+        <li><span class="ok">4h full-feature soak:</span> completed naturally with no hard chain-safety markers.</li>
+        <li><span class="ok">Token product coverage:</span> token_product_l1, IOC20 EVM, EVM drill, and DEX drill lanes remained active and passing.</li>
+        <li><span class="ok">Import-key/PQC readiness:</span> imported legacy-key flow passed the DIONS 2.0 PQC readiness lane without exposing private key material.</li>
+        <li><span class="ok">Local RC matrix:</span> fresh build plus 37 repo-root test targets passed; core all-in-one suite reported 741 passed, 0 failed.</li>
+        <li><span class="ok">Validator gate:</span> all four nodes were reachable, pinned to the same commit, BFT/DSLE active, and finalized parity clean.</li>
+        <li><span class="ok">Safety signals:</span> jailed validators remained 0, recent hard-marker count remained 0, and 48 sampled finalized header intervals were exactly 30 seconds.</li>
+      </ul>
+      <p>
+        This is an RC milestone, not a final mainnet launch announcement. The next major validation item is controlled restart/catchup proof.
+      </p>
     </section>
 
     <section class="section">
@@ -316,7 +337,7 @@
       <h2>Consensus timing correction (important)</h2>
       <p>
         Legacy IOCoin-era timing was variable. DIONS 2.0 moves to a fixed 30-second block target model with stricter cadence behavior under the RC architecture.
-        This timing correction is now reflected in the feature matrix and release narrative.
+        In the latest RC gate, 48 sampled finalized block-header intervals across the four-node validator set were exactly 30 seconds.
       </p>
     </section>
 
@@ -347,12 +368,13 @@
           <tr><td>Cryptography posture</td><td>Classical encryption/signing assumptions</td><td>Hybrid crypto paths integrated in runtime and tests</td><td>PQC/hybrid track (Dilithium/Falcon/Kyber functional paths)</td><td><span class="pill pass">Functional PASS</span></td></tr>
           <tr><td>EVM execution</td><td>Not native in legacy DIONS</td><td>EVM deploy/call path integrated and tested</td><td>EIP support track in execution roadmap</td><td><span class="pill pass">Functional PASS</span></td></tr>
           <tr><td>SVM + dispute</td><td>Not native in legacy DIONS</td><td>SVM execution and dispute module path integrated</td><td>Challenge/response dispute handling layer</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Token products / IOC20 / DEX</td><td>Not a native legacy product-token stack</td><td>Token product L1, IOC20 EVM, EVM drill, and DEX drill lanes active in the latest soak</td><td>Service-grade token product path for applications and business workflows</td><td><span class="pill pass">Functional PASS</span></td></tr>
           <tr><td>HTLC interop</td><td>Not a native legacy path</td><td>Create/claim/refund lifecycle implemented</td><td>Cross-chain primitive now first-class in 2.0</td><td><span class="pill pass">Functional PASS</span></td></tr>
           <tr><td>Bridge mechanics</td><td>No mature bridge mechanics stack</td><td>ECDSA signing path + relayer direction integrated</td><td>Protocol-level bridge mechanics workflow</td><td><span class="pill partial">PASS*</span></td></tr>
           <tr><td>Agent framework</td><td>Did not exist in legacy DIONS</td><td>On-chain agent registration/profile and runtime APIs active</td><td>A2A protocol + spend caps + agent marketplace</td><td><span class="pill pass">Functional PASS</span></td></tr>
           <tr><td>RPC surface</td><td>Legacy RPC set</td><td>Expanded RPC set validated in RC cycle</td><td>Bitcoin-style + Ethereum-compatible + agent RPCs</td><td><span class="pill pass">Functional PASS</span></td></tr>
           <tr><td>WebSocket layer</td><td>No equivalent broad subscription layer in legacy scope</td><td>Realtime subscription paths integrated</td><td>Multi-topic live event stream interface</td><td><span class="pill pass">Functional PASS</span></td></tr>
-          <tr><td>Migration continuity</td><td>Legacy balances/state continuity required</td><td>Migration/export/import continuity path retained</td><td>2.0 migration tooling path</td><td><span class="pill pass">Functional PASS</span></td></tr>
+          <tr><td>Migration continuity</td><td>Legacy balances/state continuity required</td><td>Migration/export/import continuity path retained; imported keys now tested for PQC readiness</td><td>2.0 migration tooling path plus PQC-ready imported-key handling</td><td><span class="pill pass">Functional PASS</span></td></tr>
         </tbody>
       </table>
       <p style="margin-top:10px; color:#dbe4ff;">PASS = functionally validated in current RC windows. PASS* = functionally validated, operational production sign-off still pending.</p>
@@ -575,10 +597,12 @@
 
       <h3>Current evidence snapshot</h3>
       <ul>
-        <li>Current RC cycle automated suites: <strong>661 passing</strong></li>
-        <li>Functional subsystem sweep executed: <strong>23/23</strong></li>
-        <li>RC lock candidate used in latest lock-in cycle: <strong>03bd440</strong></li>
-        <li>Lock-in soak/feature windows: pass reported in current cycle artifacts</li>
+        <li>Current RC candidate used in latest gate: <strong>7b9e945</strong></li>
+        <li>Core all-in-one suite: <strong>741 passed, 0 failed</strong></li>
+        <li>Fresh repo-root local target matrix: <strong>37/37 passed</strong></li>
+        <li>Validator prestart gate: <strong>26/26 passed</strong></li>
+        <li>4h full-feature token-product/import-PQC soak: <strong>completed naturally and passed</strong></li>
+        <li>Four-node finalized parity, jail/slash, hard-marker, and 30-second block-cadence checks: <strong>green in the latest read-only gate</strong></li>
       </ul>
       <p><span class="warn">Note:</span> public docs may still show earlier milestone counts; RC branch/test cycle coverage is now broader.</p>
     </section>
@@ -598,6 +622,8 @@
           <tr><td>Mempool/liveness contamination class</td><td>Invalid metered-state edges causing reject loops/stall risk</td><td><span class="pill pass">Admission/validation hardened in tested RC path</span></td></tr>
           <tr><td>Transport relay divergence class (critical)</td><td>Non-blocking send treated EAGAIN/EWOULDBLOCK as fatal for large payloads</td><td><span class="pill pass">Retry/poll fix + dedicated regression tests</span></td></tr>
           <tr><td>Quantum/hybrid validation class</td><td>Hybrid auth consistency defects in earlier RC iterations</td><td><span class="pill pass">Fixed + retested; PQC/hybrid paths passing</span></td></tr>
+          <tr><td>EVM rollback / OP_RETURN regression class</td><td>Latest-patch regressions required proof that rollback and unspendable-output behavior did not regress</td><td><span class="pill pass">Represented by latest-patch notes/tests and retained through the latest soak</span></td></tr>
+          <tr><td>Import-key/PQC readiness class</td><td>Legacy imported keys needed a DIONS 2.0 path into PQC-ready wallet state</td><td><span class="pill pass">7b9e945 live lane passed without recording WIF/private key material</span></td></tr>
         </tbody>
       </table>
     </section>
@@ -612,7 +638,9 @@
         <li>Stealth/Privacy: <span class="ok">Functional PASS</span></li>
         <li>PQC/Hybrid crypto: <span class="ok">Functional PASS</span></li>
         <li>EVM/SVM+Dispute: <span class="ok">Functional PASS</span></li>
+        <li>Token products / IOC20 / DEX: <span class="ok">Functional PASS</span></li>
         <li>HTLC/Bridge mechanics: <span class="ok">Functional PASS</span></li>
+        <li>Importprivkey/PQC readiness: <span class="ok">Functional PASS</span></li>
         <li>Agent framework: <span class="ok">Functional PASS</span></li>
         <li>RPC/WebSocket/CLI/Explorer/Migration: <span class="ok">Functional PASS</span></li>
       </ul>
@@ -622,7 +650,8 @@
     <section class="section">
       <h2>What still needs to be done (release-critical)</h2>
       <ul>
-        <li><span class="warn">Endurance hardening:</span> 24h and 72h zero-intervention runs</li>
+        <li><span class="warn">Controlled restart/catchup gate:</span> planned validator restarts with pre/post finality parity, jail/slash, hard-marker, and exact-30s cadence proof</li>
+        <li><span class="warn">Endurance hardening:</span> 24h and 72h zero-intervention runs after restart/catchup is clean</li>
         <li><span class="warn">Throughput hardening:</span> sustained mixed workload at high concurrency + publish p50/p95/p99 and timeout/reject/error metrics</li>
         <li><span class="warn">Fault hardening:</span> peer churn, restart storms, latency/loss bursts, partition/rejoin scenarios</li>
         <li><span class="warn">Recovery hardening:</span> crash/restart/resync determinism + mempool rebuild correctness under stress</li>
@@ -632,18 +661,19 @@
 
     <section class="section">
       <h2>Honest readiness estimate (conservative)</h2>
-      <div class="line"><strong>Protocol correctness:</strong> 75–80%</div>
-      <div class="line"><strong>Feature functional certification:</strong> 80–85%</div>
-      <div class="line"><strong>Throughput/scale confidence:</strong> 45–55%</div>
-      <div class="line"><strong>Operational readiness:</strong> 55–65%</div>
-      <div class="line"><strong>Overall release readiness:</strong> 65–72%</div>
+      <div class="line"><strong>Protocol correctness:</strong> 78–84%</div>
+      <div class="line"><strong>Feature functional certification:</strong> 84–88%</div>
+      <div class="line"><strong>Throughput/scale confidence:</strong> 50–60%</div>
+      <div class="line"><strong>Operational readiness:</strong> 60–70%</div>
+      <div class="line"><strong>Overall release readiness:</strong> 68–75%</div>
     </section>
 
     <section class="section">
       <h2>Current overall state</h2>
       <p>
         DIONS 2.0 is a stabilized, functionally complete RC that has gone far beyond legacy architecture and capabilities,
-        including quantum/hybrid and agent layers. Remaining work is primarily scale, endurance, and operations hardening before final release sign-off.
+        including token-product, quantum/hybrid, import-PQC, EVM/DEX, and agent layers. Remaining work is primarily controlled
+        restart/catchup proof, scale, endurance, and operations hardening before final release sign-off.
       </p>
     </section>
 
