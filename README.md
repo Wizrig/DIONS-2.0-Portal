@@ -4,7 +4,6 @@ Public portal source for the DIONS 2.0 architecture and retail-readiness page.
 
 Live page: https://iocoin.io/dions20/
 
-Core protocol repo: https://github.com/Wizrig/Dions-2.0
 
 ## Purpose
 
